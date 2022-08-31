@@ -30,30 +30,57 @@ namespace Game.Code.Unity.Input
             ""id"": ""e6f8ef97-24f2-4aa2-a8b1-40a2923e4daf"",
             ""actions"": [
                 {
-                    ""name"": ""Move"",
+                    ""name"": ""MoveStart"",
                     ""type"": ""Button"",
                     ""id"": ""48a73a28-ca13-4f4b-8fd9-e643c9c6caf5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RotateCW"",
+                    ""name"": ""MoveEnd"",
+                    ""type"": ""Button"",
+                    ""id"": ""d38ac503-7bfd-458c-9519-08cbda03a00d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateCWStart"",
                     ""type"": ""Button"",
                     ""id"": ""3db7e72f-7840-44dc-8eb6-b2422406ecaf"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RotateCCW"",
+                    ""name"": ""RotateCWEnd"",
+                    ""type"": ""Button"",
+                    ""id"": ""0b097a14-4919-4e8c-b35c-ab5437a64de6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateCCWStart"",
                     ""type"": ""Button"",
                     ""id"": ""3cd68d49-e5c5-4683-8493-a51320d89922"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateCCWEnd"",
+                    ""type"": ""Button"",
+                    ""id"": ""e14cd9e4-6ce6-46c8-8f8e-3124050712d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -65,7 +92,7 @@ namespace Game.Code.Unity.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""MoveStart"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -76,7 +103,7 @@ namespace Game.Code.Unity.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RotateCW"",
+                    ""action"": ""RotateCWStart"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -87,7 +114,40 @@ namespace Game.Code.Unity.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RotateCCW"",
+                    ""action"": ""RotateCCWStart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d4c026d-3a1b-446c-9312-758cf84ffb40"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveEnd"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac5c4d56-263d-4d8d-aa67-829d9347535f"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCWEnd"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99074529-ac22-48f2-a9b8-9f56e04c5284"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCCWEnd"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -146,9 +206,12 @@ namespace Game.Code.Unity.Input
 }");
             // Keyboard
             m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
-            m_Keyboard_Move = m_Keyboard.FindAction("Move", throwIfNotFound: true);
-            m_Keyboard_RotateCW = m_Keyboard.FindAction("RotateCW", throwIfNotFound: true);
-            m_Keyboard_RotateCCW = m_Keyboard.FindAction("RotateCCW", throwIfNotFound: true);
+            m_Keyboard_MoveStart = m_Keyboard.FindAction("MoveStart", throwIfNotFound: true);
+            m_Keyboard_MoveEnd = m_Keyboard.FindAction("MoveEnd", throwIfNotFound: true);
+            m_Keyboard_RotateCWStart = m_Keyboard.FindAction("RotateCWStart", throwIfNotFound: true);
+            m_Keyboard_RotateCWEnd = m_Keyboard.FindAction("RotateCWEnd", throwIfNotFound: true);
+            m_Keyboard_RotateCCWStart = m_Keyboard.FindAction("RotateCCWStart", throwIfNotFound: true);
+            m_Keyboard_RotateCCWEnd = m_Keyboard.FindAction("RotateCCWEnd", throwIfNotFound: true);
             // Mouse
             m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
             m_Mouse_Fire1 = m_Mouse.FindAction("Fire1", throwIfNotFound: true);
@@ -212,16 +275,22 @@ namespace Game.Code.Unity.Input
         // Keyboard
         private readonly InputActionMap m_Keyboard;
         private IKeyboardActions m_KeyboardActionsCallbackInterface;
-        private readonly InputAction m_Keyboard_Move;
-        private readonly InputAction m_Keyboard_RotateCW;
-        private readonly InputAction m_Keyboard_RotateCCW;
+        private readonly InputAction m_Keyboard_MoveStart;
+        private readonly InputAction m_Keyboard_MoveEnd;
+        private readonly InputAction m_Keyboard_RotateCWStart;
+        private readonly InputAction m_Keyboard_RotateCWEnd;
+        private readonly InputAction m_Keyboard_RotateCCWStart;
+        private readonly InputAction m_Keyboard_RotateCCWEnd;
         public struct KeyboardActions
         {
             private @Controls m_Wrapper;
             public KeyboardActions(@Controls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Move => m_Wrapper.m_Keyboard_Move;
-            public InputAction @RotateCW => m_Wrapper.m_Keyboard_RotateCW;
-            public InputAction @RotateCCW => m_Wrapper.m_Keyboard_RotateCCW;
+            public InputAction @MoveStart => m_Wrapper.m_Keyboard_MoveStart;
+            public InputAction @MoveEnd => m_Wrapper.m_Keyboard_MoveEnd;
+            public InputAction @RotateCWStart => m_Wrapper.m_Keyboard_RotateCWStart;
+            public InputAction @RotateCWEnd => m_Wrapper.m_Keyboard_RotateCWEnd;
+            public InputAction @RotateCCWStart => m_Wrapper.m_Keyboard_RotateCCWStart;
+            public InputAction @RotateCCWEnd => m_Wrapper.m_Keyboard_RotateCCWEnd;
             public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -231,28 +300,46 @@ namespace Game.Code.Unity.Input
             {
                 if (m_Wrapper.m_KeyboardActionsCallbackInterface != null)
                 {
-                    @Move.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnMove;
-                    @Move.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnMove;
-                    @Move.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnMove;
-                    @RotateCW.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCW;
-                    @RotateCW.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCW;
-                    @RotateCW.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCW;
-                    @RotateCCW.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCCW;
-                    @RotateCCW.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCCW;
-                    @RotateCCW.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCCW;
+                    @MoveStart.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnMoveStart;
+                    @MoveStart.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnMoveStart;
+                    @MoveStart.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnMoveStart;
+                    @MoveEnd.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnMoveEnd;
+                    @MoveEnd.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnMoveEnd;
+                    @MoveEnd.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnMoveEnd;
+                    @RotateCWStart.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCWStart;
+                    @RotateCWStart.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCWStart;
+                    @RotateCWStart.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCWStart;
+                    @RotateCWEnd.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCWEnd;
+                    @RotateCWEnd.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCWEnd;
+                    @RotateCWEnd.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCWEnd;
+                    @RotateCCWStart.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCCWStart;
+                    @RotateCCWStart.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCCWStart;
+                    @RotateCCWStart.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCCWStart;
+                    @RotateCCWEnd.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCCWEnd;
+                    @RotateCCWEnd.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCCWEnd;
+                    @RotateCCWEnd.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRotateCCWEnd;
                 }
                 m_Wrapper.m_KeyboardActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Move.started += instance.OnMove;
-                    @Move.performed += instance.OnMove;
-                    @Move.canceled += instance.OnMove;
-                    @RotateCW.started += instance.OnRotateCW;
-                    @RotateCW.performed += instance.OnRotateCW;
-                    @RotateCW.canceled += instance.OnRotateCW;
-                    @RotateCCW.started += instance.OnRotateCCW;
-                    @RotateCCW.performed += instance.OnRotateCCW;
-                    @RotateCCW.canceled += instance.OnRotateCCW;
+                    @MoveStart.started += instance.OnMoveStart;
+                    @MoveStart.performed += instance.OnMoveStart;
+                    @MoveStart.canceled += instance.OnMoveStart;
+                    @MoveEnd.started += instance.OnMoveEnd;
+                    @MoveEnd.performed += instance.OnMoveEnd;
+                    @MoveEnd.canceled += instance.OnMoveEnd;
+                    @RotateCWStart.started += instance.OnRotateCWStart;
+                    @RotateCWStart.performed += instance.OnRotateCWStart;
+                    @RotateCWStart.canceled += instance.OnRotateCWStart;
+                    @RotateCWEnd.started += instance.OnRotateCWEnd;
+                    @RotateCWEnd.performed += instance.OnRotateCWEnd;
+                    @RotateCWEnd.canceled += instance.OnRotateCWEnd;
+                    @RotateCCWStart.started += instance.OnRotateCCWStart;
+                    @RotateCCWStart.performed += instance.OnRotateCCWStart;
+                    @RotateCCWStart.canceled += instance.OnRotateCCWStart;
+                    @RotateCCWEnd.started += instance.OnRotateCCWEnd;
+                    @RotateCCWEnd.performed += instance.OnRotateCCWEnd;
+                    @RotateCCWEnd.canceled += instance.OnRotateCCWEnd;
                 }
             }
         }
@@ -300,9 +387,12 @@ namespace Game.Code.Unity.Input
         public MouseActions @Mouse => new MouseActions(this);
         public interface IKeyboardActions
         {
-            void OnMove(InputAction.CallbackContext context);
-            void OnRotateCW(InputAction.CallbackContext context);
-            void OnRotateCCW(InputAction.CallbackContext context);
+            void OnMoveStart(InputAction.CallbackContext context);
+            void OnMoveEnd(InputAction.CallbackContext context);
+            void OnRotateCWStart(InputAction.CallbackContext context);
+            void OnRotateCWEnd(InputAction.CallbackContext context);
+            void OnRotateCCWStart(InputAction.CallbackContext context);
+            void OnRotateCCWEnd(InputAction.CallbackContext context);
         }
         public interface IMouseActions
         {

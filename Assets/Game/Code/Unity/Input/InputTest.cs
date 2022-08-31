@@ -15,13 +15,23 @@
 
 		private void Subscribe()
 		{
-			_mouseAndKeyboardControl.Move += OnMove;
-			_mouseAndKeyboardControl.RotateCW += OnRotateCW;
-			_mouseAndKeyboardControl.RotateCCW += OnRotateCCW;
+			_mouseAndKeyboardControl.MoveStart += OnMoveStart;
+			_mouseAndKeyboardControl.MoveEnd += OnMoveEnd;
+			_mouseAndKeyboardControl.RotateCWStart += OnRotateCWStart;
+			_mouseAndKeyboardControl.RotateCWEnd += OnRotateCWEnd;
+			_mouseAndKeyboardControl.RotateCCWStart += OnRotateCCWStart;
+			_mouseAndKeyboardControl.RotateCCWEnd += OnRotateCCWEnd;
+			_mouseAndKeyboardControl.Fire1 += OnFire1;
+			_mouseAndKeyboardControl.Fire2 += OnFire2;
 		}
 
-		private void OnMove() => Debug.Log( "Move" );
-		private void OnRotateCW() => Debug.Log( "RotateCW" );
-		private void OnRotateCCW() => Debug.Log( "RotateCCW" );
+		private void OnMoveStart() => Debug.Log( "Move Start" );
+		private void OnMoveEnd() => Debug.Log( "Move End" );
+		private void OnRotateCWStart() => Debug.Log( "RotateCW Start" );
+		private void OnRotateCWEnd() => Debug.Log( "RotateCW End" );
+		private void OnRotateCCWStart() => Debug.Log( "RotateCCW Start" );
+		private void OnRotateCCWEnd() => Debug.Log( "RotateCCW End" );
+		private void OnFire1() => Debug.Log( "Fire1" );
+		private void OnFire2() => Debug.Log( "Fire2" );
 	}
 }

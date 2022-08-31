@@ -6,30 +6,57 @@
             "id": "e6f8ef97-24f2-4aa2-a8b1-40a2923e4daf",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "MoveStart",
                     "type": "Button",
                     "id": "48a73a28-ca13-4f4b-8fd9-e643c9c6caf5",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RotateCW",
+                    "name": "MoveEnd",
+                    "type": "Button",
+                    "id": "d38ac503-7bfd-458c-9519-08cbda03a00d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateCWStart",
                     "type": "Button",
                     "id": "3db7e72f-7840-44dc-8eb6-b2422406ecaf",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RotateCCW",
+                    "name": "RotateCWEnd",
+                    "type": "Button",
+                    "id": "0b097a14-4919-4e8c-b35c-ab5437a64de6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateCCWStart",
                     "type": "Button",
                     "id": "3cd68d49-e5c5-4683-8493-a51320d89922",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateCCWEnd",
+                    "type": "Button",
+                    "id": "e14cd9e4-6ce6-46c8-8f8e-3124050712d3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
                     "initialStateCheck": false
                 }
             ],
@@ -41,7 +68,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MoveStart",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -52,7 +79,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RotateCW",
+                    "action": "RotateCWStart",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -63,7 +90,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RotateCCW",
+                    "action": "RotateCCWStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d4c026d-3a1b-446c-9312-758cf84ffb40",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveEnd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac5c4d56-263d-4d8d-aa67-829d9347535f",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateCWEnd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99074529-ac22-48f2-a9b8-9f56e04c5284",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateCCWEnd",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

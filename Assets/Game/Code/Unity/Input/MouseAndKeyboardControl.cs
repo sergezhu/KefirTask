@@ -6,9 +6,12 @@ namespace Game.Code.Unity.Input
 
 	public class MouseAndKeyboardControl
 	{
-		public event Action Move;
-		public event Action RotateCW;
-		public event Action RotateCCW;
+		public event Action MoveStart;
+		public event Action MoveEnd;
+		public event Action RotateCWStart;
+		public event Action RotateCWEnd;
+		public event Action RotateCCWStart;
+		public event Action RotateCCWEnd;
 		public event Action Fire1;
 		public event Action Fire2;
 		
@@ -27,15 +30,27 @@ namespace Game.Code.Unity.Input
 			_inputManager = inputManager;
 
 			Subscribe(
-				KeyboardActions.Move, () => { Move?.Invoke(); }
+				KeyboardActions.MoveStart, () => { MoveStart?.Invoke(); }
 			);
 
 			Subscribe(
-				KeyboardActions.RotateCW, () => { RotateCW?.Invoke(); }
+				KeyboardActions.RotateCWStart, () => { RotateCWStart?.Invoke(); }
 			);
 
 			Subscribe(
-				KeyboardActions.RotateCCW, () => { RotateCCW?.Invoke(); }
+				KeyboardActions.RotateCCWStart, () => { RotateCCWStart?.Invoke(); }
+			);
+			
+			Subscribe(
+				KeyboardActions.MoveEnd, () => { MoveEnd?.Invoke(); }
+			);
+
+			Subscribe(
+				KeyboardActions.RotateCWEnd, () => { RotateCWEnd?.Invoke(); }
+			);
+
+			Subscribe(
+				KeyboardActions.RotateCCWEnd, () => { RotateCCWEnd?.Invoke(); }
 			);
 
 			Subscribe(
