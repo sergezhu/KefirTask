@@ -10,5 +10,6 @@
 		public static float Abs( float f ) => Mathf.Abs( f );
 		public static float Sin( float radians ) => Mathf.Sin( radians );
 		public static float Cos( float radians ) => Mathf.Cos( radians );
+		public static float Lerp( float a, float b, float t ) => Mathf.Lerp( a, b, t );
 	}
 }

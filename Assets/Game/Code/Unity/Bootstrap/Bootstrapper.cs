@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Game.Code.Core.Move;
 using Game.Code.Unity;
 using Game.Code.Unity.Input;
 using Game.Code.Unity.Ship;
@@ -31,9 +32,10 @@ public class Bootstrapper : MonoBehaviour
 		//_inputTest = FindObjectOfType<InputTest>();
 		//_inputTest.Init( _mouseAndKeyboardControl );
 
+		var shipConfig = _rootConfig.Ship;
 		_shipView      = FindObjectOfType<DefaultShipView>();
-		_shipMover     = new Mover( _rootConfig.Ship.StartPosition.ToNumericsVector3(), 0 );
-		_shipPresenter = new ShipPresenter( _shipView, _mouseAndKeyboardControl, _shipMover, _rootConfig.Ship );
+		_shipMover     = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
+		_shipPresenter = new ShipPresenter( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig );
 		
 		_shipPresenter.Subscribe();
 		_tickables.Add( _shipPresenter );
