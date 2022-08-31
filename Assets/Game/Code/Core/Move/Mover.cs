@@ -20,20 +20,20 @@ public class Mover : IMover
 	public float MaxSpeed { get; set; }
 	public float MaxRotationSpeed { get; set; }
 	public Vector3 Position { get; private set; }
-	public float Rotation { get; private set; }
+	public float DirectionAngle { get; private set; }
 	
 
-	public Mover(Vector3 position, float rotation)
+	public Mover(Vector3 position, float directionAngle)
 	{
 		Position = position;
-		Rotation = rotation;
+		DirectionAngle = directionAngle;
 	}
 
 	public void Tick( float deltaTime )
 	{
 		UpdateMoveSpeed( deltaTime );
 		UpdateRotationSpeed( deltaTime );
-		UpdateRotation( deltaTime );
+		UpdateDirectionAngle( deltaTime );
 		UpdatePosition( deltaTime );
 	}
 
@@ -110,14 +110,14 @@ public class Mover : IMover
 		}
 	}
 
-	private void UpdateRotation( float deltaTime )
+	private void UpdateDirectionAngle( float deltaTime )
 	{
-		Rotation += _currentRotationSpeed * deltaTime; 
+		DirectionAngle += _currentRotationSpeed * deltaTime; 
 	}
 
 	private void UpdatePosition( float deltaTime )
 	{
 		var delta = _currentSpeed * deltaTime;
-		Position += new Vector3( delta * Math.Sin( Rotation ), 0, delta * Math.Cos( Rotation ) );
+		Position += new Vector3( delta * Math.Sin( DirectionAngle ), 0, delta * Math.Cos( DirectionAngle ) );
 	}
 }

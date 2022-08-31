@@ -27,7 +27,7 @@
 			_mover.Tick( deltaTime );
 
 			_view.SetPosition( _mover.Position.ToUnityVector3() );
-			_view.SetRotation( _mover.Rotation );
+			_view.SetRotation( _mover.DirectionAngle );
 		}
 
 		public void Subscribe()

@@ -12,7 +12,7 @@
 		void StartCCVRotation();
 		void EndCCVRotation();
 		
-		float Rotation { get; }
+		float DirectionAngle { get; }
 		Vector3 Position { get; }
 		
 		float Acceleration { get; set; }
