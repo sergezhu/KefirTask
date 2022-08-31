@@ -4,11 +4,13 @@ namespace Game.Code.Unity.Input
 	using UnityEngine;
 	using UnityEngine.InputSystem;
 
-	public class KeyboardControl
+	public class MouseAndKeyboardControl
 	{
 		public event Action Move;
 		public event Action RotateCW;
 		public event Action RotateCCW;
+		public event Action Fire1;
+		public event Action Fire2;
 		
 		private readonly IInputManager _inputManager;
 
@@ -16,23 +18,32 @@ namespace Game.Code.Unity.Input
 		private bool _waitTouch;
 
 		private Controls.KeyboardActions KeyboardActions	=> _inputManager.Keyboard;
+		private Controls.MouseActions MouseActions	=> _inputManager.Mouse;
 
-		public KeyboardControl( IInputManager inputManager)
+		public MouseAndKeyboardControl( IInputManager inputManager)
 		{
 			Debug.Log( $"KeyboardControl Init" );
 
 			_inputManager = inputManager;
 
 			Subscribe(
-				_inputManager.Keyboard.Move, () => { Move?.Invoke(); }
+				KeyboardActions.Move, () => { Move?.Invoke(); }
 			);
 
 			Subscribe(
-				_inputManager.Keyboard.RotateCW, () => { RotateCW?.Invoke(); }
+				KeyboardActions.RotateCW, () => { RotateCW?.Invoke(); }
 			);
 
 			Subscribe(
-				_inputManager.Keyboard.RotateCCW, () => { RotateCCW?.Invoke(); }
+				KeyboardActions.RotateCCW, () => { RotateCCW?.Invoke(); }
+			);
+
+			Subscribe(
+				MouseActions.Fire1, () => { Fire1?.Invoke(); }
+			);
+
+			Subscribe(
+				MouseActions.Fire2, () => { Fire2?.Invoke(); }
 			);
 		}
 
