@@ -7,6 +7,7 @@ namespace Game.Configs
 	public class RootConfig : ScriptableObject
 	{
 		public ShipConfig Ship;
+		public AsteroidsConfig Asteroids;
 	}
 }
 

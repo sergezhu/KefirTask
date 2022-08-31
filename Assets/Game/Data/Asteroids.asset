@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f69307a027254b0591336b01389315c0, type: 3}
-  m_Name: Root
+  m_Script: {fileID: 11500000, guid: 6d9a88716fc54c1a9d2aa524f9804ffd, type: 3}
+  m_Name: Asteroids
   m_EditorClassIdentifier: 
-  Ship: {fileID: 11400000, guid: e9cd93f01eab371499a13d692e9de9da, type: 2}
-  Asteroids: {fileID: 11400000, guid: 959a69a8f508e0e47aa971080e8b0211, type: 2}
+  SafeRadiusAroundShip: 2
+  ScaleMin: 1
+  ScaleMax: 2
+  DestroyPartsMin: 3
+  DestroyPartsMax: 5
+  SpeedMin: 0.1
+  SpeedMax: 2
