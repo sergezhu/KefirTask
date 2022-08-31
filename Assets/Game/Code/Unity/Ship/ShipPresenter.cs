@@ -4,15 +4,16 @@
 	using Game.Code.Unity.Input;
 	using Game.Code.Unity.Utils;
 	using Game.Configs;
+	using UnityEngine;
 
 	public class ShipPresenter : ITickable
 	{
-		private readonly IShipView _view;
+		private readonly ITransformableView _view;
 		private readonly MouseAndKeyboardControl _control;
 		private readonly IMover _mover;
 		private readonly ShipConfig _shipConfig;
 
-		public ShipPresenter(IShipView view, MouseAndKeyboardControl control, IMover mover, ShipConfig shipConfig)
+		public ShipPresenter(ITransformableView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig)
 		{
 			_view       = view;
 			_control    = control;
@@ -26,8 +27,8 @@
 		{
 			_mover.Tick( deltaTime );
 
-			_view.SetPosition( _mover.Position.ToUnityVector3() );
-			_view.SetRotation( _mover.DesiredDirectionAngle );
+			_view.Position = _mover.Position.ToUnityVector3();
+			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 ); 
 		}
 
 		public void Subscribe()

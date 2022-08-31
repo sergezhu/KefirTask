@@ -20,7 +20,8 @@ public class Bootstrapper : MonoBehaviour
 
 	private Mover _shipMover;
 	private ShipPresenter _shipPresenter;
-	private DefaultShipView _shipView;
+	private ShipView _shipView;
+	private Rotator _shipRotator;
 
 	private void Awake()
 	{
@@ -32,13 +33,24 @@ public class Bootstrapper : MonoBehaviour
 		//_inputTest = FindObjectOfType<InputTest>();
 		//_inputTest.Init( _mouseAndKeyboardControl );
 
+		SetupShip();
+		SetupAsteroids();
+	}
+
+	private void SetupShip()
+	{
 		var shipConfig = _rootConfig.Ship;
-		_shipView      = FindObjectOfType<DefaultShipView>();
+
+		_shipView      = FindObjectOfType<ShipView>();
 		_shipMover     = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
 		_shipPresenter = new ShipPresenter( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig );
-		
+
 		_shipPresenter.Subscribe();
 		_tickables.Add( _shipPresenter );
+	}
+
+	private void SetupAsteroids()
+	{
 	}
 
 	private void Update()
