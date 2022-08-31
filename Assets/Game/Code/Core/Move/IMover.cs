@@ -1,6 +1,6 @@
 ﻿namespace Game.Code.Core.Move
 {
-	using Game.Code.Core.InternalTypes;
+	using System.Numerics;
 
 	public interface IMover
 	{
@@ -13,7 +13,7 @@
 		void EndCCVRotation();
 		
 		float Rotation { get; }
-		Vector3Internal Position { get; }
+		Vector3 Position { get; }
 		
 		float Acceleration { get; set; }
 		float Deceleration { get; set; }

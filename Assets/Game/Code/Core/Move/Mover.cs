@@ -1,6 +1,6 @@
-using Game.Code.Core.InternalTypes;
 using Game.Code.Core.InternalUtils;
 using Game.Code.Core.Move;
+using System.Numerics;
 
 public class Mover : IMover
 {
@@ -19,11 +19,11 @@ public class Mover : IMover
 	public float RotationDeceleration { get; set; }
 	public float MaxSpeed { get; set; }
 	public float MaxRotationSpeed { get; set; }
-	public Vector3Internal Position { get; private set; }
+	public Vector3 Position { get; private set; }
 	public float Rotation { get; private set; }
 	
 
-	public Mover(Vector3Internal position, float rotation)
+	public Mover(Vector3 position, float rotation)
 	{
 		Position = position;
 		Rotation = rotation;
@@ -31,7 +31,8 @@ public class Mover : IMover
 
 	public void Tick( float deltaTime )
 	{
-		UpdateSpeed( deltaTime );
+		UpdateMoveSpeed( deltaTime );
+		UpdateRotationSpeed( deltaTime );
 		UpdateRotation( deltaTime );
 		UpdatePosition( deltaTime );
 	}
@@ -75,7 +76,7 @@ public class Mover : IMover
 		_desiredRotationSpeed = _cvDesiredRotationSpeed + _ccvDesiredRotationSpeed;
 	}
 
-	private void UpdateSpeed( float deltaTime )
+	private void UpdateMoveSpeed( float deltaTime )
 	{
 		if ( Math.Abs( _desiredSpeed - _currentSpeed ) < Epsilon )
 		{
@@ -90,7 +91,10 @@ public class Mover : IMover
 			_currentSpeed += acc * deltaTime;
 			_currentSpeed =  Math.Clamp( _currentSpeed, 0, MaxSpeed );
 		}
+	}
 
+	private void UpdateRotationSpeed( float deltaTime )
+	{
 		if ( Math.Abs( _desiredRotationSpeed - _currentRotationSpeed ) < Epsilon )
 		{
 			_currentRotationSpeed = _desiredRotationSpeed;
@@ -114,6 +118,6 @@ public class Mover : IMover
 	private void UpdatePosition( float deltaTime )
 	{
 		var delta = _currentSpeed * deltaTime;
-		Position += new Vector3Internal( delta * Math.Sin( Rotation ), 0, delta * Math.Cos( Rotation ) );
+		Position += new Vector3( delta * Math.Sin( Rotation ), 0, delta * Math.Cos( Rotation ) );
 	}
 }

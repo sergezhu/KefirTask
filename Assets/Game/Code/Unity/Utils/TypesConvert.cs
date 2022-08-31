@@ -1,11 +1,11 @@
 ﻿namespace Game.Code.Unity.Utils
 {
-	using Game.Code.Core.InternalTypes;
-	using UnityEngine;
+	using SNVector3 = System.Numerics.Vector3;
+	using UNIVector3 = UnityEngine.Vector3;
 
 	public static class TypesConvert
 	{
-		public static Vector3 ToUnityVector3( this Vector3Internal v ) => new Vector3( v.X, v.Y, v.Z );
-		public static Vector3Internal ToInternalVector3( this Vector3 v ) => new Vector3Internal( v.x, v.y, v.z );
+		public static UNIVector3 ToUnityVector3( this SNVector3 v ) => new ( v.X, v.Y, v.Z );
+		public static SNVector3 ToNumericsVector3( this UNIVector3 v ) => new ( v.x, v.y, v.z );
 	}
 }

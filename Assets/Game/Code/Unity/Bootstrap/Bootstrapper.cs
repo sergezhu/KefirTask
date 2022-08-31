@@ -32,7 +32,7 @@ public class Bootstrapper : MonoBehaviour
 		//_inputTest.Init( _mouseAndKeyboardControl );
 
 		_shipView      = FindObjectOfType<DefaultShipView>();
-		_shipMover     = new Mover( _rootConfig.Ship.StartPosition.ToInternalVector3(), 0 );
+		_shipMover     = new Mover( _rootConfig.Ship.StartPosition.ToNumericsVector3(), 0 );
 		_shipPresenter = new ShipPresenter( _shipView, _mouseAndKeyboardControl, _shipMover, _rootConfig.Ship );
 		
 		_shipPresenter.Subscribe();
