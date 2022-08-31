@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d551303cbf4a0daacac877a12f6918, type: 3}
   m_Name: Ship
   m_EditorClassIdentifier: 
+  StartPosition: {x: 0, y: 0, z: 1}
+  MaxSpeed: 10
+  Acceleration: 2.5
+  Deceleration: 1.5
+  MaxRotationSpeed: 2
+  RotationAcceleration: 5
+  RotationDeceleration: 2.5
