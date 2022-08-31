@@ -77,19 +77,33 @@ public class Mover : IMover
 
 	private void UpdateSpeed( float deltaTime )
 	{
-		var acc = _desiredSpeed > _currentSpeed 
-			? Acceleration 
-			: Deceleration;
+		if ( Math.Abs( _desiredSpeed - _currentSpeed ) < Epsilon )
+		{
+			_currentSpeed = _desiredSpeed;
+		}
+		else
+		{
+			var acc = _desiredSpeed > _currentSpeed
+				? Acceleration
+				: -1 * Deceleration;
 
-		_currentSpeed += acc * deltaTime;
-		_currentSpeed =  Math.Clamp( _currentSpeed, 0, MaxSpeed );
+			_currentSpeed += acc * deltaTime;
+			_currentSpeed =  Math.Clamp( _currentSpeed, 0, MaxSpeed );
+		}
 
-		var rotAcc = _desiredRotationSpeed > _currentRotationSpeed
-			? RotationAcceleration
-			: RotationDeceleration;
+		if ( Math.Abs( _desiredRotationSpeed - _currentRotationSpeed ) < Epsilon )
+		{
+			_currentRotationSpeed = _desiredRotationSpeed;
+		}
+		else
+		{
+			var rotAcc = _desiredRotationSpeed > _currentRotationSpeed
+				? RotationAcceleration
+				: -1 * RotationDeceleration;
 
-		_currentRotationSpeed += rotAcc * deltaTime;
-		_currentRotationSpeed =  Math.Clamp( _currentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed );
+			_currentRotationSpeed += rotAcc * deltaTime;
+			_currentRotationSpeed =  Math.Clamp( _currentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed );
+		}
 	}
 
 	private void UpdateRotation( float deltaTime )
@@ -100,6 +114,6 @@ public class Mover : IMover
 	private void UpdatePosition( float deltaTime )
 	{
 		var delta = _currentSpeed * deltaTime;
-		Position += new Vector3Internal( delta * Math.Cos( Rotation ), delta * Math.Sin( Rotation ), 0 );
+		Position += new Vector3Internal( delta * Math.Sin( Rotation ), 0, delta * Math.Cos( Rotation ) );
 	}
 }

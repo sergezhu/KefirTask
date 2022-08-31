@@ -1,6 +1,5 @@
 ﻿namespace Game.Code.Unity.Ship
 {
-	using System;
 	using Game.Code.Core.Move;
 	using Game.Code.Unity.Input;
 	using Game.Code.Unity.Utils;
@@ -26,6 +25,7 @@
 		public void Tick( float deltaTime )
 		{
 			_mover.Tick( deltaTime );
+
 			_view.SetPosition( _mover.Position.ToUnityVector3() );
 			_view.SetRotation( _mover.Rotation );
 		}

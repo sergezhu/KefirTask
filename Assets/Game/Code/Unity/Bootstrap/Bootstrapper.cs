@@ -28,13 +28,15 @@ public class Bootstrapper : MonoBehaviour
 		_inputManager            = new InputManager();
 		_mouseAndKeyboardControl = new MouseAndKeyboardControl( _inputManager );
 
-		_inputTest = FindObjectOfType<InputTest>();
-		_inputTest.Init( _mouseAndKeyboardControl );
+		//_inputTest = FindObjectOfType<InputTest>();
+		//_inputTest.Init( _mouseAndKeyboardControl );
 
 		_shipView      = FindObjectOfType<DefaultShipView>();
 		_shipMover     = new Mover( _rootConfig.Ship.StartPosition.ToInternalVector3(), 0 );
 		_shipPresenter = new ShipPresenter( _shipView, _mouseAndKeyboardControl, _shipMover, _rootConfig.Ship );
+		
 		_shipPresenter.Subscribe();
+		_tickables.Add( _shipPresenter );
 	}
 
 	private void Update()
