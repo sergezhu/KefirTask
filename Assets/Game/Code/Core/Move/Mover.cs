@@ -10,6 +10,8 @@ public class Mover : IMover
 	private float _desiredRotationSpeed;
 	private float _currentSpeed;
 	private float _currentRotationSpeed;
+	private float _cvDesiredRotationSpeed;
+	private float _ccvDesiredRotationSpeed;
 
 	public float Acceleration { get; set; }
 	public float Deceleration { get; set; }
@@ -34,14 +36,43 @@ public class Mover : IMover
 		UpdatePosition( deltaTime );
 	}
 
-	public void SetDesiredSpeed( float speed )
+	public void StartMove()
 	{
-		_desiredSpeed = Math.Clamp(speed, 0, speed);
+		_desiredSpeed = MaxSpeed;
 	}
 
-	public void SetDesiredRotationSpeed( float speed )
+	public void EndMove()
 	{
-		_desiredRotationSpeed = speed;
+		_desiredSpeed = 0;
+	}
+
+	public void StartCVRotation()
+	{
+		_cvDesiredRotationSpeed = MaxRotationSpeed;
+		UpdateDesiredRotationDirection();
+	}
+
+	public void EndCVRotation()
+	{
+		_cvDesiredRotationSpeed = 0;
+		UpdateDesiredRotationDirection();
+	}
+
+	public void StartCCVRotation()
+	{
+		_ccvDesiredRotationSpeed = -1 * MaxRotationSpeed;
+		UpdateDesiredRotationDirection();
+	}
+
+	public void EndCCVRotation()
+	{
+		_ccvDesiredRotationSpeed = 0;
+		UpdateDesiredRotationDirection();
+	}
+
+	private void UpdateDesiredRotationDirection()
+	{
+		_desiredRotationSpeed = _cvDesiredRotationSpeed + _ccvDesiredRotationSpeed;
 	}
 
 	private void UpdateSpeed( float deltaTime )

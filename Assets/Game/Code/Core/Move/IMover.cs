@@ -5,8 +5,12 @@
 	public interface IMover
 	{
 		void Tick( float deltaTime );
-		void SetDesiredSpeed( float speed );
-		void SetDesiredRotationSpeed( float speed );
+		void StartMove();
+		void EndMove();
+		void StartCVRotation();
+		void EndCVRotation();
+		void StartCCVRotation();
+		void EndCCVRotation();
 		
 		float Rotation { get; }
 		Vector3Internal Position { get; }
