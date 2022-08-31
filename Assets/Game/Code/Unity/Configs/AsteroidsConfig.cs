@@ -12,11 +12,20 @@
 		public float ScaleMax = 2;
 		
 		[Space]
-		public float DestroyPartsMin = 3;
-		public float DestroyPartsMax = 5;
+		public int DestroyPartsMin = 3;
+		public int DestroyPartsMax = 5;
 
 		[Space]
 		public float SpeedMin = 0.1f;
 		public float SpeedMax = 2;
+		
+		[Space]
+		public float RotationSpeedMin = 0.25f;
+		public float RotationSpeedMax = 2.25f;
+
+		public float RandomScale => Random.Range( ScaleMin, ScaleMax );
+		public float RandomSpeed => Random.Range( SpeedMin, SpeedMax );
+		public float RandomRotationSpeed => Random.Range( RotationSpeedMin, RotationSpeedMax );
+		public float RandomDestroyParts => Random.Range( DestroyPartsMin, DestroyPartsMax + 1 );
 	}
 }
