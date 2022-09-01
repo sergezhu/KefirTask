@@ -8,12 +8,12 @@
 
 	public class AsteroidPresenter : ITickable
 	{
-		private readonly ITransformableView _view;
+		private readonly AsteroidView _view;
 		private readonly Mover _mover;
 		private readonly Rotator _rotator;
 		private readonly AsteroidsConfig _asteroidsConfig;
 
-		public AsteroidPresenter(ITransformableView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
+		public AsteroidPresenter(AsteroidView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
 		{
 			_view            = view;
 			_mover           = mover;

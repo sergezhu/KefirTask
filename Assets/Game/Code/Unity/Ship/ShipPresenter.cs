@@ -9,12 +9,12 @@
 
 	public class ShipPresenter : ITickable
 	{
-		private readonly ITransformableView _view;
+		private readonly ShipView _view;
 		private readonly MouseAndKeyboardControl _control;
 		private readonly Mover _mover;
 		private readonly ShipConfig _shipConfig;
 
-		public ShipPresenter(ITransformableView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig)
+		public ShipPresenter(ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig)
 		{
 			_view       = view;
 			_control    = control;

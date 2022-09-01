@@ -2,7 +2,7 @@
 {
 	public enum ECollisionLayer
 	{
-		Hero,
+		Ship,
 		Enemy,
 		Asteroid,
 		AsteroidPart

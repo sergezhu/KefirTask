@@ -8,12 +8,12 @@
 
 	public class EnemyPresenter : ITickable
 	{
-		private readonly ITransformableView _view;
+		private readonly EnemyView _view;
 		private readonly Mover _mover;
 		private readonly Mover _hero;
 		private readonly AsteroidsConfig _asteroidsConfig;
 
-		public EnemyPresenter(ITransformableView view, Mover mover, Mover hero, AsteroidsConfig asteroidsConfig)
+		public EnemyPresenter(EnemyView view, Mover mover, Mover hero, AsteroidsConfig asteroidsConfig)
 		{
 			_view            = view;
 			_mover           = mover;

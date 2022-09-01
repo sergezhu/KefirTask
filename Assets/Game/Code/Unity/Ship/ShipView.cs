@@ -1,20 +1,10 @@
 ﻿namespace Game.Code.Unity.Ship
 {
 	using Game.Code.Unity.Common;
-	using UnityEngine;
+	using Game.Code.Unity.Enums;
 
-	public class ShipView : MonoBehaviour, ITransformableView
+	public class ShipView : BaseView
 	{
-		public Vector3 Position
-		{
-			get => transform.position; 
-			set => transform.position = value;
-		}
-
-		public Quaternion Rotation
-		{
-			get => transform.rotation; 
-			set => transform.rotation = value;
-		}
+		public override ECollisionLayer Layer => ECollisionLayer.Ship;
 	}
 }
