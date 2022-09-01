@@ -85,7 +85,7 @@ namespace Game.Code.Core.Move
 
 		private void UpdateMoveSpeed( float deltaTime )
 		{
-			if ( Math.Abs( _desiredSpeed - _currentSpeed ) < Epsilon )
+			if ( MathExt.Abs( _desiredSpeed - _currentSpeed ) < Epsilon )
 			{
 				_currentSpeed = _desiredSpeed;
 			}
@@ -96,13 +96,13 @@ namespace Game.Code.Core.Move
 					: -1 * Deceleration;
 
 				_currentSpeed += acc * deltaTime;
-				_currentSpeed =  Math.Clamp( _currentSpeed, 0, MaxSpeed );
+				_currentSpeed =  MathExt.Clamp( _currentSpeed, 0, MaxSpeed );
 			}
 		}
 
 		private void UpdateRotationSpeed( float deltaTime )
 		{
-			if ( Math.Abs( _desiredRotationSpeed - _currentRotationSpeed ) < Epsilon )
+			if ( MathExt.Abs( _desiredRotationSpeed - _currentRotationSpeed ) < Epsilon )
 			{
 				_currentRotationSpeed = _desiredRotationSpeed;
 			}
@@ -113,20 +113,20 @@ namespace Game.Code.Core.Move
 					: -1 * RotationDeceleration;
 
 				_currentRotationSpeed += rotAcc * deltaTime;
-				_currentRotationSpeed =  Math.Clamp( _currentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed );
+				_currentRotationSpeed =  MathExt.Clamp( _currentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed );
 			}
 		}
 
 		private void UpdateDirectionAngle( float deltaTime )
 		{
 			DesiredDirectionAngle += _currentRotationSpeed * deltaTime;
-			CurrentDirectionAngle =  Math.Lerp( CurrentDirectionAngle, DesiredDirectionAngle, _directionSmooth );
+			CurrentDirectionAngle =  MathExt.Lerp( CurrentDirectionAngle, DesiredDirectionAngle, _directionSmooth );
 		}
 
 		private void UpdatePosition( float deltaTime )
 		{
 			var delta = _currentSpeed * deltaTime;
-			Position += new Vector3( delta * Math.Sin( CurrentDirectionAngle ), 0, delta * Math.Cos( CurrentDirectionAngle ) );
+			Position += new Vector3( delta * MathExt.Sin( CurrentDirectionAngle ), 0, delta * MathExt.Cos( CurrentDirectionAngle ) );
 		}
 	}
 }
