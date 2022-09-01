@@ -8,6 +8,7 @@ namespace Game.Configs
 	{
 		public ShipConfig Ship;
 		public AsteroidsConfig Asteroids;
+		public EnemiesConfig Enemies;
 	}
 }
 

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ship: {fileID: 11400000, guid: e9cd93f01eab371499a13d692e9de9da, type: 2}
   Asteroids: {fileID: 11400000, guid: 959a69a8f508e0e47aa971080e8b0211, type: 2}
+  Enemies: {fileID: 11400000, guid: 5fcab8751cf2afa438142d2aec2de6c5, type: 2}

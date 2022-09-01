@@ -5,18 +5,18 @@
 	using Game.Configs;
 	using UnityEngine;
 
-	public class AsteroidPresenter : ITickable
+	public class EnemyPresenter : ITickable
 	{
 		private readonly ITransformableView _view;
 		private readonly Mover _mover;
-		private readonly Rotator _rotator;
+		private readonly Mover _hero;
 		private readonly AsteroidsConfig _asteroidsConfig;
 
-		public AsteroidPresenter(ITransformableView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
+		public EnemyPresenter(ITransformableView view, Mover mover, Mover hero, AsteroidsConfig asteroidsConfig)
 		{
 			_view            = view;
 			_mover           = mover;
-			_rotator         = rotator;
+			_hero            = hero;
 			_asteroidsConfig = asteroidsConfig;
 
 			SetupMover();
@@ -24,17 +24,31 @@
 
 		public void Tick( float deltaTime )
 		{
+			SetToHeroDirection();
+			
 			_mover.Tick( deltaTime );
-			_rotator.Tick( deltaTime );
 
 			_view.Position = _mover.Position.ToUnityVector3();
-			_view.Rotation = _rotator.CurrentRotation.ToUnityQuaternion(); 
+			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 ); 
 		}
 
-		public void StartMoveAlongDirection( Vector3 dir )
+		public void StartMove( Vector3 dir )
+		{
+			_mover.StartMove();
+		}
+
+		private void SetDirection( Vector3 dir )
 		{
 			_mover.SetDirection( dir.ToNumericsVector3() );
-			_mover.StartMove();
+		}
+
+		private void SetToHeroDirection()
+		{
+			var vector = (_hero.Position - _mover.Position).ToUnityVector3();
+			vector.y = 0;
+			vector = vector.normalized;
+			
+			SetDirection( vector );
 		}
 
 		private void SetupMover()

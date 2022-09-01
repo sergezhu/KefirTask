@@ -2,12 +2,6 @@
 {
 	using UnityEngine;
 
-	public interface ITransformableView
-	{
-		Vector3 Position { get; set; }
-		Quaternion Rotation { get; set; }
-	}
-	
 	public class ShipView : MonoBehaviour, ITransformableView
 	{
 		public Vector3 Position

@@ -17,7 +17,7 @@
 		public static float Lerp( float a, float b, float t ) => a + (b - a) * t;
 
 
-		public static Vector3 Normalize( Vector3 v )
+		public static Vector3 Normalize( this Vector3 v )
 		{
 			var len = v.Length();
 			return new Vector3( v.X / len, v.Y / len, v.Z / len );
