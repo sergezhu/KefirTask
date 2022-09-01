@@ -10,7 +10,7 @@
 	{
 		private readonly ITransformableView _view;
 		private readonly MouseAndKeyboardControl _control;
-		private readonly IMover _mover;
+		private readonly Mover _mover;
 		private readonly ShipConfig _shipConfig;
 
 		public ShipPresenter(ITransformableView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig)

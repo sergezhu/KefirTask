@@ -1,9 +1,10 @@
 namespace Game.Code.Core.Move
 {
+	using System;
 	using System.Numerics;
 	using Game.Code.Core.InternalUtils;
 
-	public class Mover : IMover
+	public class Mover
 	{
 		private const float  Epsilon = 0.001f;
 
@@ -42,6 +43,19 @@ namespace Game.Code.Core.Move
 			UpdateRotationSpeed( deltaTime );
 			UpdateDirectionAngle( deltaTime );
 			UpdatePosition( deltaTime );
+		}
+
+		public void SetDirection( Vector3 dir )
+		{
+			dir.Y = 0;
+			
+			var d    = MathExt.Normalize( dir );
+			var asin = MathExt.Asin( d.X );
+			var acos = MathExt.Acos( d.Z );
+
+			var directionAngle = acos * Math.Sign( asin );
+
+			DesiredDirectionAngle = directionAngle;
 		}
 
 		public void StartMove()

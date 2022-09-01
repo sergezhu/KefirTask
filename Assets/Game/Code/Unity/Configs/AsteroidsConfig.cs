@@ -6,6 +6,7 @@
 	public class AsteroidsConfig : ScriptableObject
 	{
 		public float SafeRadiusAroundShip = 2;
+		public float StartAcceleration = 5;
 
 		[Space]
 		public float ScaleMin = 1;
