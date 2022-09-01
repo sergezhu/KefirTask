@@ -1,5 +1,6 @@
 ﻿namespace Game.Configs
 {
+	using Game.Code.Unity.Enums;
 	using UnityEngine;
 
 	[CreateAssetMenu( fileName = "Asteroids", menuName = "Configs/Asteroids", order = (int) EConfig.Asteroids )]

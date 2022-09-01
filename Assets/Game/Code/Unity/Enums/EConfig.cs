@@ -1,4 +1,4 @@
-namespace Game
+namespace Game.Code.Unity.Enums
 {
 	public enum EConfig
 	{
