@@ -1,5 +1,6 @@
 ﻿namespace Game.Code.Unity.Ship
 {
+	using Game.Code.Unity.Common;
 	using UnityEngine;
 
 	public class ShipView : MonoBehaviour, ITransformableView

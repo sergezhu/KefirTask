@@ -1,4 +1,4 @@
-﻿namespace Game.Code.Unity
+﻿namespace Game.Code.Unity.Common
 {
 	public interface ITickable
 	{
