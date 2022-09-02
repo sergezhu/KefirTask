@@ -36,7 +36,7 @@
 			OnTriggerEnterInternal( other );
 		}
 
-		public void OnDestroy()
+		public void Destroy()
 		{
 			Destroy(gameObject);
 		}

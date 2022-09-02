@@ -5,6 +5,8 @@
 		Ship,
 		Enemy,
 		Asteroid,
-		AsteroidPart
+		AsteroidPart,
+		Bullet,
+		Laser,
 	}
 }

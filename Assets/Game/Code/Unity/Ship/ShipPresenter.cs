@@ -63,7 +63,7 @@
 			{
 				Unsubscribe();
 
-				View.OnDestroy();
+				View.Destroy();
 				_mover.OnDestroy();
 				
 				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = View.Type} );
