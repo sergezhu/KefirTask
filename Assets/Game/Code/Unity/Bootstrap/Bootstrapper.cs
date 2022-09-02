@@ -17,7 +17,7 @@ namespace Game.Code.Unity.Bootstrap
 	{
 		[SerializeField] private RootConfig _rootConfig;
 	
-		private List<BasePresenter> _tickablePresenters;
+		private List<BaseModel> _tickableModels;
 	
 		private InputTest _inputTest;
 
@@ -26,14 +26,14 @@ namespace Game.Code.Unity.Bootstrap
 		private ViewFactory _viewFactory;
 
 		private Mover _shipMover;
-		private ShipPresenter _shipPresenter;
+		private ShipModel _shipModel;
 		private ShipView _shipView;
 		private Rotator _shipRotator;
 		private CameraController _cameraController;
 
 		private void Awake()
 		{
-			_tickablePresenters = new List<BasePresenter>();
+			_tickableModels = new List<BaseModel>();
 		
 			_inputManager            = new InputManager();
 			_mouseAndKeyboardControl = new MouseAndKeyboardControl( _inputManager );
@@ -52,18 +52,18 @@ namespace Game.Code.Unity.Bootstrap
 
 		private void Update()
 		{
-			_tickablePresenters.ForEach( t => t.Tick( Time.deltaTime ) );
+			_tickableModels.ForEach( t => t.Tick( Time.deltaTime ) );
 		}
 
 		private void SetupShip()
 		{
 			var shipConfig = _rootConfig.Ship;
 
-			_shipView      = _viewFactory.Create( EEntityType.Ship ) as ShipView;
-			_shipMover     = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
-			_shipPresenter = new ShipPresenter( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig );
+			_shipView  = _viewFactory.Create( EEntityType.Ship ) as ShipView;
+			_shipMover = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
+			_shipModel = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig );
 
-			_tickablePresenters.Add( _shipPresenter );
+			_tickableModels.Add( _shipModel );
 		}
 
 		private void SetupAsteroids()
@@ -79,15 +79,15 @@ namespace Game.Code.Unity.Bootstrap
 				var mover        = new Mover( p.ToNumericsVector3(), 0, 1 );
 				var rotator      = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(), 
 				                                asteroidsConfig.RandomRotationSpeed );
-				var presenter = new AsteroidPresenter( asteroidView, mover, rotator, asteroidsConfig );
+				var presenter = new AsteroidModel( asteroidView, mover, rotator, asteroidsConfig );
 				
-				_tickablePresenters.Add( presenter );
+				_tickableModels.Add( presenter );
 			} );
 		}
 
 		private void SubscribeOnDestroy()
 		{
-			_tickablePresenters.ForEach( p =>
+			_tickableModels.ForEach( p =>
 			{
 				p.DestroyRequest += OnDestroyRequest;
 			} );
@@ -97,10 +97,10 @@ namespace Game.Code.Unity.Bootstrap
 		{
 			Debug.Log( $"Destroy {info.EntityType}" );
 
-			var p = info.Presenter;
+			var p = info.Model;
 			
 			p.DestroyRequest -= OnDestroyRequest;
-			_tickablePresenters.Remove( p );
+			_tickableModels.Remove( p );
 		}
 	}
 }

@@ -13,7 +13,7 @@
 		private readonly BulletViewFactory _bulletViewFactory;
 		private readonly ShipConfig _shipConfig;
 
-		private List<BulletPresenter> _bullets;
+		private List<BulletModel> _bullets;
 
 		public BulletCannon(BulletCannonView view, BulletViewFactory bulletViewFactory, ShipConfig shipConfig)
 		{
@@ -21,7 +21,7 @@
 			_bulletViewFactory	= bulletViewFactory;
 			_shipConfig			= shipConfig;
 
-			_bullets = new List<BulletPresenter>();
+			_bullets = new List<BulletModel>();
 		}
 
 		public EWeapon Type => EWeapon.BulletCannon;
@@ -34,7 +34,7 @@
 			var bulletStartDir = _view.ShootPoint.forward.ToNumericsVector3();
 			var mover          = new Mover( bulletStartPos, bulletStartDir, 1 );
 
-			var presenter = new BulletPresenter( view, mover, _shipConfig );
+			var presenter = new BulletModel( view, mover, _shipConfig );
 			
 			_bullets.Add( presenter );
 		}

@@ -2,7 +2,7 @@
 {
 	using System;
 
-	public abstract class BasePresenter : ITickable
+	public abstract class BaseModel : ITickable
 	{
 		public event Action<DestroyInfo> DestroyRequest;
 		

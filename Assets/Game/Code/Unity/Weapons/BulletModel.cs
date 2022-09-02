@@ -8,13 +8,13 @@
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
 
-	public class BulletPresenter : BasePresenter
+	public class BulletModel : BaseModel
 	{
 		private readonly BulletView _view;
 		private readonly Mover _mover;
 		private readonly ShipConfig _shipConfig;
 
-		public BulletPresenter(BulletView view, Mover mover, ShipConfig shipConfig)
+		public BulletModel(BulletView view, Mover mover, ShipConfig shipConfig)
 		{
 			_view       = view;
 			_mover      = mover;
@@ -60,7 +60,7 @@
 				_view.Destroy();
 				_mover.OnDestroy();
 
-				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = _view.Type} );
+				InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
 			}
 		}
 

@@ -9,14 +9,14 @@
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
 
-	public class EnemyPresenter : BasePresenter
+	public class EnemyModel : BaseModel
 	{
 		private readonly EnemyView _view;
 		private readonly Mover _mover;
 		private readonly Mover _hero;
 		private readonly EnemiesConfig _enemiesConfig;
 
-		public EnemyPresenter(EnemyView view, Mover mover, Mover hero, EnemiesConfig enemiesConfig)
+		public EnemyModel(EnemyView view, Mover mover, Mover hero, EnemiesConfig enemiesConfig)
 		{
 			_view          = view;
 			_mover         = mover;
@@ -63,7 +63,7 @@
 				_view.Destroy();
 				_mover.OnDestroy();
 
-				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = _view.Type} );
+				InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
 			}
 			else
 			{

@@ -9,7 +9,7 @@
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
 
-	public class AsteroidPartPresenter : BasePresenter
+	public class AsteroidPartModel : BaseModel
 	{
 		public event Action<DestroyInfo> Destroyed;
 
@@ -18,7 +18,7 @@
 		private readonly Rotator _rotator;
 		private readonly AsteroidsConfig _asteroidsConfig;
 
-		public AsteroidPartPresenter(AsteroidView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
+		public AsteroidPartModel(AsteroidView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
 		{
 			_view            = view;
 			_mover           = mover;
@@ -47,7 +47,7 @@
 				_view.Destroy();
 				_mover.OnDestroy();
 
-				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = _view.Type} );
+				InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
 			}
 			else
 			{

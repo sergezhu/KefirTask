@@ -9,14 +9,14 @@
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
 
-	public class ShipPresenter : BasePresenter
+	public class ShipModel : BaseModel
 	{
 		private readonly ShipView _view;
 		private readonly MouseAndKeyboardControl _control;
 		private readonly Mover _mover;
 		private readonly ShipConfig _shipConfig;
 
-		public ShipPresenter(ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig)
+		public ShipModel(ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig)
 		{
 			_view       = view;
 			_control    = control;
@@ -50,7 +50,6 @@
 
 		private void SetupWeapons()
 		{
-			
 		}
 
 		private void Subscribe()
@@ -81,7 +80,7 @@
 				_view.Destroy();
 				_mover.OnDestroy();
 				
-				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = _view.Type} );
+				InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
 			}
 		}
 
