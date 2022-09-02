@@ -6,7 +6,7 @@
 	public class LaserCannonView : MonoBehaviour
 	{
 		[SerializeField] private Transform _shootPoint;
-		[SerializeField] private TrailRenderer _trail;
+		[SerializeField] private LineRenderer _ray;
 
 		private Coroutine _coroutine;
 
@@ -14,18 +14,23 @@
 
 		private void Awake()
 		{
-			//HideLaser();
+			HideLaser();
 		}
 
-		public void ShowLaser( Vector3 position, Vector3 direction, float duration )
+		public void ShowLaser( float duration )
 		{
 			if(_coroutine != null)
 				StopCoroutine( _coroutine );
 
-			_coroutine = StartCoroutine( ShowLaserRoutine( position, direction, duration ) );
+			_coroutine = StartCoroutine( ShowLaserRoutine( duration ) );
 		}
 
-		private IEnumerator ShowLaserRoutine( Vector3 position, Vector3 direction, float duration )
+		public void SetLaserSize( Vector3 size )
+		{
+			_ray.transform.localScale = size;
+		}
+
+		private IEnumerator ShowLaserRoutine( float duration )
 		{
 			ShowLaser();
 
@@ -40,12 +45,12 @@
 
 		private void ShowLaser()
 		{
-			_trail.enabled = true;
+			_ray.enabled = true;
 		}
 
 		private void HideLaser()
 		{
-			_trail.enabled = false;
+			_ray.enabled = false;
 		}
 	}
 }

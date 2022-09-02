@@ -25,6 +25,8 @@
 
 		[Header( "Weapons : LaserCannon" )]
 		public float LaserLength;
-
+		public float LaserThickness;
+		public float LaserShotDuration;
+		public float LaserCallDelay;
 	}
 }

@@ -58,7 +58,7 @@
 		private void SetupWeapons()
 		{
 			_bulletCannonModel = new BulletCannon( _view.BulletCannonView, _bulletViewFactory, _shipConfig );
-			_laserCannonModel = new LaserCannon( _view.LaserCannonView );
+			_laserCannonModel = new LaserCannon( _view.LaserCannonView, _shipConfig );
 		}
 
 		private void Subscribe()
