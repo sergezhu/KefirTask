@@ -42,7 +42,7 @@
 
 		public void StartMoveAlongDirection( Vector3 dir )
 		{
-			_mover.SetDirection( dir.ToNumericsVector3() );
+			SetDirection( dir );
 			_mover.StartMove();
 		}
 
@@ -75,7 +75,12 @@
 
 		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )
 		{
-			throw new NotImplementedException();
+			SetDirection( otherVelocity.normalized );
+		}
+
+		private void SetDirection( Vector3 dir )
+		{
+			_mover.SetDirection( dir.ToNumericsVector3() );
 		}
 
 		private void SetupMover()

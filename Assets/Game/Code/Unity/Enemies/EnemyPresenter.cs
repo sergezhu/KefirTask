@@ -75,7 +75,7 @@
 
 		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )
 		{
-			throw new System.NotImplementedException();
+			SetDirection( otherVelocity.normalized );
 		}
 
 		private void SetDirection( Vector3 dir )
