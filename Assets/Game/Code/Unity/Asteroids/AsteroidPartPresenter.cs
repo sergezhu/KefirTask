@@ -51,13 +51,18 @@
 			}
 			else
 			{
-				ChangeDirectionAtNextFrame( info.OtherVelocity );
+				ChangeDirectionWhenCollision( info.OtherVelocity );
 			}
 		}
 
-		private void ChangeDirectionAtNextFrame( Vector3 otherVelocity )
+		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )
 		{
-			throw new NotImplementedException();
+			SetDirection( otherVelocity.normalized );
+		}
+
+		private void SetDirection( Vector3 dir )
+		{
+			_mover.SetDirection( dir.ToNumericsVector3() );
 		}
 
 		public void Tick( float deltaTime )

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ViewPrefabs
   m_EditorClassIdentifier: 
   HeroShipPrefab: {fileID: 2853598332956522014, guid: 4cb20f0685bc25e41a6b772ae1a7ee39, type: 3}
-  EnemyPrefab: {fileID: 0}
-  AsteroidPrefab: {fileID: 0}
-  AsteroidPartPrefab: {fileID: 0}
+  EnemyPrefab: {fileID: 6967442459929782198, guid: dd59d912e54e4144182f3a96ccbb94a3, type: 3}
+  AsteroidPrefab: {fileID: -4890057841452929458, guid: 4cff533c5f8ddb048a647f72f3c8c5ce, type: 3}
+  AsteroidPartPrefab: {fileID: -5744368927093119658, guid: 63c006f1cc503eb41b047950c7a205a9, type: 3}

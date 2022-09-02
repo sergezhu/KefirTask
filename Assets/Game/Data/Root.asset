@@ -16,3 +16,4 @@ MonoBehaviour:
   Asteroids: {fileID: 11400000, guid: 959a69a8f508e0e47aa971080e8b0211, type: 2}
   Enemies: {fileID: 11400000, guid: 5fcab8751cf2afa438142d2aec2de6c5, type: 2}
   Reward: {fileID: 11400000, guid: 6453e7e543399e64682a71261bc268e9, type: 2}
+  ViewPrefabs: {fileID: 11400000, guid: 3817fdda047483644973375ac2896fbd, type: 2}

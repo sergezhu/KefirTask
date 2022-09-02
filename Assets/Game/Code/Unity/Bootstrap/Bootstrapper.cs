@@ -2,6 +2,7 @@ namespace Game.Code.Unity.Bootstrap
 {
 	using System.Collections.Generic;
 	using Game.Code.Core.Move;
+	using Game.Code.Unity.Camera;
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
@@ -26,6 +27,7 @@ namespace Game.Code.Unity.Bootstrap
 		private ShipPresenter _shipPresenter;
 		private ShipView _shipView;
 		private Rotator _shipRotator;
+		private CameraController _cameraController;
 
 		private void Awake()
 		{
@@ -38,6 +40,7 @@ namespace Game.Code.Unity.Bootstrap
 			//_inputTest = FindObjectOfType<InputTest>();
 			//_inputTest.Init( _mouseAndKeyboardControl );
 
+			_cameraController = FindObjectOfType<CameraController>();
 
 			SetupShip();
 			SetupAsteroids();
