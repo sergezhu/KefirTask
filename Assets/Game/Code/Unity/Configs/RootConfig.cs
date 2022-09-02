@@ -1,8 +1,7 @@
-namespace Game.Configs
+namespace Game.Code.Unity.Configs
 {
 	using Game.Code.Unity.Enums;
 	using UnityEngine;
-
 
 	[CreateAssetMenu( fileName = "Root", menuName = "Configs/Root", order = (int)EConfig.Root )]
 	public class RootConfig : ScriptableObject

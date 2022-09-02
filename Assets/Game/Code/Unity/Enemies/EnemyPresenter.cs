@@ -1,16 +1,13 @@
 ﻿namespace Game.Code.Unity.Enemies
 {
 	using System;
-	using System.Numerics;
 	using Game.Code.Core.Move;
 	using Game.Code.Unity.Collisions;
 	using Game.Code.Unity.Common;
+	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Utils;
-	using Game.Configs;
 	using UnityEngine;
-	using Quaternion = UnityEngine.Quaternion;
-	using Vector3 = UnityEngine.Vector3;
 
 	public class EnemyPresenter : ITickable
 	{

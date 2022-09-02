@@ -1,8 +1,8 @@
 ﻿namespace Game.Code.Unity.Common
 {
 	using System;
+	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
-	using Game.Configs;
 	using UnityEngine;
 	using Object = UnityEngine.Object;
 

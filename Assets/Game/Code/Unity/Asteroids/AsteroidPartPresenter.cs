@@ -4,9 +4,9 @@
 	using Game.Code.Core.Move;
 	using Game.Code.Unity.Collisions;
 	using Game.Code.Unity.Common;
+	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Utils;
-	using Game.Configs;
 	using UnityEngine;
 
 	public class AsteroidPartPresenter : ITickable
