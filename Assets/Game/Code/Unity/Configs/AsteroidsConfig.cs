@@ -32,8 +32,8 @@
 
 		public float RandomScale => Random.Range( ScaleMin, ScaleMax );
 		public float RandomSpeed => Random.Range( SpeedMin, SpeedMax );
-		public float RandomPartSpeed => Random.Range( PartSpeedMin, PartSpeedMax );
 		public float RandomRotationSpeed => Random.Range( RotationSpeedMin, RotationSpeedMax );
 		public float RandomDestroyParts => Random.Range( DestroyPartsMin, DestroyPartsMax + 1 );
+		public float RandomPartSpeed => Random.Range( PartSpeedMin, PartSpeedMax );
 	}
 }

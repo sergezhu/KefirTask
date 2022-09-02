@@ -9,18 +9,16 @@
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
 
-	public class EnemyPresenter : ITickable
+	public class EnemyPresenter : BasePresenter
 	{
-		public event Action<DestroyInfo> Destroyed;
-		
-		private readonly EnemyView _view;
 		private readonly Mover _mover;
 		private readonly Mover _hero;
 		private readonly EnemiesConfig _enemiesConfig;
 
 		public EnemyPresenter(EnemyView view, Mover mover, Mover hero, EnemiesConfig enemiesConfig)
 		{
-			_view            = view;
+			View             = view;
+			
 			_mover           = mover;
 			_hero            = hero;
 			_enemiesConfig   = enemiesConfig;
@@ -29,16 +27,16 @@
 			Subscribe();
 		}
 
-		public void Tick( float deltaTime )
+		public override void Tick( float deltaTime )
 		{
 			SetToHeroDirection();
 			
 			_mover.Tick( deltaTime );
 
-			_view.Position = _mover.Position.ToUnityVector3();
-			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
+			View.Position = _mover.Position.ToUnityVector3();
+			View.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
 
-			_view.Velocity = _mover.Velocity.ToUnityVector3();
+			View.Velocity = _mover.Velocity.ToUnityVector3();
 		}
 
 		public void StartMove( Vector3 dir )
@@ -48,12 +46,12 @@
 
 		private void Subscribe()
 		{
-			_view.Collided += OnCollided;
+			View.Collided += OnCollided;
 		}
 
 		private void Unsubscribe()
 		{
-			_view.Collided -= OnCollided;
+			View.Collided -= OnCollided;
 		}
 
 		private void OnCollided( CollisionInfo info )
@@ -62,10 +60,10 @@
 			{
 				Unsubscribe();
 				
-				_view.OnDestroy();
+				View.OnDestroy();
 				_mover.OnDestroy();
-				
-				Destroyed?.Invoke( new DestroyInfo(){ EntityType = _view.Type } );
+
+				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = View.Type} );
 			}
 			else
 			{

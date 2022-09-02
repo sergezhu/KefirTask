@@ -4,6 +4,7 @@
 
 	public struct DestroyInfo
 	{
+		public BasePresenter Presenter;
 		public EEntityType EntityType;
 	}
 }

@@ -46,11 +46,11 @@ namespace Game.Code.Core.Move
 			UpdatePosition( deltaTime );
 		}
 
-		public void SetDirection( Vector3 dir, bool force = false )
+		public void SetDirection( Vector3 dir )
 		{
 			dir.Y = 0;
 			
-			var d    = MathExt.Normalize( dir );
+			var d    = dir.Normalize();
 			var asin = MathExt.Asin( d.X );
 			var acos = MathExt.Acos( d.Z );
 

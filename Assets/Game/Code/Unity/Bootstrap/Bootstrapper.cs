@@ -1,7 +1,9 @@
 namespace Game.Code.Unity.Bootstrap
 {
 	using System.Collections.Generic;
+	using System.Linq;
 	using Game.Code.Core.Move;
+	using Game.Code.Unity.Asteroids;
 	using Game.Code.Unity.Camera;
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Configs;
@@ -15,7 +17,7 @@ namespace Game.Code.Unity.Bootstrap
 	{
 		[SerializeField] private RootConfig _rootConfig;
 	
-		private List<ITickable> _tickables;
+		private List<BasePresenter> _tickablePresenters;
 	
 		private InputTest _inputTest;
 
@@ -31,7 +33,7 @@ namespace Game.Code.Unity.Bootstrap
 
 		private void Awake()
 		{
-			_tickables = new List<ITickable>();
+			_tickablePresenters = new List<BasePresenter>();
 		
 			_inputManager            = new InputManager();
 			_mouseAndKeyboardControl = new MouseAndKeyboardControl( _inputManager );
@@ -44,6 +46,13 @@ namespace Game.Code.Unity.Bootstrap
 
 			SetupShip();
 			SetupAsteroids();
+
+			SubscribeOnDestroy();
+		}
+
+		private void Update()
+		{
+			_tickablePresenters.ForEach( t => t.Tick( Time.deltaTime ) );
 		}
 
 		private void SetupShip()
@@ -54,16 +63,44 @@ namespace Game.Code.Unity.Bootstrap
 			_shipMover     = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
 			_shipPresenter = new ShipPresenter( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig );
 
-			_tickables.Add( _shipPresenter );
+			_tickablePresenters.Add( _shipPresenter );
 		}
 
 		private void SetupAsteroids()
 		{
+			var asteroidsConfig = _rootConfig.Asteroids;
+
+			var frustumPoints = _cameraController.GetFrustumPoints();
+			var points        = new[] {frustumPoints.LeftBottom, frustumPoints.LeftTop, frustumPoints.RightTop, frustumPoints.RightBottom};
+			
+			points.ToList().ForEach( p =>
+			{
+				var asteroidView = _viewFactory.Create( EEntityType.Asteroid ) as AsteroidView;
+				var mover        = new Mover( p.ToNumericsVector3(), 0, 1 );
+				var rotator      = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(), 
+				                                asteroidsConfig.RandomRotationSpeed );
+				var presenter = new AsteroidPresenter( asteroidView, mover, rotator, asteroidsConfig );
+				
+				_tickablePresenters.Add( presenter );
+			} );
 		}
 
-		private void Update()
+		private void SubscribeOnDestroy()
 		{
-			_tickables.ForEach( t => t.Tick( Time.deltaTime ) );
+			_tickablePresenters.ForEach( p =>
+			{
+				p.DestroyRequest += OnDestroyRequest;
+			} );
+		}
+
+		private void OnDestroyRequest( DestroyInfo info )
+		{
+			Debug.Log( $"Destroy {info.EntityType}" );
+
+			var p = info.Presenter;
+			
+			p.DestroyRequest -= OnDestroyRequest;
+			_tickablePresenters.Remove( p );
 		}
 	}
 }

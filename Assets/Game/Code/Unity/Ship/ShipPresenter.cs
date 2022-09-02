@@ -10,20 +10,16 @@
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
 
-	public class ShipPresenter : ITickable
+	public class ShipPresenter : BasePresenter
 	{
-		public event Action Destroyed;
-		
-		private readonly ShipView _view;
 		private readonly MouseAndKeyboardControl _control;
 		private readonly Mover _mover;
 		private readonly ShipConfig _shipConfig;
 
-		private bool _isDestroyed;
-
 		public ShipPresenter(ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig)
 		{
-			_view       = view;
+			View        = view;
+			
 			_control    = control;
 			_mover      = mover;
 			_shipConfig = shipConfig;
@@ -32,56 +28,46 @@
 			Subscribe();
 		}
 
-		public void Tick( float deltaTime )
+		public override void Tick( float deltaTime )
 		{
 			_mover.Tick( deltaTime );
 
-			_view.Position = _mover.Position.ToUnityVector3();
-			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
+			View.Position = _mover.Position.ToUnityVector3();
+			View.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
 
-			_view.Velocity = _mover.Velocity.ToUnityVector3();
+			View.Velocity = _mover.Velocity.ToUnityVector3();
 		}
 
 		private void Subscribe()
 		{
 			ControlsSubscribe();
 
-			_view.Collided += OnCollided;
+			View.Collided += OnCollided;
 		}
 
 		private void Unsubscribe()
 		{
 			ControlsUnsubscribe();
 
-			_view.Collided -= OnCollided;
+			View.Collided -= OnCollided;
 		}
 
 		private void OnCollided( CollisionInfo info )
 		{
-			if ( _isDestroyed )
+			if ( IsDestroyed )
 				return;
 			
 			if ( info.OtherEntityType == EEntityType.Asteroid ||
 			     info.OtherEntityType == EEntityType.Enemy ||
 			     info.OtherEntityType == EEntityType.AsteroidPart )
 			{
-				Destroy();
-			}
-		}
+				Unsubscribe();
 
-		private void Destroy()
-		{
-			if(_isDestroyed)
-				return;
-			
-			_isDestroyed = true;
-			
-			Unsubscribe();
-			
-			_view.OnDestroy();
-			_mover.OnDestroy();
-			
-			Destroyed?.Invoke();
+				View.OnDestroy();
+				_mover.OnDestroy();
+				
+				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = View.Type} );
+			}
 		}
 
 		private void ControlsSubscribe()

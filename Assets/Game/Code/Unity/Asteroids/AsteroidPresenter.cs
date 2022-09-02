@@ -9,35 +9,32 @@
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
 
-	public class AsteroidPresenter : ITickable
+	public class AsteroidPresenter : BasePresenter
 	{
-		public event Action<DestroyInfo> Destroyed;
-		
-		private readonly AsteroidView _view;
 		private readonly Mover _mover;
 		private readonly Rotator _rotator;
 		private readonly AsteroidsConfig _asteroidsConfig;
 
 		public AsteroidPresenter(AsteroidView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
 		{
-			_view            = view;
+			View             = view;
+			
 			_mover           = mover;
 			_rotator         = rotator;
 			_asteroidsConfig = asteroidsConfig;
 
 			SetupMover();
 			Subscribe();
+			
+			UpdateView();
 		}
 
-		public void Tick( float deltaTime )
+		public override void Tick( float deltaTime )
 		{
 			_mover.Tick( deltaTime );
 			_rotator.Tick( deltaTime );
 
-			_view.Position = _mover.Position.ToUnityVector3();
-			_view.Rotation = _rotator.CurrentRotation.ToUnityQuaternion();
-
-			_view.Velocity = _mover.Velocity.ToUnityVector3();
+			UpdateView();
 		}
 
 		public void StartMoveAlongDirection( Vector3 dir )
@@ -48,12 +45,12 @@
 
 		private void Subscribe()
 		{
-			_view.Collided += OnCollided;
+			View.Collided += OnCollided;
 		}
 
 		private void Unsubscribe()
 		{
-			_view.Collided -= OnCollided;
+			View.Collided -= OnCollided;
 		}
 
 		private void OnCollided( CollisionInfo info )
@@ -62,15 +59,23 @@
 			{
 				Unsubscribe();
 
-				_view.OnDestroy();
+				View.OnDestroy();
 				_mover.OnDestroy();
 
-				Destroyed?.Invoke( new DestroyInfo() { EntityType =  _view.Type } );
+				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = View.Type} );
 			}
 			else
 			{
 				ChangeDirectionWhenCollision( info.OtherVelocity );
 			}
+		}
+
+		private void UpdateView()
+		{
+			View.Position = _mover.Position.ToUnityVector3();
+			View.Rotation = _rotator.CurrentRotation.ToUnityQuaternion();
+
+			View.Velocity = _mover.Velocity.ToUnityVector3();
 		}
 
 		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )
