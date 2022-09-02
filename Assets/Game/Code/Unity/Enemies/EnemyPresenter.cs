@@ -30,7 +30,9 @@
 			_mover.Tick( deltaTime );
 
 			_view.Position = _mover.Position.ToUnityVector3();
-			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 ); 
+			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
+
+			_view.Velocity = _mover.Velocity.ToUnityVector3();
 		}
 
 		public void StartMove( Vector3 dir )

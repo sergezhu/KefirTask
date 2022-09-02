@@ -27,6 +27,7 @@ namespace Game.Code.Core.Move
 		public Vector3 Position { get; private set; }
 		public float DesiredDirectionAngle { get; private set; }
 		public float CurrentDirectionAngle { get; private set; }
+		public Vector3 Velocity => _currentSpeed * AngleToDirection( CurrentDirectionAngle );
 	
 
 		public Mover(Vector3 position, float directionAngle, float directionSmooth)
@@ -140,7 +141,13 @@ namespace Game.Code.Core.Move
 		private void UpdatePosition( float deltaTime )
 		{
 			var delta = _currentSpeed * deltaTime;
-			Position += new Vector3( delta * MathExt.Sin( CurrentDirectionAngle ), 0, delta * MathExt.Cos( CurrentDirectionAngle ) );
+			var dir   = AngleToDirection( CurrentDirectionAngle );
+			Position += new Vector3( delta * dir.X, 0, delta * dir.Y );
+		}
+
+		private Vector3 AngleToDirection( float angle )
+		{
+			return new ( MathExt.Sin( CurrentDirectionAngle ), 0, MathExt.Cos( CurrentDirectionAngle ) );
 		}
 	}
 }

@@ -29,7 +29,9 @@
 			_rotator.Tick( deltaTime );
 
 			_view.Position = _mover.Position.ToUnityVector3();
-			_view.Rotation = _rotator.CurrentRotation.ToUnityQuaternion(); 
+			_view.Rotation = _rotator.CurrentRotation.ToUnityQuaternion();
+
+			_view.Velocity = _mover.Velocity.ToUnityVector3();
 		}
 
 		public void StartMoveAlongDirection( Vector3 dir )
