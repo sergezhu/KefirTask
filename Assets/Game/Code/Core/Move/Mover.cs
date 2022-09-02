@@ -34,7 +34,15 @@ namespace Game.Code.Core.Move
 		{
 			Position              = position;
 			DesiredDirectionAngle = directionAngle;
-			CurrentDirectionAngle = directionAngle;
+			CurrentDirectionAngle = DesiredDirectionAngle;
+			_directionSmooth      = directionSmooth;
+		}
+
+		public Mover( Vector3 position, Vector3 direction, float directionSmooth )
+		{
+			Position              = position;
+			DesiredDirectionAngle = DirectionToAngle( direction );
+			CurrentDirectionAngle = DesiredDirectionAngle;
 			_directionSmooth      = directionSmooth;
 		}
 
@@ -48,15 +56,7 @@ namespace Game.Code.Core.Move
 
 		public void SetDirection( Vector3 dir )
 		{
-			dir.Y = 0;
-			
-			var d    = dir.Normalize();
-			var asin = MathExt.Asin( d.X );
-			var acos = MathExt.Acos( d.Z );
-
-			var directionAngle = acos * Math.Sign( asin );
-
-			DesiredDirectionAngle = directionAngle;
+			DesiredDirectionAngle = DirectionToAngle( dir );
 		}
 
 		public void StartMove()
@@ -156,6 +156,19 @@ namespace Game.Code.Core.Move
 		private Vector3 AngleToDirection( float angle )
 		{
 			return new ( MathExt.Sin( CurrentDirectionAngle ), 0, MathExt.Cos( CurrentDirectionAngle ) );
+		}
+
+		private float DirectionToAngle( Vector3 dir )
+		{
+			dir.Y = 0;
+
+			var d    = dir.Normalize();
+			var asin = MathExt.Asin( d.X );
+			var acos = MathExt.Acos( d.Z );
+
+			var directionAngle = acos * Math.Sign( asin );
+
+			return directionAngle;
 		}
 	}
 }

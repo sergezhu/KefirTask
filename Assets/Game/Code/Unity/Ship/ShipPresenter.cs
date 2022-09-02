@@ -1,6 +1,5 @@
 ﻿namespace Game.Code.Unity.Ship
 {
-	using System;
 	using Game.Code.Core.Move;
 	using Game.Code.Unity.Collisions;
 	using Game.Code.Unity.Common;
@@ -12,19 +11,20 @@
 
 	public class ShipPresenter : BasePresenter
 	{
+		private readonly ShipView _view;
 		private readonly MouseAndKeyboardControl _control;
 		private readonly Mover _mover;
 		private readonly ShipConfig _shipConfig;
 
 		public ShipPresenter(ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig)
 		{
-			View        = view;
-			
+			_view       = view;
 			_control    = control;
 			_mover      = mover;
 			_shipConfig = shipConfig;
 
 			SetupMover();
+			SetupWeapons();
 			Subscribe();
 		}
 
@@ -32,24 +32,39 @@
 		{
 			_mover.Tick( deltaTime );
 
-			View.Position = _mover.Position.ToUnityVector3();
-			View.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
+			_view.Position = _mover.Position.ToUnityVector3();
+			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
 
-			View.Velocity = _mover.Velocity.ToUnityVector3();
+			_view.Velocity = _mover.Velocity.ToUnityVector3();
+		}
+
+		private void SetupMover()
+		{
+			_mover.Acceleration         = _shipConfig.Acceleration;
+			_mover.Deceleration         = _shipConfig.Deceleration;
+			_mover.RotationAcceleration = _shipConfig.RotationAcceleration;
+			_mover.RotationDeceleration = _shipConfig.RotationDeceleration;
+			_mover.MaxSpeed             = _shipConfig.MaxSpeed;
+			_mover.MaxRotationSpeed     = _shipConfig.MaxRotationSpeed;
+		}
+
+		private void SetupWeapons()
+		{
+			
 		}
 
 		private void Subscribe()
 		{
 			ControlsSubscribe();
 
-			View.Collided += OnCollided;
+			_view.Collided += OnCollided;
 		}
 
 		private void Unsubscribe()
 		{
 			ControlsUnsubscribe();
 
-			View.Collided -= OnCollided;
+			_view.Collided -= OnCollided;
 		}
 
 		private void OnCollided( CollisionInfo info )
@@ -63,10 +78,10 @@
 			{
 				Unsubscribe();
 
-				View.Destroy();
+				_view.Destroy();
 				_mover.OnDestroy();
 				
-				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = View.Type} );
+				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = _view.Type} );
 			}
 		}
 
@@ -88,16 +103,6 @@
 			_control.RotateCWEnd    -= OnRotateCWEnd;
 			_control.RotateCCWStart -= OnRotateCCWStart;
 			_control.RotateCCWEnd   -= OnRotateCCWEnd;
-		}
-
-		private void SetupMover()
-		{
-			_mover.Acceleration         = _shipConfig.Acceleration;
-			_mover.Deceleration         = _shipConfig.Deceleration;
-			_mover.RotationAcceleration = _shipConfig.RotationAcceleration;
-			_mover.RotationDeceleration = _shipConfig.RotationDeceleration;
-			_mover.MaxSpeed             = _shipConfig.MaxSpeed;
-			_mover.MaxRotationSpeed     = _shipConfig.MaxRotationSpeed;
 		}
 
 		private void OnMoveStart() => _mover.StartMove();

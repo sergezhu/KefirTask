@@ -19,5 +19,12 @@
 		public float MaxRotationSpeed;
 		public float RotationAcceleration;
 		public float RotationDeceleration;
+
+		[Header( "Weapons : BulletCannon" )]
+		public float BulletMaxSpeed;
+
+		[Header( "Weapons : LaserCannon" )]
+		public float LaserLength;
+
 	}
 }

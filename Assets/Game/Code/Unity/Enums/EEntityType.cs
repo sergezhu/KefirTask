@@ -7,6 +7,5 @@
 		Asteroid,
 		AsteroidPart,
 		Bullet,
-		Laser,
 	}
 }

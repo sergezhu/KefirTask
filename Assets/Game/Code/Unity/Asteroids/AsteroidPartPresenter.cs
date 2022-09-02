@@ -12,15 +12,15 @@
 	public class AsteroidPartPresenter : BasePresenter
 	{
 		public event Action<DestroyInfo> Destroyed;
-		
+
+		private readonly AsteroidView _view;
 		private readonly Mover _mover;
 		private readonly Rotator _rotator;
 		private readonly AsteroidsConfig _asteroidsConfig;
 
 		public AsteroidPartPresenter(AsteroidView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
 		{
-			View			 = view;
-			
+			_view            = view;
 			_mover           = mover;
 			_rotator         = rotator;
 			_asteroidsConfig = asteroidsConfig;
@@ -30,12 +30,12 @@
 
 		private void Subscribe()
 		{
-			View.Collided += OnCollided;
+			_view.Collided += OnCollided;
 		}
 
 		private void Unsubscribe()
 		{
-			View.Collided -= OnCollided;
+			_view.Collided -= OnCollided;
 		}
 
 		private void OnCollided( CollisionInfo info )
@@ -44,10 +44,10 @@
 			{
 				Unsubscribe();
 
-				View.Destroy();
+				_view.Destroy();
 				_mover.OnDestroy();
 
-				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = View.Type} );
+				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = _view.Type} );
 			}
 			else
 			{
@@ -70,10 +70,10 @@
 			_mover.Tick( deltaTime );
 			_rotator.Tick( deltaTime );
 
-			View.Position = _mover.Position.ToUnityVector3();
-			View.Rotation = _rotator.CurrentRotation.ToUnityQuaternion();
+			_view.Position = _mover.Position.ToUnityVector3();
+			_view.Rotation = _rotator.CurrentRotation.ToUnityQuaternion();
 
-			View.Velocity = _mover.Velocity.ToUnityVector3();
+			_view.Velocity = _mover.Velocity.ToUnityVector3();
 		}
 
 		public void StartMoveAlongDirection( Vector3 dir )

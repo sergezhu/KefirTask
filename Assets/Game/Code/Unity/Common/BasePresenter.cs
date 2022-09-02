@@ -6,7 +6,6 @@
 	{
 		public event Action<DestroyInfo> DestroyRequest;
 		
-		protected BaseView View;
 		protected bool IsDestroyed { get; private set; }
 
 		public abstract void Tick( float deltaTime );

@@ -3,7 +3,6 @@
 	using System;
 	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
-	using UnityEngine;
 	using Object = UnityEngine.Object;
 
 	public class ViewFactory
@@ -27,6 +26,8 @@
 					return Object.Instantiate( _prefabsConfig.AsteroidPrefab );
 				case EEntityType.AsteroidPart:
 					return Object.Instantiate( _prefabsConfig.AsteroidPartPrefab );
+				case EEntityType.Bullet:
+					return Object.Instantiate( _prefabsConfig.BulletPrefab );
 				default:
 					throw new ArgumentOutOfRangeException( nameof(type), type, null );
 			}

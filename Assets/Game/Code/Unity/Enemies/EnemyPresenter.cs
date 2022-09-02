@@ -11,17 +11,17 @@
 
 	public class EnemyPresenter : BasePresenter
 	{
+		private readonly EnemyView _view;
 		private readonly Mover _mover;
 		private readonly Mover _hero;
 		private readonly EnemiesConfig _enemiesConfig;
 
 		public EnemyPresenter(EnemyView view, Mover mover, Mover hero, EnemiesConfig enemiesConfig)
 		{
-			View             = view;
-			
-			_mover           = mover;
-			_hero            = hero;
-			_enemiesConfig   = enemiesConfig;
+			_view          = view;
+			_mover         = mover;
+			_hero          = hero;
+			_enemiesConfig = enemiesConfig;
 
 			SetupMover();
 			Subscribe();
@@ -33,10 +33,10 @@
 			
 			_mover.Tick( deltaTime );
 
-			View.Position = _mover.Position.ToUnityVector3();
-			View.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
+			_view.Position = _mover.Position.ToUnityVector3();
+			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
 
-			View.Velocity = _mover.Velocity.ToUnityVector3();
+			_view.Velocity = _mover.Velocity.ToUnityVector3();
 		}
 
 		public void StartMove( Vector3 dir )
@@ -46,12 +46,12 @@
 
 		private void Subscribe()
 		{
-			View.Collided += OnCollided;
+			_view.Collided += OnCollided;
 		}
 
 		private void Unsubscribe()
 		{
-			View.Collided -= OnCollided;
+			_view.Collided -= OnCollided;
 		}
 
 		private void OnCollided( CollisionInfo info )
@@ -60,10 +60,10 @@
 			{
 				Unsubscribe();
 				
-				View.Destroy();
+				_view.Destroy();
 				_mover.OnDestroy();
 
-				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = View.Type} );
+				InvokeDestroy( new DestroyInfo() {Presenter = this, EntityType = _view.Type} );
 			}
 			else
 			{

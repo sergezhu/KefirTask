@@ -4,6 +4,7 @@
 	using Game.Code.Unity.Enemies;
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Ship;
+	using Game.Code.Unity.Weapons;
 	using UnityEngine;
 
 	[CreateAssetMenu( fileName = "ViewPrefabs", menuName = "Configs/ViewPrefabs", order = (int) EConfig.ViewPrefabs )]
@@ -13,5 +14,6 @@
 		public EnemyView EnemyPrefab;
 		public AsteroidView AsteroidPrefab;
 		public AsteroidPartView AsteroidPartPrefab;
+		public BulletView BulletPrefab;
 	}
 }
