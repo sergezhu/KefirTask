@@ -21,7 +21,7 @@ MonoBehaviour:
   RotationAcceleration: 5
   RotationDeceleration: 2.5
   BulletMaxSpeed: 50
-  LaserLength: 5
+  LaserLength: 15
   LaserThickness: 0.2
   LaserShotDuration: 0.5
   LaserCallDelay: 5
