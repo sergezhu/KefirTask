@@ -150,7 +150,7 @@ namespace Game.Code.Core.Move
 		{
 			var delta = _currentSpeed * deltaTime;
 			var dir   = AngleToDirection( CurrentDirectionAngle );
-			Position += new Vector3( delta * dir.X, 0, delta * dir.Y );
+			Position += new Vector3( delta * dir.X, 0, delta * dir.Z );
 		}
 
 		private Vector3 AngleToDirection( float angle )
