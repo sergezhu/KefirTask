@@ -21,6 +21,9 @@
 		public float RotationSpeedMin = 0.25f;
 		public float RotationSpeedMax = 2.25f;
 
+		[Space]
+		public float RotationAcceleration = 5f;
+
 		public float RandomScale => Random.Range( ScaleMin, ScaleMax );
 		public float RandomSpeed => Random.Range( SpeedMin, SpeedMax );
 		public float RandomRotationSpeed => Random.Range( RotationSpeedMin, RotationSpeedMax );

@@ -46,7 +46,7 @@ namespace Game.Code.Core.Move
 			UpdatePosition( deltaTime );
 		}
 
-		public void SetDirection( Vector3 dir )
+		public void SetDirection( Vector3 dir, bool force = false )
 		{
 			dir.Y = 0;
 			

@@ -19,14 +19,20 @@
 
 		[Space]
 		public float SpeedMin = 0.1f;
-		public float SpeedMax = 2;
+		public float SpeedMax = 1.5f;
+		public float PartSpeedMin = 2f;
+		public float PartSpeedMax = 3f;
 		
 		[Space]
 		public float RotationSpeedMin = 0.25f;
 		public float RotationSpeedMax = 2.25f;
 
+		[Space]
+		public float RotationAcceleration = 5f;
+
 		public float RandomScale => Random.Range( ScaleMin, ScaleMax );
 		public float RandomSpeed => Random.Range( SpeedMin, SpeedMax );
+		public float RandomPartSpeed => Random.Range( PartSpeedMin, PartSpeedMax );
 		public float RandomRotationSpeed => Random.Range( RotationSpeedMin, RotationSpeedMax );
 		public float RandomDestroyParts => Random.Range( DestroyPartsMin, DestroyPartsMax + 1 );
 	}

@@ -26,6 +26,24 @@
 			_asteroidsConfig = asteroidsConfig;
 
 			SetupMover();
+			Subscribe();
+		}
+
+		public void Tick( float deltaTime )
+		{
+			_mover.Tick( deltaTime );
+			_rotator.Tick( deltaTime );
+
+			_view.Position = _mover.Position.ToUnityVector3();
+			_view.Rotation = _rotator.CurrentRotation.ToUnityQuaternion();
+
+			_view.Velocity = _mover.Velocity.ToUnityVector3();
+		}
+
+		public void StartMoveAlongDirection( Vector3 dir )
+		{
+			_mover.SetDirection( dir.ToNumericsVector3() );
+			_mover.StartMove();
 		}
 
 		private void Subscribe()
@@ -51,38 +69,21 @@
 			}
 			else
 			{
-				ChangeDirectionAtNextFrame( info.OtherVelocity );
+				ChangeDirectionWhenCollision( info.OtherVelocity );
 			}
 		}
 
-		private void ChangeDirectionAtNextFrame( Vector3 otherVelocity )
+		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )
 		{
 			throw new NotImplementedException();
-		}
-
-		public void Tick( float deltaTime )
-		{
-			_mover.Tick( deltaTime );
-			_rotator.Tick( deltaTime );
-
-			_view.Position = _mover.Position.ToUnityVector3();
-			_view.Rotation = _rotator.CurrentRotation.ToUnityQuaternion();
-
-			_view.Velocity = _mover.Velocity.ToUnityVector3();
-		}
-
-		public void StartMoveAlongDirection( Vector3 dir )
-		{
-			_mover.SetDirection( dir.ToNumericsVector3() );
-			_mover.StartMove();
 		}
 
 		private void SetupMover()
 		{
 			_mover.Acceleration         = _asteroidsConfig.StartAcceleration;
 			_mover.Deceleration         = 0;
-			_mover.RotationAcceleration = 0;
-			_mover.RotationDeceleration = 0;
+			_mover.RotationAcceleration = _asteroidsConfig.RotationAcceleration;
+			_mover.RotationDeceleration = _asteroidsConfig.RotationAcceleration;
 			_mover.MaxSpeed             = _asteroidsConfig.RandomSpeed;
 			_mover.MaxRotationSpeed     = 0;
 		}

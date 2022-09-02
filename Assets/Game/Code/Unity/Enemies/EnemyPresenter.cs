@@ -16,14 +16,14 @@
 		private readonly EnemyView _view;
 		private readonly Mover _mover;
 		private readonly Mover _hero;
-		private readonly AsteroidsConfig _asteroidsConfig;
+		private readonly EnemiesConfig _enemiesConfig;
 
-		public EnemyPresenter(EnemyView view, Mover mover, Mover hero, AsteroidsConfig asteroidsConfig)
+		public EnemyPresenter(EnemyView view, Mover mover, Mover hero, EnemiesConfig enemiesConfig)
 		{
 			_view            = view;
 			_mover           = mover;
 			_hero            = hero;
-			_asteroidsConfig = asteroidsConfig;
+			_enemiesConfig   = enemiesConfig;
 
 			SetupMover();
 			Subscribe();
@@ -69,11 +69,11 @@
 			}
 			else
 			{
-				ChangeDirectionAtNextFrame( info.OtherVelocity );
+				ChangeDirectionWhenCollision( info.OtherVelocity );
 			}
 		}
 
-		private void ChangeDirectionAtNextFrame( Vector3 otherVelocity )
+		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )
 		{
 			throw new System.NotImplementedException();
 		}
@@ -94,11 +94,11 @@
 
 		private void SetupMover()
 		{
-			_mover.Acceleration         = _asteroidsConfig.StartAcceleration;
+			_mover.Acceleration         = _enemiesConfig.StartAcceleration;
 			_mover.Deceleration         = 0;
-			_mover.RotationAcceleration = 0;
-			_mover.RotationDeceleration = 0;
-			_mover.MaxSpeed             = _asteroidsConfig.RandomSpeed;
+			_mover.RotationAcceleration = _enemiesConfig.RotationAcceleration;
+			_mover.RotationDeceleration = _enemiesConfig.RotationAcceleration;
+			_mover.MaxSpeed             = _enemiesConfig.RandomSpeed;
 			_mover.MaxRotationSpeed     = 0;
 		}
 	}
