@@ -6,6 +6,7 @@ namespace Game.Code.Unity.Enums
 		Enemies,
 		Asteroids,
 		Reward,
+		ViewPrefabs,
 
 		Root		= 100000
 	}

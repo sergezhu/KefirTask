@@ -11,6 +11,7 @@ namespace Game.Configs
 		public AsteroidsConfig Asteroids;
 		public EnemiesConfig Enemies;
 		public RewardConfig Reward;
+		public ViewPrefabsConfig ViewPrefabs;
 	}
 }
 
