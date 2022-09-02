@@ -33,9 +33,8 @@
 			UpdateView();
 		}
 
-		public void StartMoveAlongDirection( Vector3 dir )
+		public void StartMove()
 		{
-			SetDirection( dir );
 			_mover.StartMove();
 		}
 

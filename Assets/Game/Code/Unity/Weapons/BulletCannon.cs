@@ -37,6 +37,7 @@
 			var bullet         = new BulletModel( view, mover, _shipConfig );
 			
 			_bullets.Add( bullet );
+			bullet.StartMove();
 			
 			bullet.DestroyRequest += OnDestroyRequest;
 		}

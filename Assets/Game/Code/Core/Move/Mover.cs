@@ -27,6 +27,7 @@ namespace Game.Code.Core.Move
 		public Vector3 Position { get; private set; }
 		public float DesiredDirectionAngle { get; private set; }
 		public float CurrentDirectionAngle { get; private set; }
+		
 		public Vector3 Velocity => _currentSpeed * AngleToDirection( CurrentDirectionAngle );
 	
 

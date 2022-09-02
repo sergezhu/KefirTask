@@ -126,7 +126,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -135,7 +135,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.18420982
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -145,11 +145,11 @@ TrailRenderer:
       - serializedVersion: 3
         time: 0.99072635
         value: 0
-        inSlope: -1.155357
-        outSlope: -1.155357
+        inSlope: -0.031298377
+        outSlope: -0.031298377
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.10920439
+        inWeight: 0.21216848
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -255,7 +255,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &1096904409551032927
 MonoBehaviour:
   m_ObjectHideFlags: 0
