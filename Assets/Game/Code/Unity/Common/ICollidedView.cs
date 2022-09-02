@@ -9,7 +9,7 @@
 	{
 		event Action<CollisionInfo> Collided;
 		
-		ECollisionLayer Layer { get; }
+		EEntityType Type { get; }
 		Collider[] Colliders { get; }
 	}
 }

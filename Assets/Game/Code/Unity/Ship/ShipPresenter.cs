@@ -1,7 +1,10 @@
 ﻿namespace Game.Code.Unity.Ship
 {
+	using System;
 	using Game.Code.Core.Move;
+	using Game.Code.Unity.Collisions;
 	using Game.Code.Unity.Common;
+	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Input;
 	using Game.Code.Unity.Utils;
 	using Game.Configs;
@@ -9,10 +12,14 @@
 
 	public class ShipPresenter : ITickable
 	{
+		public event Action Destroyed;
+		
 		private readonly ShipView _view;
 		private readonly MouseAndKeyboardControl _control;
 		private readonly Mover _mover;
 		private readonly ShipConfig _shipConfig;
+
+		private bool _isDestroyed;
 
 		public ShipPresenter(ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig)
 		{
@@ -22,6 +29,7 @@
 			_shipConfig = shipConfig;
 
 			SetupMover();
+			Subscribe();
 		}
 
 		public void Tick( float deltaTime )
@@ -34,7 +42,49 @@
 			_view.Velocity = _mover.Velocity.ToUnityVector3();
 		}
 
-		public void Subscribe()
+		private void Subscribe()
+		{
+			ControlsSubscribe();
+
+			_view.Collided += OnCollided;
+		}
+
+		private void Unsubscribe()
+		{
+			ControlsUnsubscribe();
+
+			_view.Collided -= OnCollided;
+		}
+
+		private void OnCollided( CollisionInfo info )
+		{
+			if ( _isDestroyed )
+				return;
+			
+			if ( info.OtherEntityType == EEntityType.Asteroid ||
+			     info.OtherEntityType == EEntityType.Enemy ||
+			     info.OtherEntityType == EEntityType.AsteroidPart )
+			{
+				Destroy();
+			}
+		}
+
+		private void Destroy()
+		{
+			if(_isDestroyed)
+				return;
+			
+			_isDestroyed = true;
+			
+			Unsubscribe();
+			
+			_view.OnDestroy();
+			_mover.OnDestroy();
+			
+			Destroyed?.Invoke();
+		}
+
+		private void ControlsSubscribe()
 		{
 			_control.MoveStart      += OnMoveStart;
 			_control.MoveEnd        += OnMoveEnd;
@@ -42,6 +92,16 @@
 			_control.RotateCWEnd    += OnRotateCWEnd;
 			_control.RotateCCWStart += OnRotateCCWStart;
 			_control.RotateCCWEnd   += OnRotateCCWEnd;
+		}
+
+		private void ControlsUnsubscribe()
+		{
+			_control.MoveStart      -= OnMoveStart;
+			_control.MoveEnd        -= OnMoveEnd;
+			_control.RotateCWStart  -= OnRotateCWStart;
+			_control.RotateCWEnd    -= OnRotateCWEnd;
+			_control.RotateCCWStart -= OnRotateCCWStart;
+			_control.RotateCCWEnd   -= OnRotateCCWEnd;
 		}
 
 		private void SetupMover()

@@ -5,6 +5,6 @@
 
 	public class EnemyView : BaseView
 	{
-		public override ECollisionLayer Layer => ECollisionLayer.Asteroid;
+		public override EEntityType Type => EEntityType.Asteroid;
 	}
 }

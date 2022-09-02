@@ -24,27 +24,37 @@
 
 		public Vector3 Velocity { get; set; }
 		public Collider[] Colliders { get; private set; }
-		public abstract ECollisionLayer Layer { get; }
+		public abstract EEntityType Type { get; }
 
 		private void Awake()
 		{
 			Colliders = GetComponents<Collider>();
 		}
 
-		/*private void OnTriggerEnter( Collider other )
+		private void OnTriggerEnter( Collider other )
+		{
+			OnTriggerEnterInternal( other );
+		}
+
+		public void OnDestroy()
+		{
+			Destroy(gameObject);
+		}
+
+		private void OnTriggerEnterInternal( Collider other )
 		{
 			if ( other.TryGetComponent<BaseView>( out var view ) )
 			{
 				var info = new CollisionInfo()
 				{
-					OtherLayer = view.Layer,
-					OtherVelocity = view.Velocity
+					OtherEntityType		= view.Type,
+					OtherVelocity		= view.Velocity
 				};
 
 				Collided?.Invoke( info );
-				
+
 				Debug.Log( $"{this.name} -- collided with -- {view.name}" );
 			}
-		}*/
+		}
 	}
 }

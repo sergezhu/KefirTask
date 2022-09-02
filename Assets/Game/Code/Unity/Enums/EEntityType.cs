@@ -1,6 +1,6 @@
 ﻿namespace Game.Code.Unity.Enums
 {
-	public enum ECollisionLayer
+	public enum EEntityType
 	{
 		Ship,
 		Enemy,

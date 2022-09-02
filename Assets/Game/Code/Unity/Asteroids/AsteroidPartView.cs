@@ -5,6 +5,6 @@
 
 	public class AsteroidPartView : BaseView
 	{
-		public override ECollisionLayer Layer => ECollisionLayer.AsteroidPart;
+		public override EEntityType Type => EEntityType.AsteroidPart;
 	}
 }

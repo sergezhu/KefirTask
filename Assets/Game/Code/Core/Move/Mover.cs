@@ -93,6 +93,14 @@ namespace Game.Code.Core.Move
 			UpdateDesiredRotationDirection();
 		}
 
+		public void OnDestroy()
+		{
+			_desiredSpeed         = 0;
+			_desiredRotationSpeed = 0;
+			_currentSpeed         = 0;
+			_currentRotationSpeed = 0;
+		}
+
 		private void UpdateDesiredRotationDirection()
 		{
 			_desiredRotationSpeed = _cvDesiredRotationSpeed + _ccvDesiredRotationSpeed;

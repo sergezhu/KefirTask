@@ -5,7 +5,7 @@
 
 	public struct CollisionInfo
 	{
-		public ECollisionLayer OtherLayer;
+		public EEntityType OtherEntityType;
 		public Vector3 OtherVelocity;
 	}
 }

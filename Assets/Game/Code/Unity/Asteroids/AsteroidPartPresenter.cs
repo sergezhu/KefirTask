@@ -9,7 +9,7 @@
 	using Game.Configs;
 	using UnityEngine;
 
-	public class AsteroidPresenter : ITickable
+	public class AsteroidPartPresenter : ITickable
 	{
 		public event Action<DestroyInfo> Destroyed;
 		
@@ -18,7 +18,7 @@
 		private readonly Rotator _rotator;
 		private readonly AsteroidsConfig _asteroidsConfig;
 
-		public AsteroidPresenter(AsteroidView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
+		public AsteroidPartPresenter(AsteroidView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
 		{
 			_view            = view;
 			_mover           = mover;

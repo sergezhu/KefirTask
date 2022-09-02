@@ -5,8 +5,9 @@ namespace Game.Code.Unity.Enums
 		Ship,
 		Enemies,
 		Asteroids,
+		Reward,
 
-		Root		= 100000,
+		Root		= 100000
 	}
 }
 

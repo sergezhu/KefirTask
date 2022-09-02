@@ -5,6 +5,6 @@
 
 	public class ShipView : BaseView
 	{
-		public override ECollisionLayer Layer => ECollisionLayer.Ship;
+		public override EEntityType Type => EEntityType.Ship;
 	}
 }

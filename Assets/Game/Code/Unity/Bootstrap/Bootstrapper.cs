@@ -46,7 +46,6 @@ public class Bootstrapper : MonoBehaviour
 		_shipMover     = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
 		_shipPresenter = new ShipPresenter( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig );
 
-		_shipPresenter.Subscribe();
 		_tickables.Add( _shipPresenter );
 	}
 
