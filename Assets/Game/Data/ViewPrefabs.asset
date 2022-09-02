@@ -16,3 +16,4 @@ MonoBehaviour:
   EnemyPrefab: {fileID: 6967442459929782198, guid: dd59d912e54e4144182f3a96ccbb94a3, type: 3}
   AsteroidPrefab: {fileID: -4890057841452929458, guid: 4cff533c5f8ddb048a647f72f3c8c5ce, type: 3}
   AsteroidPartPrefab: {fileID: -5744368927093119658, guid: 63c006f1cc503eb41b047950c7a205a9, type: 3}
+  BulletPrefab: {fileID: 1096904409551032927, guid: 2544756bc6c242d4aac253bdf356c174, type: 3}

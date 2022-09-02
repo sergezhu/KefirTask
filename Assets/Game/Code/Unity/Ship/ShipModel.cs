@@ -7,6 +7,7 @@
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Input;
 	using Game.Code.Unity.Utils;
+	using Game.Code.Unity.Weapons;
 	using UnityEngine;
 
 	public class ShipModel : BaseModel
@@ -15,13 +16,18 @@
 		private readonly MouseAndKeyboardControl _control;
 		private readonly Mover _mover;
 		private readonly ShipConfig _shipConfig;
+		private readonly BulletViewFactory _bulletViewFactory;
+		
+		private BulletCannon _bulletCannonModel;
+		private LaserCannon _laserCannonModel;
 
-		public ShipModel(ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig)
+		public ShipModel(ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig, BulletViewFactory bulletViewFactory)
 		{
-			_view       = view;
-			_control    = control;
-			_mover      = mover;
-			_shipConfig = shipConfig;
+			_view              = view;
+			_control           = control;
+			_mover             = mover;
+			_shipConfig        = shipConfig;
+			_bulletViewFactory = bulletViewFactory;
 
 			SetupMover();
 			SetupWeapons();
@@ -34,8 +40,9 @@
 
 			_view.Position = _mover.Position.ToUnityVector3();
 			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
-
 			_view.Velocity = _mover.Velocity.ToUnityVector3();
+			
+			_bulletCannonModel.Tick( deltaTime );
 		}
 
 		private void SetupMover()
@@ -50,6 +57,8 @@
 
 		private void SetupWeapons()
 		{
+			_bulletCannonModel = new BulletCannon( _view.BulletCannonView, _bulletViewFactory, _shipConfig );
+			_laserCannonModel = new LaserCannon( _view.LaserCannonView );
 		}
 
 		private void Subscribe()
@@ -92,6 +101,9 @@
 			_control.RotateCWEnd    += OnRotateCWEnd;
 			_control.RotateCCWStart += OnRotateCCWStart;
 			_control.RotateCCWEnd   += OnRotateCCWEnd;
+
+			_control.Fire1 += OnFire1;
+			_control.Fire2 += OnFire2;
 		}
 
 		private void ControlsUnsubscribe()
@@ -102,6 +114,9 @@
 			_control.RotateCWEnd    -= OnRotateCWEnd;
 			_control.RotateCCWStart -= OnRotateCCWStart;
 			_control.RotateCCWEnd   -= OnRotateCCWEnd;
+
+			_control.Fire1 -= OnFire1;
+			_control.Fire2 -= OnFire2;
 		}
 
 		private void OnMoveStart() => _mover.StartMove();
@@ -110,5 +125,8 @@
 		private void OnRotateCWEnd() => _mover.EndCVRotation();
 		private void OnRotateCCWStart() => _mover.StartCCVRotation();
 		private void OnRotateCCWEnd() => _mover.EndCCVRotation();
+
+		private void OnFire1() => _bulletCannonModel.Shot();
+		private void OnFire2() => _laserCannonModel.Shot();
 	}
 }

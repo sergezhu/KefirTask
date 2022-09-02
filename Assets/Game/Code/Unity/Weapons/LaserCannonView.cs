@@ -14,7 +14,7 @@
 
 		private void Awake()
 		{
-			HideLaser();
+			//HideLaser();
 		}
 
 		public void ShowLaser( Vector3 position, Vector3 direction, float duration )

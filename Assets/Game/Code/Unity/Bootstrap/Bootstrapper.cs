@@ -24,6 +24,7 @@ namespace Game.Code.Unity.Bootstrap
 		private IInputManager _inputManager;
 		private MouseAndKeyboardControl _mouseAndKeyboardControl;
 		private ViewFactory _viewFactory;
+		private BulletViewFactory _bulletViewFactory;
 
 		private Mover _shipMover;
 		private ShipModel _shipModel;
@@ -38,6 +39,7 @@ namespace Game.Code.Unity.Bootstrap
 			_inputManager            = new InputManager();
 			_mouseAndKeyboardControl = new MouseAndKeyboardControl( _inputManager );
 			_viewFactory             = new ViewFactory( _rootConfig.ViewPrefabs );
+			_bulletViewFactory       = new BulletViewFactory( _viewFactory );
 
 			//_inputTest = FindObjectOfType<InputTest>();
 			//_inputTest.Init( _mouseAndKeyboardControl );
@@ -61,7 +63,7 @@ namespace Game.Code.Unity.Bootstrap
 
 			_shipView  = _viewFactory.Create( EEntityType.Ship ) as ShipView;
 			_shipMover = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
-			_shipModel = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig );
+			_shipModel = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig, _bulletViewFactory );
 
 			_tickableModels.Add( _shipModel );
 		}

@@ -1,5 +1,6 @@
 ﻿namespace Game.Code.Unity.Weapons
 {
+	using System;
 	using System.Collections.Generic;
 	using Game.Code.Core.Move;
 	using Game.Code.Unity.Common;
@@ -33,15 +34,27 @@
 			var bulletStartPos = _view.ShootPoint.position.ToNumericsVector3();
 			var bulletStartDir = _view.ShootPoint.forward.ToNumericsVector3();
 			var mover          = new Mover( bulletStartPos, bulletStartDir, 1 );
-
-			var presenter = new BulletModel( view, mover, _shipConfig );
+			var bullet         = new BulletModel( view, mover, _shipConfig );
 			
-			_bullets.Add( presenter );
+			_bullets.Add( bullet );
+			
+			bullet.DestroyRequest += OnDestroyRequest;
 		}
 
 		public void Tick( float deltaTime )
 		{
 			_bullets.ForEach( b => b.Tick( deltaTime ) );
+		}
+
+		private void OnDestroyRequest( DestroyInfo info )
+		{
+			if ( info.Model is BulletModel bullet )
+			{
+				bullet.DestroyRequest -= OnDestroyRequest;
+				_bullets.Remove( bullet );
+			}
+			else
+				throw new InvalidOperationException( $"You try handle not an bullet" );
 		}
 	}
 }
