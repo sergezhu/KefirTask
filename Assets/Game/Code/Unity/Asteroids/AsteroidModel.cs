@@ -11,6 +11,8 @@
 
 	public class AsteroidModel : BaseModel
 	{
+		public event Action<SourceAsteroidData> CreatePartsRequest; 
+		
 		private readonly AsteroidView _view;
 		private readonly Mover _mover;
 		private readonly Rotator _rotator;
@@ -74,11 +76,14 @@
 
 		private void Destroy()
 		{
+			var sourceData = new SourceAsteroidData() {Position = _view.Position, Velocity = _view.Velocity};
+			
 			Unsubscribe();
 
 			_view.Destroy();
 			_mover.OnDestroy();
-
+			
+			CreatePartsRequest?.Invoke( sourceData );
 			InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
 		}
 

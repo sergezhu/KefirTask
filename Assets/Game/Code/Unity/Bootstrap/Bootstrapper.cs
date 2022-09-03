@@ -23,6 +23,7 @@ namespace Game.Code.Unity.Bootstrap
 		private MouseAndKeyboardControl _mouseAndKeyboardControl;
 		private ViewFactory _viewFactory;
 		private BulletViewFactory _bulletViewFactory;
+		private AsteroidPartsFactory _asteroidPartsFactory;
 		private CameraController _cameraController;
 		private GameSystem _gameSystem;
 
@@ -32,13 +33,14 @@ namespace Game.Code.Unity.Bootstrap
 			_mouseAndKeyboardControl = new MouseAndKeyboardControl( _inputManager );
 			_viewFactory             = new ViewFactory( _rootConfig.ViewPrefabs );
 			_bulletViewFactory       = new BulletViewFactory( _viewFactory );
+			_asteroidPartsFactory    = new AsteroidPartsFactory( _viewFactory, _rootConfig.Asteroids );
 
 			//_inputTest = FindObjectOfType<InputTest>();
 			//_inputTest.Init( _mouseAndKeyboardControl );
 
 			_cameraController = FindObjectOfType<CameraController>();
 
-			_gameSystem = new GameSystem( _rootConfig, _viewFactory, _bulletViewFactory, _cameraController, _mouseAndKeyboardControl );
+			_gameSystem = new GameSystem( _rootConfig, _viewFactory, _bulletViewFactory, _asteroidPartsFactory, _cameraController, _mouseAndKeyboardControl );
 		}
 
 		private void Update()

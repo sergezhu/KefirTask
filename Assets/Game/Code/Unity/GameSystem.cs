@@ -18,6 +18,7 @@
 		private readonly RootConfig _rootConfig;
 		private readonly ViewFactory _viewFactory;
 		private readonly BulletViewFactory _bulletViewFactory;
+		private readonly AsteroidPartsFactory _asteroidPartsFactory;
 		private readonly CameraController _cameraController;
 		private readonly MouseAndKeyboardControl _mouseAndKeyboardControl;
 
@@ -29,12 +30,13 @@
 		private List<BaseModel> _tickableModels;
 
 
-		public GameSystem( RootConfig rootConfig, ViewFactory viewFactory, BulletViewFactory bulletViewFactory, CameraController cameraController,
-		                   MouseAndKeyboardControl mouseAndKeyboardControl )
+		public GameSystem( RootConfig rootConfig, ViewFactory viewFactory, BulletViewFactory bulletViewFactory, AsteroidPartsFactory asteroidPartsFactory,
+		                   CameraController cameraController, MouseAndKeyboardControl mouseAndKeyboardControl )
 		{
 			_rootConfig              = rootConfig;
 			_viewFactory             = viewFactory;
 			_bulletViewFactory       = bulletViewFactory;
+			_asteroidPartsFactory    = asteroidPartsFactory;
 			_cameraController        = cameraController;
 			_mouseAndKeyboardControl = mouseAndKeyboardControl;
 
