@@ -58,7 +58,8 @@
 
 		private void OnCollided( CollisionInfo info )
 		{
-			if ( info.OtherEntityType == EEntityType.Ship )
+			if ( info.OtherEntityType == EEntityType.Ship || 
+			     info.OtherEntityType == EEntityType.Bullet )
 			{
 				Destroy();
 			}

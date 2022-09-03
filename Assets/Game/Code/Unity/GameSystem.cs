@@ -46,6 +46,7 @@
 			SetupAsteroids();
 			
 			SubscribeOnDestroy();
+			SubscribeOnCreateParts();
 		}
 
 		public void Tick(float deltaTime)
@@ -78,6 +79,8 @@
 				var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
 				                           asteroidsConfig.RandomRotationSpeed );
 				var presenter = new AsteroidModel( asteroidView, mover, rotator, asteroidsConfig );
+				
+				mover.StartMove();
 
 				_tickableModels.Add( presenter );
 			} );
@@ -85,7 +88,15 @@
 
 		private void SubscribeOnDestroy()
 		{
-			_tickableModels.ForEach( p => { p.DestroyRequest += OnDestroyRequest; } );
+			_tickableModels.ForEach( model => { model.DestroyRequest += OnDestroyRequest; } );
+		}
+
+		private void SubscribeOnCreateParts()
+		{
+			_tickableModels
+				.OfType<AsteroidModel>()
+				.ToList()
+				.ForEach( model => { model.CreatePartsRequest += OnCreatePartsRequest; } );
 		}
 
 		private void OnDestroyRequest( DestroyInfo info )
@@ -96,6 +107,26 @@
 
 			p.DestroyRequest -= OnDestroyRequest;
 			_tickableModels.Remove( p );
+		}
+
+		private void OnCreatePartsRequest( SourceAsteroidData data )
+		{
+			var partViews       = _asteroidPartsFactory.Create( data );
+			var asteroidsConfig = _rootConfig.Asteroids;
+			
+			partViews
+				.ToList()
+				.ForEach( view =>
+				{
+					var mover = new Mover( view.Position.ToNumericsVector3(), view.Velocity.ToNumericsVector3(), 1 );
+					var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
+					                           asteroidsConfig.RandomRotationSpeed );
+					var presenter = new AsteroidPartModel( view, mover, rotator, asteroidsConfig );
+					
+					mover.StartMove();
+
+					_tickableModels.Add( presenter );
+				} );
 		}
 	}
 }

@@ -13,12 +13,12 @@
 	{
 		public event Action<DestroyInfo> Destroyed;
 
-		private readonly AsteroidView _view;
+		private readonly AsteroidPartView _view;
 		private readonly Mover _mover;
 		private readonly Rotator _rotator;
 		private readonly AsteroidsConfig _asteroidsConfig;
 
-		public AsteroidPartModel(AsteroidView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
+		public AsteroidPartModel(AsteroidPartView view, Mover mover, Rotator rotator, AsteroidsConfig asteroidsConfig)
 		{
 			_view            = view;
 			_mover           = mover;
@@ -42,7 +42,8 @@
 
 		private void OnCollided( CollisionInfo info )
 		{
-			if ( info.OtherEntityType == EEntityType.Ship )
+			if ( info.OtherEntityType == EEntityType.Ship || 
+			     info.OtherEntityType == EEntityType.Bullet )
 			{
 				Destroy();
 			}
