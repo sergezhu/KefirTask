@@ -26,6 +26,9 @@
 			_asteroidsConfig = asteroidsConfig;
 
 			SetupMover();
+			Subscribe();
+			
+			UpdateView();
 		}
 
 		private void Subscribe()
@@ -83,16 +86,15 @@
 			_mover.Tick( deltaTime );
 			_rotator.Tick( deltaTime );
 
+			UpdateView();
+		}
+
+		private void UpdateView()
+		{
 			_view.Position = _mover.Position.ToUnityVector3();
 			_view.Rotation = _rotator.CurrentRotation.ToUnityQuaternion();
 
 			_view.Velocity = _mover.Velocity.ToUnityVector3();
-		}
-
-		public void StartMoveAlongDirection( Vector3 dir )
-		{
-			_mover.SetDirection( dir.ToNumericsVector3() );
-			_mover.StartMove();
 		}
 
 		private void SetupMover()

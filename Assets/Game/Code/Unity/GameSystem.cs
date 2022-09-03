@@ -44,9 +44,6 @@
 			
 			SetupShip(); 
 			SetupAsteroids();
-			
-			SubscribeOnDestroy();
-			SubscribeOnCreateParts();
 		}
 
 		public void Tick(float deltaTime)
@@ -63,6 +60,8 @@
 			_shipModel = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig, _bulletViewFactory );
 
 			_tickableModels.Add( _shipModel );
+
+			_shipModel.DestroyRequest += OnDestroyRequest;
 		}
 
 		private void SetupAsteroids()
@@ -78,35 +77,15 @@
 				var mover        = new Mover( p.ToNumericsVector3(), 0, 1 );
 				var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
 				                           asteroidsConfig.RandomRotationSpeed );
-				var presenter = new AsteroidModel( asteroidView, mover, rotator, asteroidsConfig );
+				var model = new AsteroidModel( asteroidView, mover, rotator, asteroidsConfig );
 				
 				mover.StartMove();
 
-				_tickableModels.Add( presenter );
+				_tickableModels.Add( model );
+
+				model.CreatePartsRequest += OnCreatePartsRequest;
+				model.DestroyRequest     += OnDestroyRequest;
 			} );
-		}
-
-		private void SubscribeOnDestroy()
-		{
-			_tickableModels.ForEach( model => { model.DestroyRequest += OnDestroyRequest; } );
-		}
-
-		private void SubscribeOnCreateParts()
-		{
-			_tickableModels
-				.OfType<AsteroidModel>()
-				.ToList()
-				.ForEach( model => { model.CreatePartsRequest += OnCreatePartsRequest; } );
-		}
-
-		private void OnDestroyRequest( DestroyInfo info )
-		{
-			Debug.Log( $"Destroy {info.EntityType}" );
-
-			var p = info.Model;
-
-			p.DestroyRequest -= OnDestroyRequest;
-			_tickableModels.Remove( p );
 		}
 
 		private void OnCreatePartsRequest( SourceAsteroidData data )
@@ -121,12 +100,24 @@
 					var mover = new Mover( view.Position.ToNumericsVector3(), view.Velocity.ToNumericsVector3(), 1 );
 					var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
 					                           asteroidsConfig.RandomRotationSpeed );
-					var presenter = new AsteroidPartModel( view, mover, rotator, asteroidsConfig );
+					var model = new AsteroidPartModel( view, mover, rotator, asteroidsConfig );
 					
 					mover.StartMove();
 
-					_tickableModels.Add( presenter );
+					_tickableModels.Add( model );
+
+					model.DestroyRequest += OnDestroyRequest;
 				} );
+		}
+
+		private void OnDestroyRequest( DestroyInfo info )
+		{
+			Debug.Log( $"Destroy {info.EntityType}" );
+
+			var p = info.Model;
+
+			p.DestroyRequest -= OnDestroyRequest;
+			_tickableModels.Remove( p );
 		}
 	}
 }
