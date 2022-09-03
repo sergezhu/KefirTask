@@ -46,10 +46,11 @@
 
 			_tickableModels    = new List<BaseModel>();
 
-			_asteroidsSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Asteroids.SpawnDelay );
-			_enemiesSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Enemies.SpawnDelay );
+			SetupShip();
 			
-			SetupShip(); 
+			_asteroidsSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Asteroids.SpawnDelay, _shipMover );
+			_enemiesSpawnTimer   = new SpawnTimer( _cameraController, _rootConfig.Enemies.SpawnDelay, _shipMover );
+
 			SetupAsteroids();
 		}
 
@@ -67,14 +68,19 @@
 
 		private void SetupAsteroids()
 		{
-			var frustumPoints = _cameraController.GetFrustumPoints();
+			_asteroidsSpawnTimer.SpawnRequest += data =>
+			{
+				var model = SpawnAsteroid( data );
+				_tickableModels.Add( model );
+			};
+			
+			/*var frustumPoints = _cameraController.GetFrustumPoints();
 			var points        = new[] {frustumPoints.LeftBottom, frustumPoints.LeftTop, frustumPoints.RightTop, frustumPoints.RightBottom};
 
 			points.ToList().ForEach( p =>
 			{
-				var model = SpawnAsteroid( p );
-				_tickableModels.Add( model );
-			} );
+				
+			} );*/
 		}
 
 		private void SpawnHeroShip()
@@ -111,12 +117,12 @@
 			_tickableModels.Remove( p );
 		}
 
-		private AsteroidModel SpawnAsteroid( Vector3 position )
+		private AsteroidModel SpawnAsteroid( SpawnData data )
 		{
 			var asteroidsConfig = _rootConfig.Asteroids;
 			
 			var asteroidView = _viewFactory.Create( EEntityType.Asteroid ) as AsteroidView;
-			var mover = new Mover( position.ToNumericsVector3(), 0, 1 );
+			var mover = new Mover( data.Position.ToNumericsVector3(), data.Direction.ToNumericsVector3(), 1 );
 			var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
 			                           asteroidsConfig.RandomRotationSpeed );
 			var model = new AsteroidModel( asteroidView, mover, rotator, asteroidsConfig );

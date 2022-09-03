@@ -6,14 +6,9 @@
 	[CreateAssetMenu( fileName = "Asteroids", menuName = "Configs/Asteroids", order = (int) EConfig.Asteroids )]
 	public class AsteroidsConfig : ScriptableObject
 	{
-		//public float SafeRadiusAroundShip = 2;
 		public float SpawnDelay = 5;
 		public float StartAcceleration = 5;
 
-		[Space]
-		public float ScaleMin = 1;
-		public float ScaleMax = 2;
-		
 		[Space]
 		public int DestroyPartsMin = 3;
 		public int DestroyPartsMax = 5;
@@ -31,7 +26,6 @@
 		[Space]
 		public float RotationAcceleration = 5f;
 
-		public float RandomScale => Random.Range( ScaleMin, ScaleMax );
 		public float RandomSpeed => Random.Range( SpeedMin, SpeedMax );
 		public float RandomRotationSpeed => Random.Range( RotationSpeedMin, RotationSpeedMax );
 		public int RandomDestroyParts => Random.Range( DestroyPartsMin, DestroyPartsMax + 1 );
