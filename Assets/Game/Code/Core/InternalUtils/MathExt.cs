@@ -19,7 +19,7 @@
 
 		public static Vector3 Normalize( this Vector3 v )
 		{
-			var len = v.Length();
+			var len = v.Length() + float.Epsilon;
 			return new Vector3( v.X / len, v.Y / len, v.Z / len );
 		}
 	}

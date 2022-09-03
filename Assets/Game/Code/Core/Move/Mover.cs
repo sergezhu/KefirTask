@@ -161,6 +161,8 @@ namespace Game.Code.Core.Move
 
 		private float DirectionToAngle( Vector3 dir )
 		{
+			dir.Normalize();
+			
 			dir.Y = 0;
 
 			var d    = dir.Normalize();
