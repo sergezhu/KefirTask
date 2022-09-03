@@ -53,60 +53,43 @@
 
 		private void SetupShip()
 		{
+			SpawnHeroShip();
+			_tickableModels.Add( _shipModel );
+		}
+
+		private void SetupAsteroids()
+		{
+			var frustumPoints = _cameraController.GetFrustumPoints();
+			var points        = new[] {frustumPoints.LeftBottom, frustumPoints.LeftTop, frustumPoints.RightTop, frustumPoints.RightBottom};
+
+			points.ToList().ForEach( p =>
+			{
+				var model = SpawnAsteroid( p );
+				_tickableModels.Add( model );
+			} );
+		}
+
+		private void SpawnHeroShip()
+		{
 			var shipConfig = _rootConfig.Ship;
 
 			_shipView  = _viewFactory.Create( EEntityType.Ship ) as ShipView;
 			_shipMover = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
 			_shipModel = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig, _bulletViewFactory );
 
-			_tickableModels.Add( _shipModel );
-
 			_shipModel.DestroyRequest += OnDestroyRequest;
-		}
-
-		private void SetupAsteroids()
-		{
-			var asteroidsConfig = _rootConfig.Asteroids;
-
-			var frustumPoints = _cameraController.GetFrustumPoints();
-			var points        = new[] {frustumPoints.LeftBottom, frustumPoints.LeftTop, frustumPoints.RightTop, frustumPoints.RightBottom};
-
-			points.ToList().ForEach( p =>
-			{
-				var asteroidView = _viewFactory.Create( EEntityType.Asteroid ) as AsteroidView;
-				var mover        = new Mover( p.ToNumericsVector3(), 0, 1 );
-				var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
-				                           asteroidsConfig.RandomRotationSpeed );
-				var model = new AsteroidModel( asteroidView, mover, rotator, asteroidsConfig );
-				
-				mover.StartMove();
-
-				_tickableModels.Add( model );
-
-				model.CreatePartsRequest += OnCreatePartsRequest;
-				model.DestroyRequest     += OnDestroyRequest;
-			} );
 		}
 
 		private void OnCreatePartsRequest( SourceAsteroidData data )
 		{
-			var partViews       = _asteroidPartsFactory.Create( data );
-			var asteroidsConfig = _rootConfig.Asteroids;
+			var partViews = _asteroidPartsFactory.Create( data );
 			
 			partViews
 				.ToList()
 				.ForEach( view =>
 				{
-					var mover = new Mover( view.Position.ToNumericsVector3(), view.Velocity.ToNumericsVector3(), 1 );
-					var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
-					                           asteroidsConfig.RandomRotationSpeed );
-					var model = new AsteroidPartModel( view, mover, rotator, asteroidsConfig );
-					
-					mover.StartMove();
-
+					var model = SpawnAsteroidPart( view );
 					_tickableModels.Add( model );
-
-					model.DestroyRequest += OnDestroyRequest;
 				} );
 		}
 
@@ -118,6 +101,39 @@
 
 			p.DestroyRequest -= OnDestroyRequest;
 			_tickableModels.Remove( p );
+		}
+
+		private AsteroidModel SpawnAsteroid( Vector3 position )
+		{
+			var asteroidsConfig = _rootConfig.Asteroids;
+			
+			var asteroidView = _viewFactory.Create( EEntityType.Asteroid ) as AsteroidView;
+			var mover = new Mover( position.ToNumericsVector3(), 0, 1 );
+			var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
+			                           asteroidsConfig.RandomRotationSpeed );
+			var model = new AsteroidModel( asteroidView, mover, rotator, asteroidsConfig );
+
+			mover.StartMove();
+
+			model.CreatePartsRequest += OnCreatePartsRequest;
+			model.DestroyRequest     += OnDestroyRequest;
+			
+			return model;
+		}
+
+		private AsteroidPartModel SpawnAsteroidPart( AsteroidPartView sourceAsteroidView )
+		{
+			var asteroidsConfig = _rootConfig.Asteroids;
+			var mover = new Mover( sourceAsteroidView.Position.ToNumericsVector3(), sourceAsteroidView.Velocity.ToNumericsVector3(), 1 );
+			var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
+			                           asteroidsConfig.RandomRotationSpeed );
+			var model = new AsteroidPartModel( sourceAsteroidView, mover, rotator, asteroidsConfig );
+
+			mover.StartMove();
+
+			model.DestroyRequest += OnDestroyRequest;
+			
+			return model;
 		}
 	}
 }
