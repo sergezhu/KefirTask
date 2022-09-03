@@ -10,6 +10,7 @@
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Input;
 	using Game.Code.Unity.Ship;
+	using Game.Code.Unity.Spawn;
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
 
@@ -28,6 +29,9 @@
 		private Rotator _shipRotator;
 
 		private List<BaseModel> _tickableModels;
+		
+		private readonly SpawnTimer _asteroidsSpawnTimer;
+		private readonly SpawnTimer _enemiesSpawnTimer;
 
 
 		public GameSystem( RootConfig rootConfig, ViewFactory viewFactory, BulletViewFactory bulletViewFactory, AsteroidPartsFactory asteroidPartsFactory,
@@ -41,6 +45,9 @@
 			_mouseAndKeyboardControl = mouseAndKeyboardControl;
 
 			_tickableModels    = new List<BaseModel>();
+
+			_asteroidsSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Asteroids.SpawnDelay );
+			_enemiesSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Enemies.SpawnDelay );
 			
 			SetupShip(); 
 			SetupAsteroids();
@@ -49,6 +56,7 @@
 		public void Tick(float deltaTime)
 		{
 			_tickableModels.ForEach( t => t.Tick( deltaTime ) );
+			_asteroidsSpawnTimer.Tick( deltaTime );
 		}
 
 		private void SetupShip()

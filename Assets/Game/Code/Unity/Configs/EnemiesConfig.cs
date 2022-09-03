@@ -6,7 +6,8 @@
 	[CreateAssetMenu( fileName = "Enemies", menuName = "Configs/Enemies", order = (int) EConfig.Enemies )]
 	public class EnemiesConfig : ScriptableObject
 	{
-		public float SafeRadiusAroundShip = 2;
+		//public float SafeRadiusAroundShip = 2;
+		public float SpawnDelay = 5;
 		public float StartAcceleration = 5;
 
 		[Space]

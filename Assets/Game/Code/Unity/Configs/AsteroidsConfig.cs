@@ -6,7 +6,8 @@
 	[CreateAssetMenu( fileName = "Asteroids", menuName = "Configs/Asteroids", order = (int) EConfig.Asteroids )]
 	public class AsteroidsConfig : ScriptableObject
 	{
-		public float SafeRadiusAroundShip = 2;
+		//public float SafeRadiusAroundShip = 2;
+		public float SpawnDelay = 5;
 		public float StartAcceleration = 5;
 
 		[Space]
