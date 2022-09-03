@@ -6,10 +6,11 @@
 	using UnityEngine;
 
 	[RequireComponent(typeof(Collider))]
-	public abstract class BaseView : MonoBehaviour, ITransformableView, ICollidedView
+	public abstract class BaseView : MonoBehaviour, ITransformableView, ICollidedView, ILaserDamageableView
 	{
 		public event Action<CollisionInfo> Collided;
-		
+		public event Action LaserHit;
+
 		public Vector3 Position
 		{
 			get => transform.position; 
@@ -23,7 +24,9 @@
 		}
 
 		public Vector3 Velocity { get; set; }
+
 		public Collider[] Colliders { get; private set; }
+
 		public abstract EEntityType Type { get; }
 
 		private void Awake()
@@ -34,6 +37,11 @@
 		private void OnTriggerEnter( Collider other )
 		{
 			OnTriggerEnterInternal( other );
+		}
+
+		public void ApplyLaserDamage()
+		{
+			LaserHit?.Invoke();
 		}
 
 		public void Destroy()

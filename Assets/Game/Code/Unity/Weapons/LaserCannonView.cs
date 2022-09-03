@@ -1,6 +1,5 @@
 ﻿namespace Game.Code.Unity.Weapons
 {
-	using System;
 	using System.Collections;
 	using UnityEngine;
 

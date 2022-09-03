@@ -47,28 +47,40 @@
 		private void Subscribe()
 		{
 			_view.Collided += OnCollided;
+			_view.LaserHit += OnLaserHit;
 		}
 
 		private void Unsubscribe()
 		{
 			_view.Collided -= OnCollided;
+			_view.LaserHit -= OnLaserHit;
 		}
 
 		private void OnCollided( CollisionInfo info )
 		{
 			if ( info.OtherEntityType == EEntityType.Ship )
 			{
-				Unsubscribe();
-				
-				_view.Destroy();
-				_mover.OnDestroy();
-
-				InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
+				Destroy();
 			}
 			else
 			{
 				ChangeDirectionWhenCollision( info.OtherVelocity );
 			}
+		}
+
+		private void OnLaserHit()
+		{
+			Destroy();
+		}
+
+		private void Destroy()
+		{
+			Unsubscribe();
+
+			_view.Destroy();
+			_mover.OnDestroy();
+
+			InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
 		}
 
 		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )
