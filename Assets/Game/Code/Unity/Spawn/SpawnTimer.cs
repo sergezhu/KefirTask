@@ -32,7 +32,7 @@
 			SetupAreas();
 		}
 
-		public void Tick( float deltaTime )
+		public void Tick()
 		{
 			var time = Time.time;
 

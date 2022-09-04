@@ -6,17 +6,22 @@
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
+	using Game.Code.Unity.Ship;
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
 
 	public class EnemyModel : BaseModel
 	{
+		private const float DistanceThreshold = 0.2f;
+		
 		private readonly EnemyView _view;
 		private readonly Mover _mover;
-		private readonly Mover _hero;
+		private readonly HeroFacade _hero;
 		private readonly EnemiesConfig _enemiesConfig;
 
-		public EnemyModel(EnemyView view, Mover mover, Mover hero, EnemiesConfig enemiesConfig)
+		private bool _isHeroDead;
+
+		public EnemyModel(EnemyView view, Mover mover, HeroFacade hero, EnemiesConfig enemiesConfig)
 		{
 			_view          = view;
 			_mover         = mover;
@@ -25,35 +30,32 @@
 
 			SetupMover();
 			Subscribe();
+			
+			UpdateView();
 		}
 
 		public override void Tick( float deltaTime )
 		{
-			SetToHeroDirection();
+			if(_isHeroDead == false)
+				SetToHeroDirection();
 			
 			_mover.Tick( deltaTime );
 
-			_view.Position = _mover.Position.ToUnityVector3();
-			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
-
-			_view.Velocity = _mover.Velocity.ToUnityVector3();
-		}
-
-		public void StartMove( Vector3 dir )
-		{
-			_mover.StartMove();
+			UpdateView();
 		}
 
 		private void Subscribe()
 		{
 			_view.Collided += OnCollided;
 			_view.LaserHit += OnLaserHit;
+			_hero.Dead     += OnHeroDead;
 		}
 
 		private void Unsubscribe()
 		{
 			_view.Collided -= OnCollided;
 			_view.LaserHit -= OnLaserHit;
+			_hero.Dead     -= OnHeroDead;
 		}
 
 		private void OnCollided( CollisionInfo info )
@@ -63,15 +65,17 @@
 			{
 				Destroy();
 			}
-			else
-			{
-				ChangeDirectionWhenCollision( info.OtherVelocity );
-			}
 		}
 
 		private void OnLaserHit()
 		{
 			Destroy();
+		}
+		
+		private void OnHeroDead()
+		{
+			_isHeroDead = true;
+			_mover.EndMove();
 		}
 
 		private void Destroy()
@@ -82,6 +86,14 @@
 			_mover.OnDestroy();
 
 			InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
+		}
+
+		private void UpdateView()
+		{
+			_view.Position = _mover.Position.ToUnityVector3();
+			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
+
+			_view.Velocity = _mover.Velocity.ToUnityVector3();
 		}
 
 		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )
@@ -96,17 +108,27 @@
 
 		private void SetToHeroDirection()
 		{
-			var vector = (_hero.Position - _mover.Position).ToUnityVector3();
-			vector.y = 0;
-			vector = vector.normalized;
-			
-			SetDirection( vector );
+			var vector = _hero.Position - _mover.Position.ToUnityVector3();
+
+			if ( vector.magnitude < DistanceThreshold )
+			{
+				_mover.EndMove();
+			}
+			else
+			{
+				_mover.StartMove();
+
+				vector.y = 0;
+				vector   = vector.normalized;
+
+				SetDirection( vector );
+			}
 		}
 
 		private void SetupMover()
 		{
-			_mover.Acceleration         = _enemiesConfig.StartAcceleration;
-			_mover.Deceleration         = 0;
+			_mover.Acceleration         = _enemiesConfig.Acceleration;
+			_mover.Deceleration         = _enemiesConfig.Acceleration;
 			_mover.RotationAcceleration = _enemiesConfig.RotationAcceleration;
 			_mover.RotationDeceleration = _enemiesConfig.RotationAcceleration;
 			_mover.MaxSpeed             = _enemiesConfig.RandomSpeed;

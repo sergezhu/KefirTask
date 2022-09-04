@@ -21,6 +21,9 @@
 		private BulletCannon _bulletCannonModel;
 		private LaserCannon _laserCannonModel;
 
+		public Vector3 Position => _mover.Position.ToUnityVector3();
+		public Vector3 Velocity => _mover.Velocity.ToUnityVector3();
+
 		public ShipModel(ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig, BulletViewFactory bulletViewFactory)
 		{
 			_view              = view;

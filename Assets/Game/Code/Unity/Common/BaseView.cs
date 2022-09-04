@@ -1,6 +1,7 @@
 ﻿namespace Game.Code.Unity.Common
 {
 	using System;
+	using System.Collections;
 	using Game.Code.Unity.Collisions;
 	using Game.Code.Unity.Enums;
 	using UnityEngine;
@@ -46,7 +47,13 @@
 
 		public void Destroy()
 		{
-			Destroy(gameObject);
+			StartCoroutine( DestroyAnNextFrame() );
+		}
+
+		IEnumerator DestroyAnNextFrame()
+		{
+			yield return null;
+			Destroy( gameObject );
 		}
 
 		private void OnTriggerEnterInternal( Collider other )

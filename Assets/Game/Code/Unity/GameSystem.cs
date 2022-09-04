@@ -7,6 +7,7 @@
 	using Game.Code.Unity.Camera;
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Configs;
+	using Game.Code.Unity.Enemies;
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Input;
 	using Game.Code.Unity.Ship;
@@ -27,15 +28,16 @@
 		private ShipModel _shipModel;
 		private ShipView _shipView;
 		private Rotator _shipRotator;
+		private HeroFacade _heroFacade;
 
 		private List<BaseModel> _tickableModels;
-		
+
 		private readonly SpawnTimer _asteroidsSpawnTimer;
 		private readonly SpawnTimer _enemiesSpawnTimer;
 
 
 		public GameSystem( RootConfig rootConfig, ViewFactory viewFactory, BulletViewFactory bulletViewFactory, AsteroidPartsFactory asteroidPartsFactory,
-		                   CameraController cameraController, MouseAndKeyboardControl mouseAndKeyboardControl )
+						   CameraController cameraController, MouseAndKeyboardControl mouseAndKeyboardControl )
 		{
 			_rootConfig              = rootConfig;
 			_viewFactory             = viewFactory;
@@ -44,20 +46,22 @@
 			_cameraController        = cameraController;
 			_mouseAndKeyboardControl = mouseAndKeyboardControl;
 
-			_tickableModels    = new List<BaseModel>();
+			_tickableModels = new List<BaseModel>();
 
 			SetupShip();
 			
 			_asteroidsSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Asteroids.SpawnDelay, _shipMover );
-			_enemiesSpawnTimer   = new SpawnTimer( _cameraController, _rootConfig.Enemies.SpawnDelay, _shipMover );
+			_enemiesSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Enemies.SpawnDelay, _shipMover );
 
 			SetupAsteroids();
+			SetupEnemies();
 		}
 
 		public void Tick(float deltaTime)
 		{
 			_tickableModels.ForEach( t => t.Tick( deltaTime ) );
-			_asteroidsSpawnTimer.Tick( deltaTime );
+			_asteroidsSpawnTimer.Tick();
+			_enemiesSpawnTimer.Tick();
 		}
 
 		private void SetupShip()
@@ -73,25 +77,75 @@
 				var model = SpawnAsteroid( data );
 				_tickableModels.Add( model );
 			};
-			
-			/*var frustumPoints = _cameraController.GetFrustumPoints();
-			var points        = new[] {frustumPoints.LeftBottom, frustumPoints.LeftTop, frustumPoints.RightTop, frustumPoints.RightBottom};
+		}
 
-			points.ToList().ForEach( p =>
+		private void SetupEnemies()
+		{
+			_enemiesSpawnTimer.SpawnRequest += data =>
 			{
-				
-			} );*/
+				var model = SpawnEnemy( data );
+				_tickableModels.Add( model );
+			};
 		}
 
 		private void SpawnHeroShip()
 		{
 			var shipConfig = _rootConfig.Ship;
 
-			_shipView  = _viewFactory.Create( EEntityType.Ship ) as ShipView;
-			_shipMover = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
-			_shipModel = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig, _bulletViewFactory );
+			_shipView   = _viewFactory.Create( EEntityType.Ship ) as ShipView;
+			_shipMover  = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
+			_shipModel  = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig, _bulletViewFactory );
+			_heroFacade = new HeroFacade( _shipModel );
 
 			_shipModel.DestroyRequest += OnDestroyRequest;
+		}
+
+		private AsteroidModel SpawnAsteroid( SpawnData data )
+		{
+			var asteroidsConfig = _rootConfig.Asteroids;
+			
+			var asteroidView = _viewFactory.Create( EEntityType.Asteroid ) as AsteroidView;
+			var mover = new Mover( data.Position.ToNumericsVector3(), data.Direction.ToNumericsVector3(), 1 );
+			var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
+			                           asteroidsConfig.RandomRotationSpeed );
+			var model = new AsteroidModel( asteroidView, mover, rotator, asteroidsConfig );
+
+			mover.StartMove();
+
+			model.CreatePartsRequest += OnCreatePartsRequest;
+			model.DestroyRequest += OnDestroyRequest;
+			
+			return model;
+		}
+
+		private AsteroidPartModel SpawnAsteroidPart( AsteroidPartView sourceAsteroidView )
+		{
+			var asteroidsConfig = _rootConfig.Asteroids;
+			var mover = new Mover( sourceAsteroidView.Position.ToNumericsVector3(), sourceAsteroidView.Velocity.ToNumericsVector3(), 1 );
+			var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
+			                           asteroidsConfig.RandomRotationSpeed );
+			var model = new AsteroidPartModel( sourceAsteroidView, mover, rotator, asteroidsConfig );
+
+			mover.StartMove();
+
+			model.DestroyRequest += OnDestroyRequest;
+			
+			return model;
+		}
+
+		private EnemyModel SpawnEnemy( SpawnData data )
+		{
+			var enemiesConfig = _rootConfig.Enemies;
+			
+			var enemyView = _viewFactory.Create( EEntityType.Enemy ) as EnemyView;
+			var mover = new Mover( data.Position.ToNumericsVector3(), data.Direction.ToNumericsVector3(), enemiesConfig.SmoothDirection );
+			var model = new EnemyModel( enemyView, mover, _heroFacade, enemiesConfig );
+
+			mover.StartMove();
+
+			model.DestroyRequest += OnDestroyRequest;
+
+			return model;
 		}
 
 		private void OnCreatePartsRequest( SourceAsteroidData data )
@@ -115,39 +169,6 @@
 
 			p.DestroyRequest -= OnDestroyRequest;
 			_tickableModels.Remove( p );
-		}
-
-		private AsteroidModel SpawnAsteroid( SpawnData data )
-		{
-			var asteroidsConfig = _rootConfig.Asteroids;
-			
-			var asteroidView = _viewFactory.Create( EEntityType.Asteroid ) as AsteroidView;
-			var mover = new Mover( data.Position.ToNumericsVector3(), data.Direction.ToNumericsVector3(), 1 );
-			var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
-			                           asteroidsConfig.RandomRotationSpeed );
-			var model = new AsteroidModel( asteroidView, mover, rotator, asteroidsConfig );
-
-			mover.StartMove();
-
-			model.CreatePartsRequest += OnCreatePartsRequest;
-			model.DestroyRequest     += OnDestroyRequest;
-			
-			return model;
-		}
-
-		private AsteroidPartModel SpawnAsteroidPart( AsteroidPartView sourceAsteroidView )
-		{
-			var asteroidsConfig = _rootConfig.Asteroids;
-			var mover = new Mover( sourceAsteroidView.Position.ToNumericsVector3(), sourceAsteroidView.Velocity.ToNumericsVector3(), 1 );
-			var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
-			                           asteroidsConfig.RandomRotationSpeed );
-			var model = new AsteroidPartModel( sourceAsteroidView, mover, rotator, asteroidsConfig );
-
-			mover.StartMove();
-
-			model.DestroyRequest += OnDestroyRequest;
-			
-			return model;
 		}
 	}
 }

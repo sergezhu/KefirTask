@@ -5,6 +5,6 @@
 
 	public class EnemyView : BaseView
 	{
-		public override EEntityType Type => EEntityType.Asteroid;
+		public override EEntityType Type => EEntityType.Enemy;
 	}
 }

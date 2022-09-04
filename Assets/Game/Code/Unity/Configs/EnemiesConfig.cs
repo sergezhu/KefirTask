@@ -8,7 +8,9 @@
 	{
 		//public float SafeRadiusAroundShip = 2;
 		public float SpawnDelay = 5;
-		public float StartAcceleration = 5;
+		public float Acceleration = 5;
+		[Range( 0, 1 )]
+		public float SmoothDirection;
 
 		[Space]
 		public float ScaleMin = 1;
