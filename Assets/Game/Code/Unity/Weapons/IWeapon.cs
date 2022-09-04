@@ -3,7 +3,7 @@
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Enums;
 
-	public interface IWeapon
+	public interface IWeapon : ITickable
 	{
 		EWeapon Type { get; }
 		void Shot();

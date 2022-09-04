@@ -46,6 +46,7 @@
 			_view.Velocity = _mover.Velocity.ToUnityVector3();
 			
 			_bulletCannonModel.Tick( deltaTime );
+			_laserCannonModel.Tick( deltaTime );
 		}
 
 		private void SetupMover()

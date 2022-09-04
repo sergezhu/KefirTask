@@ -27,6 +27,7 @@
 		public float LaserLength;
 		public float LaserThickness;
 		public float LaserShotDuration;
-		public float LaserCallDelay;
+		public int LaserCharges = 3;
+		public float LaserRecallDelay;
 	}
 }

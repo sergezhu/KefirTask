@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d9a88716fc54c1a9d2aa524f9804ffd, type: 3}
   m_Name: Asteroids
   m_EditorClassIdentifier: 
-  SpawnDelay: 1
+  SpawnDelay: 2
   StartAcceleration: 5
   DestroyPartsMin: 3
   DestroyPartsMax: 5

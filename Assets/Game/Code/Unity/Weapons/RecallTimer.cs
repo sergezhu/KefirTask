@@ -15,6 +15,9 @@
 		public RecallTimer( float recallDelay )
 		{
 			_recallDelay = recallDelay;
+
+			if ( _recallDelay < float.Epsilon )
+				throw new InvalidOperationException( "RecallTimer must have delay greater than 0" );
 		}
 
 		public void Tick( float deltaTime )

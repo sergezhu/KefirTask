@@ -13,7 +13,7 @@
 			get => _value;
 			set 
 			{
-				if ( _value.Equals(value) )
+				if ( _value.Equals(value) == false )
 				{
 					_value = value;
 					Changed?.Invoke( _value );

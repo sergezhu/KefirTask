@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7672bcb158640f5910649d7f88737b3, type: 3}
   m_Name: Enemies
   m_EditorClassIdentifier: 
-  SafeRadiusAroundShip: 2
-  StartAcceleration: 5
+  SpawnDelay: 2.5
+  Acceleration: 5
+  SmoothDirection: 0.01
   ScaleMin: 1
   ScaleMax: 2
-  DestroyPartsMin: 3
-  DestroyPartsMax: 5
   SpeedMin: 0.1
   SpeedMax: 2
   RotationSpeedMin: 0.25
   RotationSpeedMax: 2.25
+  RotationAcceleration: 5
