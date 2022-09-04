@@ -11,7 +11,7 @@
 	{
 		public event Action<SpawnData> SpawnRequest;
 
-		private const float SpawnZoneWidth = 5;
+		private const float SpawnZoneWidth = 2;
 		private const float DirectionSector = 90;
 		
 		private readonly CameraController _cameraController;

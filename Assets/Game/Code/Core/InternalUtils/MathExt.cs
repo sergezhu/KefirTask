@@ -11,15 +11,18 @@
 		public static float Abs( float f ) => Math.Abs( f );
 		public static float Sign( float f ) => Math.Sign( f );
 		public static float Sin( float radians ) => (float) Math.Sin( radians );
-		public static float Asin( float radians ) => (float) Math.Asin( radians );
+		public static float Asin( float value ) => (float) Math.Asin( value );
 		public static float Cos( float radians ) => (float) Math.Cos( radians );
-		public static float Acos( float radians ) => (float) Math.Acos( radians );
+		public static float Acos( float value ) => (float) Math.Acos( value );
 		public static float Lerp( float a, float b, float t ) => a + (b - a) * t;
 		public static float LerpAngle( float a, float b, float t )
 		{
-			float num = Repeat( b - a, 360f );
-			if ( num > 180.0 )
-				num -= 360f;
+			//var length = 360f;
+			var length = 2f * PI;
+			
+			float num = Repeat( b - a, length );
+			if ( num > 0.5f * length )
+				num -= length;
 			
 			return a + num * Clamp( t, 0, 1f );
 		}

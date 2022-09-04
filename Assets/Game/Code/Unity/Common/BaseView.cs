@@ -68,7 +68,7 @@
 
 				Collided?.Invoke( info );
 
-				Debug.Log( $"{this.name} -- collided with -- {view.name}" );
+				//Debug.Log( $"{this.name} -- collided with -- {view.name}" );
 			}
 		}
 	}
