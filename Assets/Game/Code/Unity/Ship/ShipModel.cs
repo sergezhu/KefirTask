@@ -17,20 +17,23 @@
 		private readonly Mover _mover;
 		private readonly ShipConfig _shipConfig;
 		private readonly BulletViewFactory _bulletViewFactory;
-		
+		private readonly BulletSystem _bulletSystem;
+
 		private BulletCannon _bulletCannonModel;
 		private LaserCannon _laserCannonModel;
 
 		public Vector3 Position => _mover.Position.ToUnityVector3();
 		public Vector3 Velocity => _mover.Velocity.ToUnityVector3();
 
-		public ShipModel(ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig, BulletViewFactory bulletViewFactory)
+		public ShipModel( ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig, BulletViewFactory bulletViewFactory,
+						  BulletSystem bulletSystem )
 		{
 			_view              = view;
 			_control           = control;
 			_mover             = mover;
 			_shipConfig        = shipConfig;
 			_bulletViewFactory = bulletViewFactory;
+			_bulletSystem      = bulletSystem;
 
 			SetupMover();
 			SetupWeapons();
@@ -61,7 +64,7 @@
 
 		private void SetupWeapons()
 		{
-			_bulletCannonModel = new BulletCannon( _view.BulletCannonView, _bulletViewFactory, _shipConfig );
+			_bulletCannonModel = new BulletCannon( _view.BulletCannonView, _bulletViewFactory, _shipConfig, _bulletSystem );
 			_laserCannonModel = new LaserCannon( _view.LaserCannonView, _shipConfig );
 		}
 

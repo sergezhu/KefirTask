@@ -13,16 +13,14 @@
 		private readonly BulletCannonView _view;
 		private readonly BulletViewFactory _bulletViewFactory;
 		private readonly ShipConfig _shipConfig;
+		private readonly BulletSystem _bulletSystem;
 
-		private List<BulletModel> _bullets;
-
-		public BulletCannon(BulletCannonView view, BulletViewFactory bulletViewFactory, ShipConfig shipConfig)
+		public BulletCannon( BulletCannonView view, BulletViewFactory bulletViewFactory, ShipConfig shipConfig, BulletSystem bulletSystem )
 		{
-			_view				= view;
-			_bulletViewFactory	= bulletViewFactory;
-			_shipConfig			= shipConfig;
-
-			_bullets = new List<BulletModel>();
+			_view              = view;
+			_bulletViewFactory = bulletViewFactory;
+			_shipConfig        = shipConfig;
+			_bulletSystem      = bulletSystem;
 		}
 
 		public EWeapon Type => EWeapon.BulletCannon;
@@ -36,7 +34,7 @@
 			var mover          = new Mover( bulletStartPos, bulletStartDir, 1 );
 			var bullet         = new BulletModel( view, mover, _shipConfig );
 			
-			_bullets.Add( bullet );
+			_bulletSystem.Add( bullet );
 			bullet.StartMove();
 			
 			bullet.DestroyRequest += OnDestroyRequest;
@@ -44,7 +42,6 @@
 
 		public void Tick( float deltaTime )
 		{
-			_bullets.ForEach( b => b.Tick( deltaTime ) );
 		}
 
 		private void OnDestroyRequest( DestroyInfo info )
@@ -52,7 +49,7 @@
 			if ( info.Model is BulletModel bullet )
 			{
 				bullet.DestroyRequest -= OnDestroyRequest;
-				_bullets.Remove( bullet );
+				_bulletSystem.Remove( bullet );
 			}
 			else
 				throw new InvalidOperationException( $"You try handle not an bullet" );

@@ -13,6 +13,7 @@
 	using Game.Code.Unity.Ship;
 	using Game.Code.Unity.Spawn;
 	using Game.Code.Unity.Utils;
+	using Game.Code.Unity.Weapons;
 	using UnityEngine;
 
 	public class GameSystem
@@ -28,6 +29,7 @@
 		private ShipModel _shipModel;
 		private ShipView _shipView;
 		private Rotator _shipRotator;
+		private BulletSystem _shipBulletSystem;
 		private HeroFacade _heroFacade;
 
 		private List<BaseModel> _tickableModels;
@@ -62,6 +64,7 @@
 			_tickableModels.ForEach( t => t.Tick( deltaTime ) );
 			_asteroidsSpawnTimer.Tick();
 			_enemiesSpawnTimer.Tick();
+			_shipBulletSystem.Tick( deltaTime );
 		}
 
 		private void SetupShip()
@@ -92,10 +95,11 @@
 		{
 			var shipConfig = _rootConfig.Ship;
 
-			_shipView   = _viewFactory.Create( EEntityType.Ship ) as ShipView;
-			_shipMover  = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
-			_shipModel  = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig, _bulletViewFactory );
-			_heroFacade = new HeroFacade( _shipModel );
+			_shipView         = _viewFactory.Create( EEntityType.Ship ) as ShipView;
+			_shipMover        = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
+			_shipBulletSystem = new BulletSystem();
+			_shipModel        = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig, _bulletViewFactory, _shipBulletSystem );
+			_heroFacade       = new HeroFacade( _shipModel );
 
 			_shipModel.DestroyRequest += OnDestroyRequest;
 		}
