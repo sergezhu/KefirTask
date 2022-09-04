@@ -1,8 +1,7 @@
 ﻿namespace Game.Code.Core.InternalUtils
 {
 	using System;
-	using UnityEngine;
-	using Vector3 = System.Numerics.Vector3;
+	using System.Numerics;
 
 	public static class MathExt
 	{

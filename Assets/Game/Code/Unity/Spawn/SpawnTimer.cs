@@ -1,8 +1,8 @@
 ﻿namespace Game.Code.Unity.Spawn
 {
 	using System;
-	using Game.Code.Core.Move;
 	using Game.Code.Unity.Camera;
+	using Game.Code.Unity.Ship;
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
 	using Random = UnityEngine.Random;
@@ -15,25 +15,31 @@
 		private const float DirectionSector = 90;
 		
 		private readonly CameraController _cameraController;
-		private readonly Mover _heroMover;
+		private readonly HeroFacade _hero;
 		private readonly float _delay;
 
 		private Rect[] _areas;
 		private float _startTime;
 		private float _endTime;
+		private bool _isHeroDead;
 
-		public SpawnTimer(CameraController cameraController, float delay, Mover heroMover)
+		public SpawnTimer(CameraController cameraController, float delay, HeroFacade hero)
 		{
 			_cameraController = cameraController;
 			_delay            = delay;
-			_heroMover        = heroMover;
+			_hero             = hero;
 
 			ResetTimer();
 			SetupAreas();
+			
+			Subscribe();
 		}
 
 		public void Tick()
 		{
+			if(_isHeroDead)
+				return;
+			
 			var time = Time.time;
 
 			if ( time < _endTime )
@@ -46,6 +52,16 @@
 			SpawnRequest?.Invoke( data );
 			
 			ResetTimer();
+		}
+
+		private void Subscribe()
+		{
+			_hero.Dead     += OnHeroDead;
+		}
+
+		private void OnHeroDead()
+		{
+			_isHeroDead = true;
 		}
 
 		private void ResetTimer()
@@ -79,7 +95,7 @@
 
 		private Vector3 GetRandomDirection(Vector3 origin)
 		{
-			var dir  = _heroMover.Position.ToUnityVector3() - origin;
+			var dir  = _hero.Position - origin;
 			var q1   = Quaternion.Euler( 0, 0.5f * DirectionSector, 0 );
 			var q2   = Quaternion.Euler( 0, -0.5f * DirectionSector, 0 );
 			var dir1 = q1 * dir;

@@ -50,8 +50,8 @@
 
 			SetupShip();
 			
-			_asteroidsSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Asteroids.SpawnDelay, _shipMover );
-			_enemiesSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Enemies.SpawnDelay, _shipMover );
+			_asteroidsSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Asteroids.SpawnDelay, _heroFacade );
+			_enemiesSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Enemies.SpawnDelay, _heroFacade );
 
 			SetupAsteroids();
 			SetupEnemies();

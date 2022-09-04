@@ -1,6 +1,5 @@
 ﻿namespace Game.Code.Unity.Enemies
 {
-	using System;
 	using Game.Code.Core.Move;
 	using Game.Code.Unity.Collisions;
 	using Game.Code.Unity.Common;
@@ -91,7 +90,7 @@
 		private void UpdateView()
 		{
 			_view.Position = _mover.Position.ToUnityVector3();
-			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
+			_view.Rotation = Quaternion.Euler( 0, _mover.CurrentDirectionAngle * Mathf.Rad2Deg, 0 );
 
 			_view.Velocity = _mover.Velocity.ToUnityVector3();
 		}
