@@ -24,7 +24,7 @@ namespace Game.Code.Core.Move
 		public float RotationDeceleration { get; set; }
 		public float MaxSpeed { get; set; }
 		public float MaxRotationSpeed { get; set; }
-		public Vector3 Position { get; private set; }
+		public Vector3 Position { get; set; }
 		public float DesiredDirectionAngle { get; private set; }
 		public float CurrentDirectionAngle { get; private set; }
 		

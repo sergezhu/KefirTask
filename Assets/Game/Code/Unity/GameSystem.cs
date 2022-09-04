@@ -36,6 +36,7 @@
 
 		private readonly SpawnTimer _asteroidsSpawnTimer;
 		private readonly SpawnTimer _enemiesSpawnTimer;
+		private readonly ScreenPortal _screenPortal;
 
 
 		public GameSystem( RootConfig rootConfig, ViewFactory viewFactory, BulletViewFactory bulletViewFactory, AsteroidPartsFactory asteroidPartsFactory,
@@ -49,6 +50,8 @@
 			_mouseAndKeyboardControl = mouseAndKeyboardControl;
 
 			_tickableModels = new List<BaseModel>();
+
+			_screenPortal = new ScreenPortal( _cameraController );
 
 			SetupShip();
 			
@@ -98,7 +101,7 @@
 			_shipView         = _viewFactory.Create( EEntityType.Ship ) as ShipView;
 			_shipMover        = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
 			_shipBulletSystem = new BulletSystem();
-			_shipModel        = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig, _bulletViewFactory, _shipBulletSystem );
+			_shipModel        = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig, _bulletViewFactory, _shipBulletSystem, _screenPortal );
 			_heroFacade       = new HeroFacade( _shipModel );
 
 			_shipModel.DestroyRequest += OnDestroyRequest;

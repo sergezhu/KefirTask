@@ -18,6 +18,7 @@
 		private readonly ShipConfig _shipConfig;
 		private readonly BulletViewFactory _bulletViewFactory;
 		private readonly BulletSystem _bulletSystem;
+		private readonly ScreenPortal _screenPortal;
 
 		private BulletCannon _bulletCannonModel;
 		private LaserCannon _laserCannonModel;
@@ -26,7 +27,7 @@
 		public Vector3 Velocity => _mover.Velocity.ToUnityVector3();
 
 		public ShipModel( ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig, BulletViewFactory bulletViewFactory,
-						  BulletSystem bulletSystem )
+						  BulletSystem bulletSystem, ScreenPortal screenPortal )
 		{
 			_view              = view;
 			_control           = control;
@@ -34,6 +35,7 @@
 			_shipConfig        = shipConfig;
 			_bulletViewFactory = bulletViewFactory;
 			_bulletSystem      = bulletSystem;
+			_screenPortal      = screenPortal;
 
 			SetupMover();
 			SetupWeapons();
@@ -44,12 +46,20 @@
 		{
 			_mover.Tick( deltaTime );
 
+			CheckScreenPortal();
+
 			_view.Position = _mover.Position.ToUnityVector3();
 			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
 			_view.Velocity = _mover.Velocity.ToUnityVector3();
 			
 			_bulletCannonModel.Tick( deltaTime );
 			_laserCannonModel.Tick( deltaTime );
+		}
+
+		private void CheckScreenPortal()
+		{
+			var checkedPos = _screenPortal.RecalculatePosition( _mover.Position.ToUnityVector3() );
+			_mover.Position = checkedPos.ToNumericsVector3();
 		}
 
 		private void SetupMover()

@@ -6,29 +6,18 @@
 	[CreateAssetMenu( fileName = "Enemies", menuName = "Configs/Enemies", order = (int) EConfig.Enemies )]
 	public class EnemiesConfig : ScriptableObject
 	{
-		//public float SafeRadiusAroundShip = 2;
 		public float SpawnDelay = 5;
 		public float Acceleration = 5;
 		[Range( 0, 1 )]
 		public float SmoothDirection;
 
 		[Space]
-		public float ScaleMin = 1;
-		public float ScaleMax = 2;
-
-		[Space]
 		public float SpeedMin = 0.1f;
 		public float SpeedMax = 2;
 		
 		[Space]
-		public float RotationSpeedMin = 0.25f;
-		public float RotationSpeedMax = 2.25f;
-
-		[Space]
 		public float RotationAcceleration = 5f;
 
-		public float RandomScale => Random.Range( ScaleMin, ScaleMax );
 		public float RandomSpeed => Random.Range( SpeedMin, SpeedMax );
-		public float RandomRotationSpeed => Random.Range( RotationSpeedMin, RotationSpeedMax );
 	}
 }
