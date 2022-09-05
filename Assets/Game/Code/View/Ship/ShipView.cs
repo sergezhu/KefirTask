@@ -1,8 +1,8 @@
-﻿namespace Game.Code.Core.Ship
+﻿namespace Game.Code.View.Ship
 {
-	using Game.Code.Core.Common;
-	using Game.Code.Core.Enums;
-	using Game.Code.Core.Weapons;
+	using Game.Code.Common.Enums;
+	using Game.Code.View.Common;
+	using Game.Code.View.Weapons;
 	using UnityEngine;
 
 	public class ShipView : BaseView

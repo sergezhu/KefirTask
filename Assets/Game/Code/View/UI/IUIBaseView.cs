@@ -1,4 +1,4 @@
-﻿namespace Game.Code.Core.UI
+﻿namespace Game.Code.View.UI
 {
 	using UnityEngine;
 

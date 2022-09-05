@@ -1,7 +1,7 @@
-﻿namespace Game.Code.Core.UI
+﻿namespace Game.Code.View.UI
 {
 	using System.Collections.Generic;
-	using Game.Code.Core.Utils;
+	using Game.Code.Common.Utils;
 	using TMPro;
 	using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿namespace Game.Code.Core.Utils
+﻿namespace Game.Code.Common.Utils
 {
 	using System;
 	using System.Collections.Generic;

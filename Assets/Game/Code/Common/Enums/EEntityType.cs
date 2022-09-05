@@ -1,4 +1,4 @@
-﻿namespace Game.Code.Core.Enums
+﻿namespace Game.Code.Common.Enums
 {
 	public enum EEntityType
 	{

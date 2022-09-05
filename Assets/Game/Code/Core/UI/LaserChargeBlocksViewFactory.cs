@@ -1,6 +1,7 @@
 ﻿namespace Game.Code.Core.UI
 {
-	using Game.Code.Core.Enums;
+	using Game.Code.Common.Enums;
+	using Game.Code.View.UI;
 
 	public class LaserChargeBlocksViewFactory
 	{

@@ -1,14 +1,15 @@
 ﻿namespace Game.Code.Core.Ship
 {
 	using System.Collections.Generic;
-	using Game.Code.Core.Collisions;
+	using Game.Code.Common;
+	using Game.Code.Common.Enums;
 	using Game.Code.Core.Common;
 	using Game.Code.Core.Configs;
-	using Game.Code.Core.Enums;
 	using Game.Code.Core.Input;
 	using Game.Code.Core.Move;
 	using Game.Code.Core.RX;
 	using Game.Code.Core.Weapons;
+	using Game.Code.View.Ship;
 	using UnityEngine;
 
 	public class ShipModel : BaseModel

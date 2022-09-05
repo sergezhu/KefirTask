@@ -1,7 +1,7 @@
-﻿namespace Game.Code.Core.Weapons
+﻿namespace Game.Code.View.Weapons
 {
-	using Game.Code.Core.Common;
-	using Game.Code.Core.Enums;
+	using Game.Code.Common.Enums;
+	using Game.Code.View.Common;
 
 	public class BulletView : BaseView
 	{

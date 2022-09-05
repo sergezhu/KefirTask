@@ -1,8 +1,9 @@
 ﻿namespace Game.Code.Core.Asteroids
 {
+	using Game.Code.Common.Enums;
 	using Game.Code.Core.Common;
 	using Game.Code.Core.Configs;
-	using Game.Code.Core.Enums;
+	using Game.Code.View.Asteroids;
 	using UnityEngine;
 
 	public class AsteroidPartsFactory

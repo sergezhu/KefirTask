@@ -1,11 +1,16 @@
 ﻿namespace Game.Code.Core.Configs
 {
+	using Game.Code.Common.Enums;
 	using Game.Code.Core.Asteroids;
 	using Game.Code.Core.Enemies;
-	using Game.Code.Core.Enums;
 	using Game.Code.Core.Ship;
 	using Game.Code.Core.UI;
 	using Game.Code.Core.Weapons;
+	using Game.Code.View.Asteroids;
+	using Game.Code.View.Enemy;
+	using Game.Code.View.Ship;
+	using Game.Code.View.UI;
+	using Game.Code.View.Weapons;
 	using UnityEngine;
 
 	[CreateAssetMenu( fileName = "ViewPrefabs", menuName = "Configs/ViewPrefabs", order = (int) EConfig.ViewPrefabs )]

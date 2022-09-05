@@ -1,8 +1,9 @@
 ﻿namespace Game.Code.Core.UI
 {
 	using System;
+	using Game.Code.Common.Enums;
 	using Game.Code.Core.Configs;
-	using Game.Code.Core.Enums;
+	using Game.Code.View.UI;
 	using Object = UnityEngine.Object;
 
 	public class UIViewFactory

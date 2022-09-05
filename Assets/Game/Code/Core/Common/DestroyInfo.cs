@@ -1,6 +1,6 @@
 ﻿namespace Game.Code.Core.Common
 {
-	using Game.Code.Core.Enums;
+	using Game.Code.Common.Enums;
 
 	public struct DestroyInfo
 	{

@@ -1,11 +1,12 @@
 ﻿namespace Game.Code.Core.Asteroids
 {
 	using System;
-	using Game.Code.Core.Collisions;
+	using Game.Code.Common;
+	using Game.Code.Common.Enums;
 	using Game.Code.Core.Common;
 	using Game.Code.Core.Configs;
-	using Game.Code.Core.Enums;
 	using Game.Code.Core.Move;
+	using Game.Code.View.Asteroids;
 	using UnityEngine;
 
 	public class AsteroidPartModel : BaseModel

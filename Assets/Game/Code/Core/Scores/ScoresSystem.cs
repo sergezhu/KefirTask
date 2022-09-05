@@ -1,8 +1,8 @@
 ﻿namespace Game.Code.Core.Scores
 {
 	using System.Collections.Generic;
+	using Game.Code.Common.Enums;
 	using Game.Code.Core.Configs;
-	using Game.Code.Core.Enums;
 	using Game.Code.Core.RX;
 
 	public class ScoresSystem

@@ -4,6 +4,7 @@
 	using Game.Code.Core.Scores;
 	using Game.Code.Core.Ship;
 	using Game.Code.Core.Weapons;
+	using Game.Code.View.UI;
 
 	public class UIHudPresenter
 	{

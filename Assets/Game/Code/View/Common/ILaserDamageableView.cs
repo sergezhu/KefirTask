@@ -1,4 +1,4 @@
-﻿namespace Game.Code.Core.Common
+﻿namespace Game.Code.View.Common
 {
 	using System;
 

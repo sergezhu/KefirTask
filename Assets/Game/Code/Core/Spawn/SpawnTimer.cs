@@ -1,9 +1,9 @@
 ﻿namespace Game.Code.Core.Spawn
 {
 	using System;
+	using Game.Code.Common.Utils;
 	using Game.Code.Core.Camera;
 	using Game.Code.Core.Ship;
-	using Game.Code.Core.Utils;
 	using UnityEngine;
 	using Random = UnityEngine.Random;
 

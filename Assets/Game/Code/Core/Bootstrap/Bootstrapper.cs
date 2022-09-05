@@ -7,6 +7,7 @@ namespace Game.Code.Core.Bootstrap
 	using Game.Code.Core.Input;
 	using Game.Code.Core.Scores;
 	using Game.Code.Core.UI;
+	using Game.Code.View.UI;
 	using UnityEngine;
 
 	public class Bootstrapper : MonoBehaviour

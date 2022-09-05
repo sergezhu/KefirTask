@@ -1,7 +1,7 @@
-﻿namespace Game.Code.Core.Enemies
+﻿namespace Game.Code.View.Enemy
 {
-	using Game.Code.Core.Common;
-	using Game.Code.Core.Enums;
+	using Game.Code.Common.Enums;
+	using Game.Code.View.Common;
 
 	public class EnemyView : BaseView
 	{

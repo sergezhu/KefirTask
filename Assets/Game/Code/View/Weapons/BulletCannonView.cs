@@ -1,4 +1,4 @@
-﻿namespace Game.Code.Core.Weapons
+﻿namespace Game.Code.View.Weapons
 {
 	using UnityEngine;
 

@@ -1,6 +1,6 @@
-﻿namespace Game.Code.Core.Collisions
+﻿namespace Game.Code.Common
 {
-	using Game.Code.Core.Enums;
+	using Game.Code.Common.Enums;
 	using UnityEngine;
 
 	public struct CollisionInfo

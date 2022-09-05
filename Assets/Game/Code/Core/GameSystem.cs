@@ -2,18 +2,21 @@
 {
 	using System.Collections.Generic;
 	using System.Linq;
+	using Game.Code.Common.Enums;
 	using Game.Code.Core.Asteroids;
 	using Game.Code.Core.Camera;
 	using Game.Code.Core.Common;
 	using Game.Code.Core.Configs;
 	using Game.Code.Core.Enemies;
-	using Game.Code.Core.Enums;
 	using Game.Code.Core.Input;
 	using Game.Code.Core.Move;
 	using Game.Code.Core.Scores;
 	using Game.Code.Core.Ship;
 	using Game.Code.Core.Spawn;
 	using Game.Code.Core.Weapons;
+	using Game.Code.View.Asteroids;
+	using Game.Code.View.Enemy;
+	using Game.Code.View.Ship;
 	using UnityEngine;
 
 	public class GameSystem

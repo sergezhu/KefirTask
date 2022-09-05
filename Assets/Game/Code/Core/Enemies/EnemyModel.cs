@@ -1,11 +1,12 @@
 ﻿namespace Game.Code.Core.Enemies
 {
-	using Game.Code.Core.Collisions;
+	using Game.Code.Common;
+	using Game.Code.Common.Enums;
 	using Game.Code.Core.Common;
 	using Game.Code.Core.Configs;
-	using Game.Code.Core.Enums;
 	using Game.Code.Core.Move;
 	using Game.Code.Core.Ship;
+	using Game.Code.View.Enemy;
 	using UnityEngine;
 
 	public class EnemyModel : BaseModel

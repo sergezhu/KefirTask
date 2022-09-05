@@ -1,6 +1,6 @@
 ﻿namespace Game.Code.Core.Configs
 {
-	using Game.Code.Core.Enums;
+	using Game.Code.Common.Enums;
 	using UnityEngine;
 
 	[CreateAssetMenu( fileName = "Enemies", menuName = "Configs/Enemies", order = (int) EConfig.Enemies )]

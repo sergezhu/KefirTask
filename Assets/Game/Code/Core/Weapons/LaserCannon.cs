@@ -2,9 +2,11 @@
 {
 	using System.Collections.Generic;
 	using System.Linq;
+	using Game.Code.Common.Enums;
 	using Game.Code.Core.Common;
 	using Game.Code.Core.Configs;
-	using Game.Code.Core.Enums;
+	using Game.Code.View.Common;
+	using Game.Code.View.Weapons;
 	using UnityEngine;
 
 	public class LaserCannon : IWeapon

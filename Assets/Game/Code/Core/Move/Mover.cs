@@ -1,7 +1,7 @@
 namespace Game.Code.Core.Move
 {
 	using System;
-	using Game.Code.Core.Utils;
+	using Game.Code.Common.Utils;
 	using UnityEngine;
 
 	public class Mover

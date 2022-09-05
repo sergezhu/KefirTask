@@ -1,9 +1,9 @@
-﻿namespace Game.Code.Core.Common
+﻿namespace Game.Code.View.Common
 {
 	using System;
 	using System.Collections;
-	using Game.Code.Core.Collisions;
-	using Game.Code.Core.Enums;
+	using Game.Code.Common;
+	using Game.Code.Common.Enums;
 	using UnityEngine;
 
 	[RequireComponent(typeof(Collider))]

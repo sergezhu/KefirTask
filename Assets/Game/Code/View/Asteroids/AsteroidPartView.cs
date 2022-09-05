@@ -1,7 +1,7 @@
-﻿namespace Game.Code.Core.Asteroids
+﻿namespace Game.Code.View.Asteroids
 {
-	using Game.Code.Core.Common;
-	using Game.Code.Core.Enums;
+	using Game.Code.Common.Enums;
+	using Game.Code.View.Common;
 
 	public class AsteroidPartView : BaseView
 	{

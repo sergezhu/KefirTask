@@ -1,7 +1,7 @@
 ﻿namespace Game.Code.Core
 {
+	using Game.Code.Common.Utils;
 	using Game.Code.Core.Camera;
-	using Game.Code.Core.Utils;
 	using UnityEngine;
 
 	public class ScreenPortal
