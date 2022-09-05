@@ -1,7 +1,6 @@
 ﻿namespace Game.Code.Core.Common
 {
 	using Game.Code.Common.Enums;
-	using Game.Code.Core.Weapons;
 	using Game.Code.View.Weapons;
 
 	public class BulletViewFactory

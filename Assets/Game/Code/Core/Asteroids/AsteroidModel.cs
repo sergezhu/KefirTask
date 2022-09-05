@@ -39,12 +39,6 @@
 			UpdateView();
 		}
 
-		public void StartMoveAlongDirection( Vector3 dir )
-		{
-			SetDirection( dir );
-			_mover.StartMove();
-		}
-
 		private void Subscribe()
 		{
 			_view.Collided += OnCollided;

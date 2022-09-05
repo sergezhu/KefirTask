@@ -7,7 +7,7 @@
 	using UnityEngine;
 	using Random = UnityEngine.Random;
 
-	public class SpawnTimer
+	public class SpawnService
 	{
 		public event Action<SpawnData> SpawnRequest;
 
@@ -23,7 +23,7 @@
 		private float _endTime;
 		private bool _isHeroDead;
 
-		public SpawnTimer(CameraController cameraController, float delay, HeroFacade hero)
+		public SpawnService(CameraController cameraController, float delay, HeroFacade hero)
 		{
 			_cameraController = cameraController;
 			_delay            = delay;

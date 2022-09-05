@@ -1,7 +1,6 @@
 ﻿namespace Game.Code.Core.UI
 {
 	using System.Linq;
-	using Game.Code.Core.Common;
 	using Game.Code.Core.Scores;
 	using Game.Code.Core.Ship;
 	using Game.Code.Core.Weapons;

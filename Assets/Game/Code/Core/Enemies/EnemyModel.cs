@@ -95,11 +95,6 @@
 			_view.Velocity = _mover.Velocity;
 		}
 
-		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )
-		{
-			SetDirection( otherVelocity.normalized );
-		}
-
 		private void SetDirection( Vector3 dir )
 		{
 			_mover.SetDirection( dir );

@@ -38,8 +38,8 @@
 
 		private List<BaseModel> _tickableModels;
 
-		private readonly SpawnTimer _asteroidsSpawnTimer;
-		private readonly SpawnTimer _enemiesSpawnTimer;
+		private readonly SpawnService _asteroidsSpawnService;
+		private readonly SpawnService _enemiesSpawnService;
 		private readonly ScreenPortal _screenPortal;
 
 		public HeroFacade HeroFacade => _heroFacade;
@@ -61,8 +61,8 @@
 
 			SetupShip();
 			
-			_asteroidsSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Asteroids.SpawnDelay, _heroFacade );
-			_enemiesSpawnTimer = new SpawnTimer( _cameraController, _rootConfig.Enemies.SpawnDelay, _heroFacade );
+			_asteroidsSpawnService = new SpawnService( _cameraController, _rootConfig.Asteroids.SpawnDelay, _heroFacade );
+			_enemiesSpawnService = new SpawnService( _cameraController, _rootConfig.Enemies.SpawnDelay, _heroFacade );
 
 			SetupAsteroids();
 			SetupEnemies();
@@ -71,8 +71,8 @@
 		public void Tick(float deltaTime)
 		{
 			_tickableModels.ForEach( t => t.Tick( deltaTime ) );
-			_asteroidsSpawnTimer.Tick();
-			_enemiesSpawnTimer.Tick();
+			_asteroidsSpawnService.Tick();
+			_enemiesSpawnService.Tick();
 			_shipBulletSystem.Tick( deltaTime );
 		}
 
@@ -84,7 +84,7 @@
 
 		private void SetupAsteroids()
 		{
-			_asteroidsSpawnTimer.SpawnRequest += data =>
+			_asteroidsSpawnService.SpawnRequest += data =>
 			{
 				var model = SpawnAsteroid( data );
 				_tickableModels.Add( model );
@@ -93,7 +93,7 @@
 
 		private void SetupEnemies()
 		{
-			_enemiesSpawnTimer.SpawnRequest += data =>
+			_enemiesSpawnService.SpawnRequest += data =>
 			{
 				var model = SpawnEnemy( data );
 				_tickableModels.Add( model );
