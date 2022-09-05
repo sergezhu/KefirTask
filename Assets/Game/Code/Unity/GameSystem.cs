@@ -2,7 +2,6 @@
 {
 	using System.Collections.Generic;
 	using System.Linq;
-	using Game.Code.Core.Move;
 	using Game.Code.Unity.Asteroids;
 	using Game.Code.Unity.Camera;
 	using Game.Code.Unity.Common;
@@ -10,6 +9,7 @@
 	using Game.Code.Unity.Enemies;
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Input;
+	using Game.Code.Unity.Move;
 	using Game.Code.Unity.Scores;
 	using Game.Code.Unity.Ship;
 	using Game.Code.Unity.Spawn;
@@ -103,7 +103,7 @@
 			var shipConfig = _rootConfig.Ship;
 
 			_shipView         = _viewFactory.Create( EEntityType.Ship ) as ShipView;
-			_shipMover        = new Mover( shipConfig.StartPosition.ToNumericsVector3(), 0, shipConfig.SmoothDirection );
+			_shipMover        = new Mover( shipConfig.StartPosition, 0, shipConfig.SmoothDirection );
 			_shipBulletSystem = new BulletSystem();
 			_shipModel        = new ShipModel( _shipView, _mouseAndKeyboardControl, _shipMover, shipConfig, _bulletViewFactory, _shipBulletSystem, _screenPortal );
 			_heroFacade       = new HeroFacade( _shipModel );
@@ -116,9 +116,8 @@
 			var asteroidsConfig = _rootConfig.Asteroids;
 			
 			var asteroidView = _viewFactory.Create( EEntityType.Asteroid ) as AsteroidView;
-			var mover = new Mover( data.Position.ToNumericsVector3(), data.Direction.ToNumericsVector3(), 1 );
-			var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
-			                           asteroidsConfig.RandomRotationSpeed );
+			var mover = new Mover( data.Position, data.Direction, 1 );
+			var rotator = new Rotator( Random.rotation, Random.rotation, asteroidsConfig.RandomRotationSpeed );
 			var model = new AsteroidModel( asteroidView, mover, rotator, asteroidsConfig );
 
 			mover.StartMove();
@@ -132,9 +131,8 @@
 		private AsteroidPartModel SpawnAsteroidPart( AsteroidPartView sourceAsteroidView )
 		{
 			var asteroidsConfig = _rootConfig.Asteroids;
-			var mover = new Mover( sourceAsteroidView.Position.ToNumericsVector3(), sourceAsteroidView.Velocity.ToNumericsVector3(), 1 );
-			var rotator = new Rotator( Random.rotation.ToNumericsQuaternion(), Random.rotation.ToNumericsQuaternion(),
-			                           asteroidsConfig.RandomRotationSpeed );
+			var mover = new Mover( sourceAsteroidView.Position, sourceAsteroidView.Velocity, 1 );
+			var rotator = new Rotator( Random.rotation, Random.rotation, asteroidsConfig.RandomRotationSpeed );
 			var model = new AsteroidPartModel( sourceAsteroidView, mover, rotator, asteroidsConfig );
 
 			mover.StartMove();
@@ -149,7 +147,7 @@
 			var enemiesConfig = _rootConfig.Enemies;
 			
 			var enemyView = _viewFactory.Create( EEntityType.Enemy ) as EnemyView;
-			var mover = new Mover( data.Position.ToNumericsVector3(), data.Direction.ToNumericsVector3(), enemiesConfig.SmoothDirection );
+			var mover = new Mover( data.Position, data.Direction, enemiesConfig.SmoothDirection );
 			var model = new EnemyModel( enemyView, mover, _heroFacade, enemiesConfig );
 
 			mover.StartMove();

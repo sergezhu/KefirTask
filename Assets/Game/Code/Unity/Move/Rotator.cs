@@ -1,6 +1,6 @@
-﻿namespace Game.Code.Core.Move
+﻿namespace Game.Code.Unity.Move
 {
-	using System.Numerics;
+	using UnityEngine;
 
 	public class Rotator
 	{

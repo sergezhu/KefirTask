@@ -1,10 +1,10 @@
 ﻿namespace Game.Code.Unity.Enemies
 {
-	using Game.Code.Core.Move;
 	using Game.Code.Unity.Collisions;
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
+	using Game.Code.Unity.Move;
 	using Game.Code.Unity.Ship;
 	using Game.Code.Unity.Utils;
 	using UnityEngine;
@@ -89,10 +89,10 @@
 
 		private void UpdateView()
 		{
-			_view.Position = _mover.Position.ToUnityVector3();
+			_view.Position = _mover.Position;
 			_view.Rotation = Quaternion.Euler( 0, _mover.CurrentDirectionAngle * Mathf.Rad2Deg, 0 );
 
-			_view.Velocity = _mover.Velocity.ToUnityVector3();
+			_view.Velocity = _mover.Velocity;
 		}
 
 		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )
@@ -102,12 +102,12 @@
 
 		private void SetDirection( Vector3 dir )
 		{
-			_mover.SetDirection( dir.ToNumericsVector3() );
+			_mover.SetDirection( dir );
 		}
 
 		private void SetToHeroDirection()
 		{
-			var vector = _hero.Position.Value - _mover.Position.ToUnityVector3();
+			var vector = _hero.Position.Value - _mover.Position;
 
 			if ( vector.magnitude < DistanceThreshold )
 			{

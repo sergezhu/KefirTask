@@ -1,14 +1,13 @@
 ﻿namespace Game.Code.Unity.Ship
 {
 	using System.Collections.Generic;
-	using Game.Code.Core.Move;
 	using Game.Code.Unity.Collisions;
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Input;
+	using Game.Code.Unity.Move;
 	using Game.Code.Unity.RX;
-	using Game.Code.Unity.Utils;
 	using Game.Code.Unity.Weapons;
 	using UnityEngine;
 
@@ -54,9 +53,9 @@
 
 			CheckScreenPortal();
 
-			_view.Position = _mover.Position.ToUnityVector3();
+			_view.Position = _mover.Position;
 			_view.Rotation = Quaternion.Euler( 0, _mover.DesiredDirectionAngle * Mathf.Rad2Deg, 0 );
-			_view.Velocity = _mover.Velocity.ToUnityVector3();
+			_view.Velocity = _mover.Velocity;
 			
 			_bulletCannonModel.Tick( deltaTime );
 			_laserCannonModel.Tick( deltaTime );
@@ -66,14 +65,14 @@
 
 		private void CheckScreenPortal()
 		{
-			var checkedPos = _screenPortal.RecalculatePosition( _mover.Position.ToUnityVector3() );
-			_mover.Position = checkedPos.ToNumericsVector3();
+			var checkedPos = _screenPortal.RecalculatePosition( _mover.Position );
+			_mover.Position = checkedPos;
 		}
 
 		private void UpdateReactiveProperties()
 		{
-			Position.Value = _mover.Position.ToUnityVector3();
-			Velocity.Value = _mover.Velocity.ToUnityVector3();
+			Position.Value = _mover.Position;
+			Velocity.Value = _mover.Velocity;
 			CurrentDirectionAngle.Value = _mover.CurrentDirectionAngle;
 			CurrentSpeed.Value = _mover.CurrentSpeed;
 		}

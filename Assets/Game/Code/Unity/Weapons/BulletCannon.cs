@@ -2,10 +2,10 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using Game.Code.Core.Move;
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
+	using Game.Code.Unity.Move;
 	using Game.Code.Unity.Utils;
 
 	public class BulletCannon : IWeapon
@@ -29,8 +29,8 @@
 		{
 			var view = _bulletViewFactory.Create();
 
-			var bulletStartPos = _view.ShootPoint.position.ToNumericsVector3();
-			var bulletStartDir = _view.ShootPoint.forward.ToNumericsVector3();
+			var bulletStartPos = _view.ShootPoint.position;
+			var bulletStartDir = _view.ShootPoint.forward;
 			var mover          = new Mover( bulletStartPos, bulletStartDir, 1 );
 			var bullet         = new BulletModel( view, mover, _shipConfig );
 			

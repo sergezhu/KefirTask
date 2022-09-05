@@ -1,8 +1,8 @@
-namespace Game.Code.Core.Move
+namespace Game.Code.Unity.Move
 {
 	using System;
-	using System.Numerics;
-	using Game.Code.Core.InternalUtils;
+	using Game.Code.Unity.Utils;
+	using UnityEngine;
 
 	public class Mover
 	{
@@ -110,7 +110,7 @@ namespace Game.Code.Core.Move
 
 		private void UpdateMoveSpeed( float deltaTime )
 		{
-			if ( MathExt.Abs( _desiredSpeed - _currentSpeed ) < Epsilon )
+			if ( Mathf.Abs( _desiredSpeed - _currentSpeed ) < Epsilon )
 			{
 				_currentSpeed = _desiredSpeed;
 			}
@@ -121,13 +121,13 @@ namespace Game.Code.Core.Move
 					: -1 * Deceleration;
 
 				_currentSpeed += acc * deltaTime;
-				_currentSpeed =  MathExt.Clamp( _currentSpeed, 0, MaxSpeed );
+				_currentSpeed = Mathf.Clamp( _currentSpeed, 0, MaxSpeed );
 			}
 		}
 
 		private void UpdateRotationSpeed( float deltaTime )
 		{
-			if ( MathExt.Abs( _desiredRotationSpeed - _currentRotationSpeed ) < Epsilon )
+			if ( Mathf.Abs( _desiredRotationSpeed - _currentRotationSpeed ) < Epsilon )
 			{
 				_currentRotationSpeed = _desiredRotationSpeed;
 			}
@@ -138,37 +138,35 @@ namespace Game.Code.Core.Move
 					: -1 * RotationDeceleration;
 
 				_currentRotationSpeed += rotAcc * deltaTime;
-				_currentRotationSpeed =  MathExt.Clamp( _currentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed );
+				_currentRotationSpeed = Mathf.Clamp( _currentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed );
 			}
 		}
 
 		private void UpdateDirectionAngle( float deltaTime )
 		{
 			DesiredDirectionAngle += _currentRotationSpeed * deltaTime;
-			CurrentDirectionAngle =  MathExt.LerpAngle( CurrentDirectionAngle, DesiredDirectionAngle, _directionSmooth );
+			CurrentDirectionAngle = Mathf.LerpAngle( CurrentDirectionAngle, DesiredDirectionAngle, _directionSmooth );
 		}
 
 		private void UpdatePosition( float deltaTime )
 		{
 			var delta = _currentSpeed * deltaTime;
 			var dir   = AngleToDirection( CurrentDirectionAngle );
-			Position += new Vector3( delta * dir.X, 0, delta * dir.Z );
+			Position += new Vector3( delta * dir.x, 0, delta * dir.z );
 		}
 
 		private Vector3 AngleToDirection( float angle )
 		{
-			return new ( MathExt.Sin( CurrentDirectionAngle ), 0, MathExt.Cos( CurrentDirectionAngle ) );
+			return new ( Mathf.Sin( CurrentDirectionAngle ), 0, Mathf.Cos( CurrentDirectionAngle ) );
 		}
 
 		private float DirectionToAngle( Vector3 dir )
 		{
+			dir = dir.WithY( 0 );
 			dir.Normalize();
-			
-			dir.Y = 0;
 
-			var d    = dir.Normalize();
-			var asin = MathExt.Asin( d.X );
-			var acos = MathExt.Acos( d.Z );
+			var asin = Mathf.Asin( dir.x );
+			var acos = Mathf.Acos( dir.y );
 
 			var directionAngle = acos * Math.Sign( asin );
 

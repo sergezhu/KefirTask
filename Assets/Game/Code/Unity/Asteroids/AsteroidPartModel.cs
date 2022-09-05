@@ -1,12 +1,11 @@
 ﻿namespace Game.Code.Unity.Asteroids
 {
 	using System;
-	using Game.Code.Core.Move;
 	using Game.Code.Unity.Collisions;
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
-	using Game.Code.Unity.Utils;
+	using Game.Code.Unity.Move;
 	using UnityEngine;
 
 	public class AsteroidPartModel : BaseModel
@@ -78,7 +77,7 @@
 
 		private void SetDirection( Vector3 dir )
 		{
-			_mover.SetDirection( dir.ToNumericsVector3() );
+			_mover.SetDirection( dir );
 		}
 
 		public override void Tick( float deltaTime )
@@ -91,10 +90,10 @@
 
 		private void UpdateView()
 		{
-			_view.Position = _mover.Position.ToUnityVector3();
-			_view.Rotation = _rotator.CurrentRotation.ToUnityQuaternion();
+			_view.Position = _mover.Position;
+			_view.Rotation = _rotator.CurrentRotation;
 
-			_view.Velocity = _mover.Velocity.ToUnityVector3();
+			_view.Velocity = _mover.Velocity;
 		}
 
 		private void SetupMover()
