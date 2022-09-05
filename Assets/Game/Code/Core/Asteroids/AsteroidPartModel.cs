@@ -11,8 +11,6 @@
 
 	public class AsteroidPartModel : BaseModel
 	{
-		public event Action<DestroyInfo> Destroyed;
-
 		private readonly AsteroidPartView _view;
 		private readonly Mover _mover;
 		private readonly Rotator _rotator;

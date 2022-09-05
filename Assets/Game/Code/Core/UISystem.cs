@@ -51,7 +51,7 @@
 		{
 			Unsubscribe();
 			
-			_restartService.Restart();
+			_restartService.Restart(); 
 		}
 	}
 }
