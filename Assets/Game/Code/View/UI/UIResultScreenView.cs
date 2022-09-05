@@ -5,7 +5,7 @@
 	using UnityEngine;
 	using UnityEngine.UI;
 
-	public class UIResultScreenView : MonoBehaviour
+	public class UIResultScreenView : UIBaseView
 	{
 		public event Action RestartClick;
 		
@@ -13,8 +13,6 @@
 		[SerializeField] private Button _restartButton;
 
 		public void SetScoresText( int scores ) => _scoresText.text = $"{scores}";
-		public void Show() => gameObject.SetActive( true );
-		public void Hide() => gameObject.SetActive( false );
 
 		
 		private void OnEnable()

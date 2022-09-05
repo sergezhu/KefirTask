@@ -27,6 +27,9 @@
 
 			_uiHudPresenter = new UIHudPresenter( _uiHudView, _laserChargeBlocksViewFactory, _heroFacade, _scoresSystem );
 			_uiResultScreenPresenter = new UIResultScreenPresenter( _uiResultScreenView, _heroFacade, _scoresSystem );
+			
+			_uiHudPresenter.Show();
+			_uiResultScreenPresenter.Hide();
 		}
 	}
 }

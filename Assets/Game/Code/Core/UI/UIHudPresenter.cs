@@ -7,7 +7,7 @@
 	using Game.Code.Core.Weapons;
 	using Game.Code.View.UI;
 
-	public class UIHudPresenter
+	public class UIHudPresenter : BaseUIPresenter
 	{
 		private readonly UIHudView _view;
 		private readonly LaserChargeBlocksViewFactory _laserChargeBlocksViewFactory;
@@ -16,6 +16,8 @@
 
 		private readonly LaserCharge[] _laserCharges;
 		private readonly LaserChargeBlockView[] _laserChargesViews;
+
+		protected override UIBaseView View => _view;
 
 		public UIHudPresenter( UIHudView view, LaserChargeBlocksViewFactory laserChargeBlocksViewFactory, HeroFacade heroFacade, ScoresSystem scoresSystem )
 		{

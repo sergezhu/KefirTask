@@ -4,7 +4,7 @@
 	using UnityEngine;
 	using UnityEngine.UI;
 
-	public class LaserChargeBlockView : IUIBaseView
+	public class LaserChargeBlockView : UIBaseView
 	{
 		[SerializeField] private Image _progressImage;
 		[SerializeField] private TMP_Text _infoText;

@@ -5,13 +5,15 @@
 	using Game.Code.Core.Ship;
 	using Game.Code.View.UI;
 
-	public class UIResultScreenPresenter
+	public class UIResultScreenPresenter : BaseUIPresenter
 	{
 		public event Action RestartRequest;
 		
 		private readonly UIResultScreenView _view;
 		private readonly HeroFacade _hero;
 		private readonly ScoresSystem _scoresSystem;
+
+		protected override UIBaseView View => _view;
 
 		public UIResultScreenPresenter( UIResultScreenView view, HeroFacade hero, ScoresSystem scoresSystem )
 		{

@@ -15,7 +15,7 @@
 			_prefabsConfig = prefabsConfig;
 		}
 		
-		public IUIBaseView Create( EUIEntityType type )
+		public UIBaseView Create( EUIEntityType type )
 		{
 			switch ( type )
 			{

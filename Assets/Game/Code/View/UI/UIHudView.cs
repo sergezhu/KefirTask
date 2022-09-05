@@ -1,12 +1,11 @@
 ﻿namespace Game.Code.View.UI
 {
-	using System;
 	using System.Collections.Generic;
 	using Game.Code.Common.Utils;
 	using TMPro;
 	using UnityEngine;
 
-	public class UIHudView : MonoBehaviour
+	public class UIHudView : UIBaseView
 	{
 		[SerializeField] private TMP_Text _coordXText;
 		[SerializeField] private TMP_Text _coordYText;
@@ -20,14 +19,6 @@
 		[SerializeField] private TMP_Text _scoresText;
 
 		private List<LaserChargeBlockView> _laserChargeBlocks;
-
-		public void Show() => gameObject.SetActive( true );
-		public void Hide() => gameObject.SetActive( false );
-
-		private void Awake()
-		{
-			Show();
-		}
 
 		public void AttachLaserChargeBlock( LaserChargeBlockView laserChargeView, int siblingIndex )
 		{
