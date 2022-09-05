@@ -145,7 +145,7 @@ namespace Game.Code.Core.Move
 		private void UpdateDirectionAngle( float deltaTime )
 		{
 			DesiredDirectionAngle += _currentRotationSpeed * deltaTime;
-			CurrentDirectionAngle = Mathf.LerpAngle( CurrentDirectionAngle, DesiredDirectionAngle, _directionSmooth );
+			CurrentDirectionAngle = Mathf.Deg2Rad * Mathf.LerpAngle( CurrentDirectionAngle * Mathf.Rad2Deg, DesiredDirectionAngle * Mathf.Rad2Deg, _directionSmooth );
 		}
 
 		private void UpdatePosition( float deltaTime )
