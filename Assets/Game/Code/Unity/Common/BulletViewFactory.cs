@@ -12,6 +12,6 @@
 			_viewFactory = viewFactory;
 		}
 
-		public BulletView CreateBullet() => _viewFactory.Create( EEntityType.Bullet ) as BulletView;
+		public BulletView Create() => _viewFactory.Create( EEntityType.Bullet ) as BulletView;
 	}
 }

@@ -29,7 +29,8 @@ namespace Game.Code.Core.Move
 		public float CurrentDirectionAngle { get; private set; }
 		
 		public Vector3 Velocity => _currentSpeed * AngleToDirection( CurrentDirectionAngle );
-	
+		public float CurrentSpeed => _currentSpeed;
+
 
 		public Mover(Vector3 position, float directionAngle, float directionSmooth)
 		{

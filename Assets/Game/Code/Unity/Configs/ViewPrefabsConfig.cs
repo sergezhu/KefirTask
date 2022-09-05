@@ -4,6 +4,7 @@
 	using Game.Code.Unity.Enemies;
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Ship;
+	using Game.Code.Unity.UI;
 	using Game.Code.Unity.Weapons;
 	using UnityEngine;
 
@@ -15,5 +16,8 @@
 		public AsteroidView AsteroidPrefab;
 		public AsteroidPartView AsteroidPartPrefab;
 		public BulletView BulletPrefab;
+
+		[Space]
+		public LaserChargeBlockView LaserChargeBlockPrefab;
 	}
 }

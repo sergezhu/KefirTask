@@ -27,7 +27,7 @@
 		
 		public void Shot()
 		{
-			var view = _bulletViewFactory.CreateBullet();
+			var view = _bulletViewFactory.Create();
 
 			var bulletStartPos = _view.ShootPoint.position.ToNumericsVector3();
 			var bulletStartDir = _view.ShootPoint.forward.ToNumericsVector3();

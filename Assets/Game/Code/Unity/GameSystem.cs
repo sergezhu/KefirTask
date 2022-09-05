@@ -38,6 +38,7 @@
 		private readonly SpawnTimer _enemiesSpawnTimer;
 		private readonly ScreenPortal _screenPortal;
 
+		public HeroFacade HeroFacade => _heroFacade;
 
 		public GameSystem( RootConfig rootConfig, ViewFactory viewFactory, BulletViewFactory bulletViewFactory, AsteroidPartsFactory asteroidPartsFactory,
 						   CameraController cameraController, MouseAndKeyboardControl mouseAndKeyboardControl )

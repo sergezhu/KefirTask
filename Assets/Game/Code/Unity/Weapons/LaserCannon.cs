@@ -1,5 +1,6 @@
 ﻿namespace Game.Code.Unity.Weapons
 {
+	using System.Collections.Generic;
 	using System.Linq;
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Configs;
@@ -13,7 +14,9 @@
 
 		private RaycastHit[] _hits;
 		private LaserCharge[] _charges;
+		
 		public EWeapon Type => EWeapon.LaserCannon;
+		public IEnumerable<LaserCharge> Charges => _charges;
 
 		public LaserCannon(LaserCannonView view, ShipConfig shipConfig)
 		{

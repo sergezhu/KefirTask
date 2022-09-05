@@ -1,5 +1,6 @@
 ﻿namespace Game.Code.Unity.Ship
 {
+	using System.Collections.Generic;
 	using Game.Code.Core.Move;
 	using Game.Code.Unity.Collisions;
 	using Game.Code.Unity.Common;
@@ -25,6 +26,9 @@
 
 		public Vector3 Position => _mover.Position.ToUnityVector3();
 		public Vector3 Velocity => _mover.Velocity.ToUnityVector3();
+		public float CurrentDirectionAngle => _mover.CurrentDirectionAngle;
+		public float CurrentSpeed => _mover.CurrentSpeed;
+		public IEnumerable<LaserCharge> LaserCharges => _laserCannonModel.Charges;
 
 		public ShipModel( ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig, BulletViewFactory bulletViewFactory,
 						  BulletSystem bulletSystem, ScreenPortal screenPortal )
