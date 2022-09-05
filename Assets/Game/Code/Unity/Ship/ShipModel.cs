@@ -7,6 +7,7 @@
 	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Input;
+	using Game.Code.Unity.RX;
 	using Game.Code.Unity.Utils;
 	using Game.Code.Unity.Weapons;
 	using UnityEngine;
@@ -24,10 +25,11 @@
 		private BulletCannon _bulletCannonModel;
 		private LaserCannon _laserCannonModel;
 
-		public Vector3 Position => _mover.Position.ToUnityVector3();
-		public Vector3 Velocity => _mover.Velocity.ToUnityVector3();
-		public float CurrentDirectionAngle => _mover.CurrentDirectionAngle;
-		public float CurrentSpeed => _mover.CurrentSpeed;
+		public ReactiveProperty<Vector3> Position { get; } = new();
+		public ReactiveProperty<Vector3> Velocity { get; } = new();
+		public ReactiveProperty<float> CurrentDirectionAngle { get; } = new();
+		public ReactiveProperty<float> CurrentSpeed { get; } = new();
+		
 		public IEnumerable<LaserCharge> LaserCharges => _laserCannonModel.Charges;
 
 		public ShipModel( ShipView view, MouseAndKeyboardControl control, Mover mover, ShipConfig shipConfig, BulletViewFactory bulletViewFactory,
@@ -58,12 +60,22 @@
 			
 			_bulletCannonModel.Tick( deltaTime );
 			_laserCannonModel.Tick( deltaTime );
+
+			UpdateReactiveProperties();
 		}
 
 		private void CheckScreenPortal()
 		{
 			var checkedPos = _screenPortal.RecalculatePosition( _mover.Position.ToUnityVector3() );
 			_mover.Position = checkedPos.ToNumericsVector3();
+		}
+
+		private void UpdateReactiveProperties()
+		{
+			Position.Value = _mover.Position.ToUnityVector3();
+			Velocity.Value = _mover.Velocity.ToUnityVector3();
+			CurrentDirectionAngle.Value = _mover.CurrentDirectionAngle;
+			CurrentSpeed.Value = _mover.CurrentSpeed;
 		}
 
 		private void SetupMover()

@@ -3,8 +3,8 @@
 	using System.Linq;
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Ship;
+	using Game.Code.Unity.Utils;
 	using Game.Code.Unity.Weapons;
-	using global::Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 	public class UIHudPresenter
 	{
@@ -25,9 +25,10 @@
 			_laserChargesViews = new LaserChargeBlockView[_laserCharges.Length];
 			
 			CreateAndBindLaserCharges();
+			BindMoveParameters();
 		}
 
-		void CreateAndBindLaserCharges()
+		private void CreateAndBindLaserCharges()
 		{
 			for ( var i = 0; i < _laserCharges.Length; i++ )
 			{
@@ -46,6 +47,17 @@
 		{
 			laserCharge.IsReady.Changed += laserChargesView.SetReadyState;
 			laserCharge.RecallProgress.Changed += laserChargesView.SetRecallProgress;
+		}
+
+		private void BindMoveParameters()
+		{
+			_heroFacade.Position.Changed += _view.SetPositionText;
+			_heroFacade.CurrentSpeed.Changed += _view.SetCurrentSpeedText;
+			_heroFacade.CurrentDirectionAngle.Changed += _view.SetCurrentAngleText;
+
+			_view.SetPositionText( _heroFacade.Position.Value );
+			_view.SetCurrentSpeedText( _heroFacade.CurrentSpeed.Value );
+			_view.SetCurrentAngleText( _heroFacade.CurrentDirectionAngle.Value );
 		}
 	}
 }

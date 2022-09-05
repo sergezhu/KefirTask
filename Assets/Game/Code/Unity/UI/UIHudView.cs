@@ -1,6 +1,7 @@
 ﻿namespace Game.Code.Unity.UI
 {
 	using System.Collections.Generic;
+	using Game.Code.Unity.Utils;
 	using TMPro;
 	using UnityEngine;
 
@@ -20,6 +21,27 @@
 		{
 			laserChargeView.transform.parent = _laserChargeBlocksParent;
 			laserChargeView.transform.SetSiblingIndex( siblingIndex );
+		}
+
+		public void SetPositionText( Vector3 worldPos )
+		{
+			var pos = worldPos.xz();
+			
+			_coordXText.text = $"{pos.x}";
+			_coordYText.text = $"{pos.y}";
+		}
+
+		public void SetCurrentSpeedText( float speed )
+		{
+			_speedText.text = $"{speed:F1}";
+		}
+
+		public void SetCurrentAngleText( float angle )
+		{
+			var degs = Mathf.Floor( angle * Mathf.Rad2Deg );
+			degs = Mathf.Repeat( degs, 360f );
+			
+			_angleText.text = $"{degs}";
 		}
 	}
 }

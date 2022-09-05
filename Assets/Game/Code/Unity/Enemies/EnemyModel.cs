@@ -107,7 +107,7 @@
 
 		private void SetToHeroDirection()
 		{
-			var vector = _hero.Position - _mover.Position.ToUnityVector3();
+			var vector = _hero.Position.Value - _mover.Position.ToUnityVector3();
 
 			if ( vector.magnitude < DistanceThreshold )
 			{

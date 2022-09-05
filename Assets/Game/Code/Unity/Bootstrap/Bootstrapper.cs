@@ -50,7 +50,6 @@ namespace Game.Code.Unity.Bootstrap
 		private void Update()
 		{
 			_gameSystem.Tick( Time.deltaTime );
-			_uiSystem.Tick( Time.deltaTime );
 		}
 	}
 }

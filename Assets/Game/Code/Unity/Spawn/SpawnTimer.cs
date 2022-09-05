@@ -95,7 +95,7 @@
 
 		private Vector3 GetRandomDirection(Vector3 origin)
 		{
-			var dir  = _hero.Position - origin;
+			var dir  = _hero.Position.Value - origin;
 			var q1   = Quaternion.Euler( 0, 0.5f * DirectionSector, 0 );
 			var q2   = Quaternion.Euler( 0, -0.5f * DirectionSector, 0 );
 			var dir1 = q1 * dir;

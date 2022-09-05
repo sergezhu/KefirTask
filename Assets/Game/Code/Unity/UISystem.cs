@@ -26,9 +26,5 @@
 
 			_uiHudPresenter = new UIHudPresenter( _uiHudView, _laserChargeBlocksViewFactory, _heroFacade );
 		}
-
-		public void Tick(float deltaTime)
-		{
-		}
 	}
 }
