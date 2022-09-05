@@ -6,5 +6,6 @@
 	{
 		public BaseModel Model;
 		public EEntityType EntityType;
+		public bool HasBeenDestroyedByPlayerWeapon;
 	}
 }

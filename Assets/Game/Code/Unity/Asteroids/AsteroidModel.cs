@@ -62,7 +62,7 @@
 			if ( info.OtherEntityType == EEntityType.Ship || 
 			     info.OtherEntityType == EEntityType.Bullet )
 			{
-				Destroy();
+				Destroy( info.OtherEntityType == EEntityType.Bullet );
 			}
 			else
 			{
@@ -72,10 +72,10 @@
 
 		private void OnLaserHit()
 		{
-			Destroy();
+			Destroy(true);
 		}
 
-		private void Destroy()
+		private void Destroy( bool hasBeenDestroyedByPlayerWeapon )
 		{
 			var sourceData = new SourceAsteroidData() {Position = _view.Position, Velocity = _view.Velocity};
 			
@@ -85,7 +85,7 @@
 			_mover.OnDestroy();
 			
 			CreatePartsRequest?.Invoke( sourceData );
-			InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
+			InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type, HasBeenDestroyedByPlayerWeapon = hasBeenDestroyedByPlayerWeapon} );
 		}
 
 		private void UpdateView()

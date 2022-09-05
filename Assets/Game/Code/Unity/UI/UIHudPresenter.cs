@@ -2,6 +2,7 @@
 {
 	using System.Linq;
 	using Game.Code.Unity.Common;
+	using Game.Code.Unity.Scores;
 	using Game.Code.Unity.Ship;
 	using Game.Code.Unity.Utils;
 	using Game.Code.Unity.Weapons;
@@ -11,21 +12,24 @@
 		private readonly UIHudView _view;
 		private readonly LaserChargeBlocksViewFactory _laserChargeBlocksViewFactory;
 		private readonly HeroFacade _heroFacade;
-		
+		private readonly ScoresSystem _scoresSystem;
+
 		private readonly LaserCharge[] _laserCharges;
 		private readonly LaserChargeBlockView[] _laserChargesViews;
 
-		public UIHudPresenter(UIHudView view, LaserChargeBlocksViewFactory laserChargeBlocksViewFactory, HeroFacade heroFacade)
+		public UIHudPresenter( UIHudView view, LaserChargeBlocksViewFactory laserChargeBlocksViewFactory, HeroFacade heroFacade, ScoresSystem scoresSystem )
 		{
 			_view = view;
 			_laserChargeBlocksViewFactory = laserChargeBlocksViewFactory;
 			_heroFacade = heroFacade;
+			_scoresSystem = scoresSystem;
 
 			_laserCharges = _heroFacade.LaserCharges.ToArray();
 			_laserChargesViews = new LaserChargeBlockView[_laserCharges.Length];
 			
 			CreateAndBindLaserCharges();
 			BindMoveParameters();
+			BindScores();
 		}
 
 		private void CreateAndBindLaserCharges()
@@ -58,6 +62,13 @@
 			_view.SetPositionText( _heroFacade.Position.Value );
 			_view.SetCurrentSpeedText( _heroFacade.CurrentSpeed.Value );
 			_view.SetCurrentAngleText( _heroFacade.CurrentDirectionAngle.Value );
+		}
+
+		private void BindScores()
+		{
+			_scoresSystem.CurrentScores.Changed += _view.SetScoresText;
+			
+			_view.SetScoresText( _scoresSystem.CurrentScores.Value );
 		}
 	}
 }

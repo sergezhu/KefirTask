@@ -5,6 +5,7 @@ namespace Game.Code.Unity.Bootstrap
 	using Game.Code.Unity.Common;
 	using Game.Code.Unity.Configs;
 	using Game.Code.Unity.Input;
+	using Game.Code.Unity.Scores;
 	using Game.Code.Unity.UI;
 	using UnityEngine;
 
@@ -22,7 +23,8 @@ namespace Game.Code.Unity.Bootstrap
 		private AsteroidPartsFactory _asteroidPartsFactory;
 		private CameraController _cameraController;
 		private GameSystem _gameSystem;
-		
+		private ScoresSystem _scoresSystem;
+
 		private UIViewFactory _uiViewFactory;
 		private LaserChargeBlocksViewFactory _laserChargeViewFactory;
 		private UISystem _uiSystem;
@@ -34,6 +36,7 @@ namespace Game.Code.Unity.Bootstrap
 			_viewFactory				= new ViewFactory( _rootConfig.ViewPrefabs );
 			_bulletViewFactory			= new BulletViewFactory( _viewFactory );
 			_asteroidPartsFactory		= new AsteroidPartsFactory( _viewFactory, _rootConfig.Asteroids );
+			_scoresSystem				= new ScoresSystem(_rootConfig.Reward);
 
 			_uiViewFactory				= new UIViewFactory( _rootConfig.ViewPrefabs );
 			_laserChargeViewFactory		= new LaserChargeBlocksViewFactory( _uiViewFactory );
@@ -43,8 +46,8 @@ namespace Game.Code.Unity.Bootstrap
 
 			_cameraController = FindObjectOfType<CameraController>();
 
-			_gameSystem = new GameSystem( _rootConfig, _viewFactory, _bulletViewFactory, _asteroidPartsFactory, _cameraController, _mouseAndKeyboardControl );
-			_uiSystem = new UISystem( _rootConfig, _uiViewFactory, _laserChargeViewFactory, _gameSystem.HeroFacade, _uiHudView );
+			_gameSystem = new GameSystem( _rootConfig, _viewFactory, _bulletViewFactory, _asteroidPartsFactory, _cameraController, _mouseAndKeyboardControl, _scoresSystem );
+			_uiSystem = new UISystem( _rootConfig, _uiViewFactory, _laserChargeViewFactory, _gameSystem.HeroFacade, _uiHudView, _scoresSystem );
 		}
 
 		private void Update()

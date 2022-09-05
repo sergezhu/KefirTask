@@ -48,7 +48,7 @@
 			if ( info.OtherEntityType == EEntityType.Ship || 
 			     info.OtherEntityType == EEntityType.Bullet )
 			{
-				Destroy();
+				Destroy( info.OtherEntityType == EEntityType.Bullet );
 			}
 			else
 			{
@@ -58,17 +58,17 @@
 
 		private void OnLaserHit()
 		{
-			Destroy();
+			Destroy(true);
 		}
 
-		private void Destroy()
+		private void Destroy( bool hasBeenDestroyedByPlayerWeapon )
 		{
 			Unsubscribe();
 
 			_view.Destroy();
 			_mover.OnDestroy();
 
-			InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
+			InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type, HasBeenDestroyedByPlayerWeapon = hasBeenDestroyedByPlayerWeapon} );
 		}
 
 		private void ChangeDirectionWhenCollision( Vector3 otherVelocity )

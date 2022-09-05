@@ -6,6 +6,6 @@
 		Enemy,
 		Asteroid,
 		AsteroidPart,
-		Bullet,
+		Bullet
 	}
 }

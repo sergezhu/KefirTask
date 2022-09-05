@@ -15,6 +15,9 @@
 		[Space]
 		[SerializeField] private Transform _laserChargeBlocksParent;
 
+		[Space]
+		[SerializeField] private TMP_Text _scoresText;
+
 		private List<LaserChargeBlockView> _laserChargeBlocks;
 
 		public void AttachLaserChargeBlock( LaserChargeBlockView laserChargeView, int siblingIndex )
@@ -42,6 +45,11 @@
 			degs = Mathf.Repeat( degs, 360f );
 			
 			_angleText.text = $"{degs}";
+		}
+
+		public void SetScoresText( int scores )
+		{
+			_scoresText.text = $"{scores}";
 		}
 	}
 }

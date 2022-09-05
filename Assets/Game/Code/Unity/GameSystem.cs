@@ -10,6 +10,7 @@
 	using Game.Code.Unity.Enemies;
 	using Game.Code.Unity.Enums;
 	using Game.Code.Unity.Input;
+	using Game.Code.Unity.Scores;
 	using Game.Code.Unity.Ship;
 	using Game.Code.Unity.Spawn;
 	using Game.Code.Unity.Utils;
@@ -24,6 +25,7 @@
 		private readonly AsteroidPartsFactory _asteroidPartsFactory;
 		private readonly CameraController _cameraController;
 		private readonly MouseAndKeyboardControl _mouseAndKeyboardControl;
+		private readonly ScoresSystem _scoresSystem;
 
 		private Mover _shipMover;
 		private ShipModel _shipModel;
@@ -41,7 +43,7 @@
 		public HeroFacade HeroFacade => _heroFacade;
 
 		public GameSystem( RootConfig rootConfig, ViewFactory viewFactory, BulletViewFactory bulletViewFactory, AsteroidPartsFactory asteroidPartsFactory,
-						   CameraController cameraController, MouseAndKeyboardControl mouseAndKeyboardControl )
+						   CameraController cameraController, MouseAndKeyboardControl mouseAndKeyboardControl, ScoresSystem scoresSystem )
 		{
 			_rootConfig              = rootConfig;
 			_viewFactory             = viewFactory;
@@ -49,6 +51,7 @@
 			_asteroidPartsFactory    = asteroidPartsFactory;
 			_cameraController        = cameraController;
 			_mouseAndKeyboardControl = mouseAndKeyboardControl;
+			_scoresSystem			 = scoresSystem;
 
 			_tickableModels = new List<BaseModel>();
 
@@ -177,6 +180,9 @@
 
 			p.DestroyRequest -= OnDestroyRequest;
 			_tickableModels.Remove( p );
+
+			if ( info.HasBeenDestroyedByPlayerWeapon )
+				_scoresSystem.AddScoresByType( info.EntityType );
 		}
 	}
 }

@@ -122,7 +122,7 @@
 				_view.Destroy();
 				_mover.OnDestroy();
 				
-				InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type} );
+				InvokeDestroy( new DestroyInfo() {Model = this, EntityType = _view.Type, HasBeenDestroyedByPlayerWeapon = false} );
 			}
 		}
 
