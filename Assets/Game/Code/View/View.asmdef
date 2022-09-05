@@ -1,10 +1,8 @@
 {
-    "name": "Unity",
+    "name": "View",
     "rootNamespace": "",
     "references": [
-        "GUID:a756b212d80288446a67e4bb44c736ac",
         "GUID:f2270790e847ea74f948c811e88f40a9",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
         "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],

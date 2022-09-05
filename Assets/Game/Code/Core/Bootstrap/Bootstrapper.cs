@@ -14,7 +14,7 @@ namespace Game.Code.Core.Bootstrap
 		[SerializeField] private RootConfig _rootConfig;
 		[SerializeField] private UIHudView _uiHudView;
 
-		private InputTest _inputTest;
+		//private InputTest _inputTest;
 
 		private IInputManager _inputManager;
 		private MouseAndKeyboardControl _mouseAndKeyboardControl;
