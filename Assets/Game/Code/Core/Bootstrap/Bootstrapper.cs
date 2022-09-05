@@ -14,6 +14,7 @@ namespace Game.Code.Core.Bootstrap
 	{
 		[SerializeField] private RootConfig _rootConfig;
 		[SerializeField] private UIHudView _uiHudView;
+		[SerializeField] private UIResultScreenView _uiResultScreenView;
 
 		//private InputTest _inputTest;
 
