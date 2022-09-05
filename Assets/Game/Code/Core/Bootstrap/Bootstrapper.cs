@@ -49,7 +49,7 @@ namespace Game.Code.Core.Bootstrap
 			_cameraController = FindObjectOfType<CameraController>();
 
 			_gameSystem = new GameSystem( _rootConfig, _viewFactory, _bulletViewFactory, _asteroidPartsFactory, _cameraController, _mouseAndKeyboardControl, _scoresSystem );
-			_uiSystem = new UISystem( _rootConfig, _uiViewFactory, _laserChargeViewFactory, _gameSystem.HeroFacade, _uiHudView, _scoresSystem );
+			_uiSystem = new UISystem( _laserChargeViewFactory, _gameSystem.HeroFacade, _uiHudView, _uiResultScreenView, _scoresSystem );
 		}
 
 		private void Update()

@@ -1,6 +1,7 @@
 ﻿namespace Game.Code.Core.UI
 {
 	using System.Linq;
+	using Game.Code.Core.Common;
 	using Game.Code.Core.Scores;
 	using Game.Code.Core.Ship;
 	using Game.Code.Core.Weapons;
@@ -29,6 +30,7 @@
 			CreateAndBindLaserCharges();
 			BindMoveParameters();
 			BindScores();
+			Subscribe();
 		}
 
 		private void CreateAndBindLaserCharges()
@@ -68,6 +70,16 @@
 			_scoresSystem.CurrentScores.Changed += _view.SetScoresText;
 			
 			_view.SetScoresText( _scoresSystem.CurrentScores.Value );
+		}
+
+		private void Subscribe()
+		{
+			_heroFacade.Dead += OnHeroDead;
+		}
+
+		private void OnHeroDead()
+		{
+			_view.Hide();
 		}
 	}
 }

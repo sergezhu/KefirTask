@@ -1,6 +1,5 @@
 ﻿namespace Game.Code.Core
 {
-	using Game.Code.Core.Configs;
 	using Game.Code.Core.Scores;
 	using Game.Code.Core.Ship;
 	using Game.Code.Core.UI;
@@ -8,26 +7,26 @@
 
 	public class UISystem
 	{
-		private readonly RootConfig _rootConfig;
-		private readonly UIViewFactory _uiViewFactory;
 		private readonly LaserChargeBlocksViewFactory _laserChargeBlocksViewFactory;
 		private readonly HeroFacade _heroFacade;
 		private readonly UIHudView _uiHudView;
+		private readonly UIResultScreenView _uiResultScreenView;
 		private readonly ScoresSystem _scoresSystem;
 		private readonly UIHudPresenter _uiHudPresenter;
+		private readonly UIResultScreenPresenter _uiResultScreenPresenter;
 
 
-		public UISystem( RootConfig rootConfig, UIViewFactory uiViewFactory, LaserChargeBlocksViewFactory laserChargeBlocksViewFactory, HeroFacade heroFacade,
-						 UIHudView uiHudView, ScoresSystem scoresSystem )
+		public UISystem( LaserChargeBlocksViewFactory laserChargeBlocksViewFactory, HeroFacade heroFacade, UIHudView uiHudView, 
+						 UIResultScreenView uiResultScreenView, ScoresSystem scoresSystem )
 		{
-			_rootConfig = rootConfig;
-			_uiViewFactory = uiViewFactory;
 			_laserChargeBlocksViewFactory = laserChargeBlocksViewFactory;
 			_heroFacade = heroFacade;
 			_uiHudView = uiHudView;
+			_uiResultScreenView = uiResultScreenView;
 			_scoresSystem = scoresSystem;
 
 			_uiHudPresenter = new UIHudPresenter( _uiHudView, _laserChargeBlocksViewFactory, _heroFacade, _scoresSystem );
+			_uiResultScreenPresenter = new UIResultScreenPresenter( _uiResultScreenView, _heroFacade, _scoresSystem );
 		}
 	}
 }
