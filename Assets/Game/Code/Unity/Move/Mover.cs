@@ -157,7 +157,7 @@ namespace Game.Code.Unity.Move
 
 		private Vector3 AngleToDirection( float angle )
 		{
-			return new ( Mathf.Sin( CurrentDirectionAngle ), 0, Mathf.Cos( CurrentDirectionAngle ) );
+			return new ( Mathf.Sin( angle ), 0, Mathf.Cos( angle ) );
 		}
 
 		private float DirectionToAngle( Vector3 dir )
@@ -166,7 +166,7 @@ namespace Game.Code.Unity.Move
 			dir.Normalize();
 
 			var asin = Mathf.Asin( dir.x );
-			var acos = Mathf.Acos( dir.y );
+			var acos = Mathf.Acos( dir.z );
 
 			var directionAngle = acos * Math.Sign( asin );
 
