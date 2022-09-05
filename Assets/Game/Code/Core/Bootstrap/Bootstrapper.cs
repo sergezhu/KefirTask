@@ -26,6 +26,7 @@ namespace Game.Code.Core.Bootstrap
 		private CameraController _cameraController;
 		private GameSystem _gameSystem;
 		private ScoresSystem _scoresSystem;
+		private RestartService _restartService;
 
 		private UIViewFactory _uiViewFactory;
 		private LaserChargeBlocksViewFactory _laserChargeViewFactory;
@@ -39,6 +40,7 @@ namespace Game.Code.Core.Bootstrap
 			_bulletViewFactory			= new BulletViewFactory( _viewFactory );
 			_asteroidPartsFactory		= new AsteroidPartsFactory( _viewFactory, _rootConfig.Asteroids );
 			_scoresSystem				= new ScoresSystem(_rootConfig.Reward);
+			_restartService				= new RestartService(); 
 
 			_uiViewFactory				= new UIViewFactory( _rootConfig.ViewPrefabs );
 			_laserChargeViewFactory		= new LaserChargeBlocksViewFactory( _uiViewFactory );
@@ -49,7 +51,7 @@ namespace Game.Code.Core.Bootstrap
 			_cameraController = FindObjectOfType<CameraController>();
 
 			_gameSystem = new GameSystem( _rootConfig, _viewFactory, _bulletViewFactory, _asteroidPartsFactory, _cameraController, _mouseAndKeyboardControl, _scoresSystem );
-			_uiSystem = new UISystem( _laserChargeViewFactory, _gameSystem.HeroFacade, _uiHudView, _uiResultScreenView, _scoresSystem );
+			_uiSystem = new UISystem( _laserChargeViewFactory, _gameSystem.HeroFacade, _uiHudView, _uiResultScreenView, _scoresSystem, _restartService );
 		}
 
 		private void Update()
