@@ -22,7 +22,7 @@
 
 		public void AttachLaserChargeBlock( LaserChargeBlockView laserChargeView, int siblingIndex )
 		{
-			laserChargeView.transform.SetParent( _laserChargeBlocksParent );
+			laserChargeView.transform.SetParent( _laserChargeBlocksParent, false );
 			laserChargeView.transform.SetSiblingIndex( siblingIndex );
 		}
 
